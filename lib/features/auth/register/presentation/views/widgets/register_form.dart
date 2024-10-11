@@ -8,16 +8,16 @@ import 'package:elegant_shop_app/widgets/custom_pass_text_field.dart';
 import 'package:elegant_shop_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({
     super.key,
   });
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   late GlobalKey<FormState> formKey;
   late AutovalidateMode autoValidateMode;
   @override
@@ -34,6 +34,19 @@ class _LoginFormState extends State<LoginForm> {
       autovalidateMode: autoValidateMode,
       child: Column(
         children: [
+          CustomTextField(
+              borderRadius: 12,
+              isUserName: true,
+              textStyle: Styles.style14Regular,
+              cursorColor: Colors.black,
+              label: 'Name',
+              labelStyle: Styles.style16Regular.copyWith(color: Colors.black54),
+              filled: true,
+              fillColor: kLightGreyColor,
+              focusedBorderColor: Colors.transparent,
+              enabledBorderColor: Colors.transparent,
+              suffixIcon: Icons.person),
+          16.verticalSizedBox,
           CustomTextField(
               borderRadius: 12,
               isEmail: true,
@@ -74,7 +87,7 @@ class _LoginFormState extends State<LoginForm> {
               color: kPrimaryColor,
               child: Center(
                 child: Text(
-                  'Sign in',
+                  'Register',
                   style: Styles.style18Bold.copyWith(color: Colors.white),
                 ),
               )),
@@ -83,3 +96,4 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 }
+

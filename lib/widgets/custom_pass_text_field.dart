@@ -64,11 +64,11 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
             borderRadius:
                  BorderRadius.all(Radius.circular(widget.borderRadius ?? 16))),
         errorBorder:  OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red, width: 0.5),
+            borderSide: const BorderSide(color: Colors.red, width: 0.5),
             borderRadius:
                 BorderRadius.all(Radius.circular(widget.borderRadius ?? 16))),
         focusedErrorBorder:  OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red, width: 0.5),
+            borderSide: const BorderSide(color: Colors.red, width: 0.5),
             borderRadius:
                 BorderRadius.all(Radius.circular(widget.borderRadius ?? 16))),
         suffixIcon: Padding(

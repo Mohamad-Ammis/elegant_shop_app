@@ -8,10 +8,7 @@ class LoginViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Stack(
-      children: [
-        ImageSection(),
-        InfoSection()
-      ],
+      children: [LoginImageSection(), InfoSection()],
     );
   }
 }
