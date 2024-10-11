@@ -6,8 +6,15 @@ class RegisterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RegisterViewBody(),
+    return const Scaffold(
+      body: CustomScrollView(
+        physics:  BouncingScrollPhysics(),
+        slivers: [
+          SliverFillRemaining(
+            child: RegisterViewBody(),
+          )
+        ],
+      ),
     );
   }
 }
