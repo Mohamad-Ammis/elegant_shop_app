@@ -2,7 +2,6 @@
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
-import 'package:elegant_shop_app/features/auth/login/presentation/views/widgets/login_info.dart';
 import 'package:elegant_shop_app/features/auth/register/presentation/views/widgets/register_form.dart';
 import 'package:elegant_shop_app/features/auth/widgets/auth_footer.dart';
 import 'package:elegant_shop_app/features/auth/widgets/auth_header.dart';

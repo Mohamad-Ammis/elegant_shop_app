@@ -1,4 +1,3 @@
-import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:flutter/material.dart';
 
 class RegisterImageSection extends StatelessWidget {
@@ -13,7 +12,7 @@ class RegisterImageSection extends StatelessWidget {
       child: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height / 3,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Colors.red,
             image: DecorationImage(
                 image: AssetImage('assets/images/2215.jpg'),
