@@ -14,8 +14,25 @@ class AuthRepoImplementation implements AuthRepo {
   AuthRepoImplementation({required this.apiService});
   @override
   Future<Either<Failure, bool>> signIn(
-      {required String userName, required String password}) {
-    throw ('e');
+      {required String userName,required String password}) async {
+    try {
+      var response = await apiService.post(
+          url: '$kBaseUrl/token/login/',
+          body: {'username':userName,"password":password},
+          contentType: 'application/json',
+          headers: {'Accept': 'application/json'});
+      log(response.data.toString());
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return const Right(true);
+      } else {
+        return const Right(false);
+      }
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return Left(ServerFaliure.fromDioException(e));
+      }
+      return Left(ServerFaliure(errorMessage: e.toString()));
+    }
   }
 
   @override

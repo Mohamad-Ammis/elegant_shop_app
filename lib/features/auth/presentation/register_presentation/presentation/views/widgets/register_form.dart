@@ -6,7 +6,7 @@ import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/auth/data/models/register_input_model.dart';
-import 'package:elegant_shop_app/features/auth/presentation/manger/cubit/register_cubit.dart';
+import 'package:elegant_shop_app/features/auth/presentation/manger/register_cubit/register_cubit.dart';
 import 'package:elegant_shop_app/widgets/custom_button.dart';
 import 'package:elegant_shop_app/widgets/custom_pass_text_field.dart';
 import 'package:elegant_shop_app/widgets/custom_text_field.dart';
@@ -115,7 +115,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   borderRadius: BorderRadius.circular(12),
                   color: kPrimaryColor,
                   child: state is RegisterLoading
-                      ? CustomLoadingWidget(
+                      ? const CustomLoadingWidget(
                           color: Colors.white,
                         )
                       : Center(
