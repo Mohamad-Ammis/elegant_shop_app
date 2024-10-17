@@ -1,5 +1,5 @@
 import 'package:elegant_shop_app/constans.dart';
-import 'package:elegant_shop_app/features/auth/login/presentation/views/widgets/login_info.dart';
+import 'package:elegant_shop_app/features/auth/presentation/login_presentation/views/widgets/login_info.dart';
 import 'package:flutter/material.dart';
 
 class InfoSection extends StatelessWidget {

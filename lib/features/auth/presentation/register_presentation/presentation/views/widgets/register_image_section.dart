@@ -13,7 +13,6 @@ class RegisterImageSection extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height / 3,
         decoration: const BoxDecoration(
-            color: Colors.red,
             image: DecorationImage(
                 image: AssetImage('assets/images/2215.jpg'),
                 fit: BoxFit.cover)),

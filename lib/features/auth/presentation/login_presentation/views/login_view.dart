@@ -1,4 +1,4 @@
-import 'package:elegant_shop_app/features/auth/login/presentation/views/widgets/login_view_body.dart';
+import 'package:elegant_shop_app/features/auth/presentation/login_presentation/views/widgets/login_view_body.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {

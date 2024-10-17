@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,7 @@ abstract class Failure {
 class ServerFaliure extends Failure {
   ServerFaliure({required super.errorMessage});
   factory ServerFaliure.fromDioException(DioException dioException) {
+    log(dioException.response?.data?.toString() ?? 'response null');
     switch (dioException.type) {
       case DioExceptionType.connectionTimeout:
         return ServerFaliure(
@@ -43,10 +46,11 @@ class ServerFaliure extends Failure {
   factory ServerFaliure.fromResponse(int statusCode, dynamic resposne) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
       try {
-      return ServerFaliure(errorMessage: resposne['error']['message']);        
+        return ServerFaliure(errorMessage: resposne['error']['message']);
       } catch (e) {
-        debugPrint('e: ${e.toString()}');        
-      return ServerFaliure(errorMessage: 'Error happened , please try again!');
+        debugPrint('e: ${e.toString()}');
+        return ServerFaliure(
+            errorMessage: 'Error happened , please try again!');
       }
     } else if (statusCode == 404) {
       return ServerFaliure(errorMessage: "request not found");

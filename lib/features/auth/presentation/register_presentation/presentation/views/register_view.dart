@@ -1,4 +1,4 @@
-import 'package:elegant_shop_app/features/auth/register/presentation/views/widgets/register_view_body.dart';
+import 'package:elegant_shop_app/features/auth/presentation/register_presentation/presentation/views/widgets/register_view_body.dart';
 import 'package:flutter/material.dart';
 
 class RegisterView extends StatelessWidget {
@@ -8,7 +8,7 @@ class RegisterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: CustomScrollView(
-        physics:  BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         slivers: [
           SliverFillRemaining(
             child: RegisterViewBody(),

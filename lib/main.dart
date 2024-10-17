@@ -1,4 +1,5 @@
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
+import 'package:elegant_shop_app/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -6,6 +7,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+  setup();
   runApp(const MyApp());
 }
 
