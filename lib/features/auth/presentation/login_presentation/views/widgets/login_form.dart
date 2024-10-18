@@ -7,6 +7,7 @@ import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/auth/presentation/manger/login_cubit/login_cubit.dart';
+import 'package:elegant_shop_app/main.dart';
 import 'package:elegant_shop_app/widgets/custom_button.dart';
 import 'package:elegant_shop_app/widgets/custom_pass_text_field.dart';
 import 'package:elegant_shop_app/widgets/custom_text_field.dart';
@@ -76,7 +77,7 @@ class _LoginFormState extends State<LoginForm> {
           BlocConsumer<LoginCubit, LoginState>(
             builder: (context, state) {
               return CustomButton(
-                  height: 60,
+                  height: 65,
                   onTap: state is LoginLoading
                       ? null
                       : () async {
@@ -86,6 +87,7 @@ class _LoginFormState extends State<LoginForm> {
                             setState(() {});
                             await BlocProvider.of<LoginCubit>(context)
                                 .login(password: password, userName: userName);
+                            userInfo.setString("user_name", userName);
                           } else {
                             autoValidateMode =
                                 AutovalidateMode.onUserInteraction;

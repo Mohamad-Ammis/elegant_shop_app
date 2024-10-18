@@ -6,6 +6,10 @@ class Assets {
   /// assets/images/2215.jpg
   static const String images2215 = "assets/images/2215.jpg";
 
+  /// Assets for imagesFilter
+  /// assets/images/filter.svg
+  static const String imagesFilter = "assets/images/filter.svg";
+
   /// Assets for imagesLogin
   /// assets/images/login.jpg
   static const String imagesLogin = "assets/images/login.jpg";
@@ -21,5 +25,9 @@ class Assets {
   /// Assets for imagesRegister
   /// assets/images/register.jpg
   static const String imagesRegister = "assets/images/register.jpg";
+
+  /// Assets for imagesSearchIcon
+  /// assets/images/search_icon.svg
+  static const String imagesSearchIcon = "assets/images/search_icon.svg";
 }
 
