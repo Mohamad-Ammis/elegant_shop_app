@@ -110,7 +110,7 @@ class _LoginFormState extends State<LoginForm> {
               if (state is LoginSuccess) {
                 showSuccesSnackBar('Login Success', "Enjoy in our app")
                     .show(context);
-                GoRouter.of(context).push(AppRouter.kHomeView);
+                GoRouter.of(context).go(AppRouter.kHomeView);
               } else if (state is LoginFailure) {
                 showErrorSnackBar('Error Happened', state.errMessage)
                     .show(context);

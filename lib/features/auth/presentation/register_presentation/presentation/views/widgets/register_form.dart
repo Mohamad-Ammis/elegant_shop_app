@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/core/utils/image_picker_service.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/auth/data/models/register_input_model.dart';
 import 'package:elegant_shop_app/features/auth/presentation/manger/register_cubit/register_cubit.dart';
@@ -12,6 +15,7 @@ import 'package:elegant_shop_app/widgets/custom_pass_text_field.dart';
 import 'package:elegant_shop_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({
@@ -100,12 +104,15 @@ class _RegisterFormState extends State<RegisterForm> {
                             log('validate');
                             formKey.currentState!.save();
                             setState(() {});
+                            var image = await ImagePickerService().loadImage();
+                            log(image.toString());
                             await BlocProvider.of<RegisterCubit>(context)
                                 .register(
                                     registerInputModel: RegisterInputModel(
                                         userName: user,
                                         email: email,
-                                        password: password));
+                                        password: password,
+                                        image: image));
                           } else {
                             autoValidateMode =
                                 AutovalidateMode.onUserInteraction;
@@ -131,6 +138,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 showSuccesSnackBar('Register Success',
                         "Your account has been created successfully")
                     .show(context);
+                GoRouter.of(context).pop();
               } else if (state is RegisterFailure) {
                 showErrorSnackBar('Error Happened', state.errMessage)
                     .show(context);
