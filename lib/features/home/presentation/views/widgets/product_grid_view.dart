@@ -1,4 +1,3 @@
-
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
@@ -12,8 +11,6 @@ class ProductsGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StaggeredGridView.countBuilder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
       crossAxisCount: 4,
       itemCount: 10,
       itemBuilder: (context, index) => const ProductCard(),

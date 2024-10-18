@@ -19,7 +19,7 @@ class AppRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const OnBoardingView(),
+        builder: (context, state) => const HomeView(),
       ),
       GoRoute(
         path: kHomeView,
@@ -28,7 +28,8 @@ class AppRouter {
       GoRoute(
         path: kLoginView,
         builder: (context, state) => BlocProvider(
-          create: (context) => LoginCubit(authRepo: getIt.get<AuthRepoImplementation>()),
+          create: (context) =>
+              LoginCubit(authRepo: getIt.get<AuthRepoImplementation>()),
           child: const LoginView(),
         ),
       ),

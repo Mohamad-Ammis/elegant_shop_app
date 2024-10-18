@@ -22,8 +22,8 @@ class CustomSearchTextFiled extends StatelessWidget {
           child: TextField(
             onChanged: (value) {},
             textAlignVertical: TextAlignVertical.center,
-            cursorColor: Colors.white,
-            style: Styles.style14Regular.copyWith(color: Colors.white),
+            cursorColor: Colors.black,
+            style: Styles.style14Regular.copyWith(color: Colors.black),
             decoration: InputDecoration(
               filled: false,
               fillColor: null,
