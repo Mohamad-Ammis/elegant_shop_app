@@ -4,6 +4,7 @@ import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/features/home/presentation/views/widgets/category_list_view.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/custom_search_textfield.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/home_view_appbar.dart';
 import 'package:elegant_shop_app/main.dart';
@@ -20,9 +21,11 @@ class HomeViewBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           24.verticalSizedBox,
-          HomeViewAppbar(),
+          const HomeViewAppbar(),
           24.verticalSizedBox,
-          CustomSearchTextFiled()
+          const CustomSearchTextFiled(),
+          40.verticalSizedBox,
+          CategoriesListView()
         ],
       ),
     );
