@@ -6,9 +6,9 @@ sealed class ProductState {}
 final class ProductInitial extends ProductState {}
 
 final class ProductSuccess extends ProductState {
-  final List<ProductModel> products;
-  final bool hasNext;
-  ProductSuccess({required this.hasNext, required this.products});
+  // final List<ProductModel> products;
+  // final bool hasNext;
+  // ProductSuccess({required this.hasNext, required this.products});
 }
 
 final class ProductLoading extends ProductState {}

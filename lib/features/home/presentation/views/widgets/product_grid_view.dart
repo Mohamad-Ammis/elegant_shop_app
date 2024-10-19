@@ -32,12 +32,14 @@ class _ProductsGridViewState extends State<ProductsGridView> {
   void _onScroll() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-      if (productCubit.state is ProductLoading) {
+      if (productCubit.state is ProductLoading ||
+          productCubit.state is ProductPaginationLoading) {
         log("state Loading");
         return;
       } else {
-        log("elseesse");
+        log("reach max of products List");
         if (productCubit.hasNext) {
+          log("call pagination product api");
           productCubit.getAllProducts(fromPagination: true);
         }
       }
@@ -61,7 +63,9 @@ class _ProductsGridViewState extends State<ProductsGridView> {
                 : productCubit.products.length,
             itemBuilder: (context, index) {
               return index < productCubit.products.length
-                  ? ProductCard()
+                  ? ProductCard(
+                      product: productCubit.products[index],
+                    )
                   : CustomLoadingWidget();
             },
             staggeredTileBuilder: (int index) =>

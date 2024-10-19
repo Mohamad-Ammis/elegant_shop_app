@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_helper_cubit.dart';
+import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/category_item.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/category_loading_list_view.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +41,12 @@ class _CategoriesListViewState extends State<CategoriesListView> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                           onTap: () {
+                            ProductCubit cubit = context.read<ProductCubit>();
+                            cubit.selectedCategoryId =
+                                state.categories[index].id;
+                            cubit.page = 1;
+                            cubit.products.clear();
+                            cubit.getAllProducts();
                             currentIndex = index;
                             setState(() {});
                           },
@@ -56,5 +65,3 @@ class _CategoriesListViewState extends State<CategoriesListView> {
     );
   }
 }
-
-

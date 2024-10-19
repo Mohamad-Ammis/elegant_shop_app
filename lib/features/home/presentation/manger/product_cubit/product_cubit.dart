@@ -11,6 +11,7 @@ class ProductCubit extends Cubit<ProductState> {
   ProductCubit({required this.homeRepo}) : super(ProductInitial());
   final HomeRepo homeRepo;
   int page = 1;
+  int? selectedCategoryId = 2;
   bool hasNext = false;
   List<ProductModel> products = [];
   Future<void> getAllProducts({bool fromPagination = false}) async {
@@ -21,7 +22,8 @@ class ProductCubit extends Cubit<ProductState> {
       } else {
         emit(ProductLoading());
       }
-      var data = await homeRepo.getAllProducts(page: page);
+      var data = await homeRepo.getAllProducts(
+          page: page, selectedCategortId: selectedCategoryId);
       data.fold((left) {
         if (fromPagination) {
           emit(ProductPaginationFailure(errMessage: left.errorMessage));
@@ -29,10 +31,9 @@ class ProductCubit extends Cubit<ProductState> {
           emit(ProductFailure(errMessage: left.errorMessage));
         }
       }, (right) {
-        emit(ProductSuccess(
-            products: right['products'], hasNext: right['has_next']));
         hasNext = right['has_next'];
         products = right['products'];
+        emit(ProductSuccess());
         //حطيتا هون لانو اذا كانت برا فالعدد رح يزيد حتى لو فشل الريكويست وهاد خطأ لذلك بس يكون صار بحالة النجاح بتزيدا
         if (hasNext) {
           page++;

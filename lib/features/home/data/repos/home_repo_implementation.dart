@@ -36,10 +36,12 @@ class HomeRepoImplementation implements HomeRepo {
   List<ProductModel> products = [];
   @override
   Future<Either<Failure, Map<String, dynamic>>> getAllProducts(
-      {int page = 1}) async {
+      {int page = 1, int? selectedCategortId}) async {
     try {
+      log('category $selectedCategortId');
       var response = await apiService.get(
-        url: '$kBaseUrl/products/?page=$page&page_size=5',
+        url:
+            '$kBaseUrl/products/?page=$page&page_size=5&category=$selectedCategortId',
       );
       for (var product in response.data['results']) {
         products.add(ProductModel.fromJson(product));
