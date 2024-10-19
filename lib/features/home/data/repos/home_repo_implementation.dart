@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -34,21 +35,38 @@ class HomeRepoImplementation implements HomeRepo {
   }
 
   List<ProductModel> products = [];
+  Timer? _debounce;
   @override
   Future<Either<Failure, Map<String, dynamic>>> getAllProducts(
       {int page = 1, int? selectedCategortId}) async {
     try {
-      log('category $selectedCategortId');
-      var response = await apiService.get(
-        url:
-            '$kBaseUrl/products/?page=$page&page_size=5&category=$selectedCategortId',
-      );
-      for (var product in response.data['results']) {
-        products.add(ProductModel.fromJson(product));
+      if (page == 1) {
+        products = [];
       }
-      log('************get Products Successfully ******************* ');
-      return Right(
-          {'products': products, 'has_next': response.data['next'] != null});
+      // استخدمتو لخزن فيو البيانات يلي رح رجعا بعد التايمر
+      Completer<Either<Failure, Map<String, dynamic>>> completer = Completer();
+      if (_debounce?.isActive ?? false) _debounce!.cancel();
+      _debounce = Timer(const Duration(milliseconds: 500), () async {
+        log('category $selectedCategortId');
+        var response = await apiService.get(
+          url:
+              '$kBaseUrl/products/?page=$page&page_size=5&category=$selectedCategortId',
+        );
+        if ( response.data != null) {
+          for (var product in response.data['results']) {
+            products.add(ProductModel.fromJson(product));
+          }
+          log('************get Products Successfully ******************* ');
+          completer.complete(Right({
+            'products': products,
+            'has_next': response.data['next'] != null,
+          }));
+        } else {
+          completer.complete(
+              Left(ServerFaliure(errorMessage: 'Response or data is null')));
+        }
+      });
+      return completer.future;
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFaliure.fromDioException(e));

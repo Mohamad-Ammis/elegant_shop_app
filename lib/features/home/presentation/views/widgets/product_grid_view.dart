@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/core/utils/shimmer_custom_container.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
@@ -66,7 +68,7 @@ class _ProductsGridViewState extends State<ProductsGridView> {
                   ? ProductCard(
                       product: productCubit.products[index],
                     )
-                  : CustomLoadingWidget();
+                  : ProductShimmerCard();
             },
             staggeredTileBuilder: (int index) =>
                 StaggeredTile.count(2, index.isOdd ? 4.0 : 3.4),
@@ -74,7 +76,18 @@ class _ProductsGridViewState extends State<ProductsGridView> {
             crossAxisSpacing: 17.0,
           );
         } else {
-          return CustomLoadingWidget();
+          return StaggeredGridView.countBuilder(
+            controller: _scrollController,
+            crossAxisCount: 4,
+            itemCount: 6,
+            itemBuilder: (context, index) {
+              return ProductShimmerCard();
+            },
+            staggeredTileBuilder: (int index) =>
+                StaggeredTile.count(2, index.isOdd ? 4.0 : 3.4),
+            mainAxisSpacing: 24.0,
+            crossAxisSpacing: 17.0,
+          );
         }
       },
     );
@@ -84,5 +97,39 @@ class _ProductsGridViewState extends State<ProductsGridView> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+}
+
+class ProductShimmerCard extends StatelessWidget {
+  const ProductShimmerCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: ShimmerContainer(
+              width: double.infinity, height: 250, circularRadius: 16),
+        ),
+        8.verticalSizedBox,
+        ShimmerContainer(width: 100, height: 20, circularRadius: 16),
+        8.verticalSizedBox,
+        ShimmerContainer(width: 50, height: 20, circularRadius: 16),
+        8.verticalSizedBox,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ShimmerContainer(width: 50, height: 20, circularRadius: 16),
+            ShimmerContainer(width: 50, height: 20, circularRadius: 16),
+            SizedBox(
+              width: 10,
+            )
+          ],
+        )
+      ],
+    );
   }
 }
