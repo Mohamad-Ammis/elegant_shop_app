@@ -5,9 +5,11 @@ import 'package:elegant_shop_app/features/auth/presentation/manger/login_cubit/l
 import 'package:elegant_shop_app/features/auth/presentation/manger/register_cubit/register_cubit.dart';
 import 'package:elegant_shop_app/features/auth/presentation/register_presentation/presentation/views/register_view.dart';
 import 'package:elegant_shop_app/features/home/data/repos/home_repo_implementation.dart';
-import 'package:elegant_shop_app/features/home/presentation/manger/cubit/category_cubit.dart';
-import 'package:elegant_shop_app/features/home/presentation/manger/cubit/cubit/category_helper_cubit.dart';
+import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_cubit.dart';
+import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_helper_cubit.dart';
+import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/home_view.dart';
+import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_card.dart';
 import 'package:elegant_shop_app/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -35,6 +37,11 @@ class AppRouter {
             ),
             BlocProvider(
               create: (context) => CategoryHelperCubit(true),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  ProductCubit(homeRepo: getIt.get<HomeRepoImplementation>())
+                    ..getAllProducts(),
             ),
           ],
           child: const HomeView(),

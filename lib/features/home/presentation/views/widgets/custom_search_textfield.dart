@@ -1,7 +1,7 @@
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
-import 'package:elegant_shop_app/features/home/presentation/manger/cubit/cubit/category_helper_cubit.dart';
+import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_helper_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
