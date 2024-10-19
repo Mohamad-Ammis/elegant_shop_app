@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:elegant_shop_app/core/utils/app_images.dart';
@@ -24,8 +23,7 @@ class PickImageWidgetState extends State<PickImageWidget> {
           return const Center(
             child: Stack(
               children: [
-                CircleAvatar(
-                    radius: 80, child: CircularProgressIndicator()),
+                CircleAvatar(radius: 80, child: CircularProgressIndicator()),
                 CustomCameraIcon()
               ],
             ),

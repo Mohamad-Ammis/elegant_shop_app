@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 extension VerticalSizedBoxExtension on num {
@@ -12,7 +11,7 @@ extension VerticalSizedBoxExtension on num {
 extension HorizontalSizedBoxExtension on num {
   Widget get horizontalSizedBox {
     return SizedBox(
-      width:toDouble(),
+      width: toDouble(),
     );
   }
 }

@@ -23,17 +23,16 @@ class ApiService {
 
   Future<Response> get(
       {required String url,
-      required token,
+      String? token,
       contentType,
       Map<String, String>? headers}) async {
     var response = await dio.get(url,
         options: Options(
             contentType: contentType,
-            headers: headers ??
+            headers: headers ?? (token!=null?
                 {
                   'Authorization': "Bearer $token",
-                  // "Content-Type": 'application/x-www-form-urlencoded'
-                }));
+                }:{})));
     return response;
   }
 
@@ -48,14 +47,13 @@ class ApiService {
     FormData formData = FormData.fromMap({
       ...body,
       'avatar': await MultipartFile.fromFile(imagePath,
-          filename:
-              imagePath.split('/').last), 
+          filename: imagePath.split('/').last),
     });
 
     var response = await dio.post(url,
         data: formData,
         options: Options(
-          contentType: contentType ?? 'multipart/form-data', 
+          contentType: contentType ?? 'multipart/form-data',
           headers: headers ??
               {
                 'Authorization': "Bearer $token",

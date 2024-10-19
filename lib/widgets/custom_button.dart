@@ -8,7 +8,8 @@ class CustomButton extends StatelessWidget {
       required this.child,
       this.color,
       this.borderRadius,
-      this.padding, this.onTap});
+      this.padding,
+      this.onTap});
   final double? width;
   final double? height;
   final EdgeInsetsGeometry? padding;

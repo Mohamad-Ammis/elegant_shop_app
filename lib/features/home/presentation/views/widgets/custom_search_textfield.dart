@@ -1,7 +1,9 @@
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
+import 'package:elegant_shop_app/features/home/presentation/manger/cubit/cubit/category_helper_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomSearchTextFiled extends StatelessWidget {
@@ -31,6 +33,7 @@ class CustomSearchTextFiled extends StatelessWidget {
               hintStyle: Styles.style14Regular.copyWith(color: kSubTitleColor),
               prefixIcon: SvgPicture.asset(
                 Assets.imagesSearchIcon,
+                // ignore: deprecated_member_use
                 color: kSubTitleColor,
                 width: 30,
                 fit: BoxFit.scaleDown,
@@ -51,7 +54,9 @@ class CustomSearchTextFiled extends StatelessWidget {
           width: 16,
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            BlocProvider.of<CategoryHelperCubit>(context).changeCategoryState();
+          },
           child: Container(
               decoration: BoxDecoration(
                   color: kLightBlackColor,

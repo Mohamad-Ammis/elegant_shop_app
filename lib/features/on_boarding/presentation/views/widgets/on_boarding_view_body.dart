@@ -3,6 +3,7 @@ import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/main.dart';
 import 'package:elegant_shop_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -38,7 +39,11 @@ class OnBoardingViewBody extends StatelessWidget {
           20.verticalSizedBox,
           CustomButton(
               onTap: () {
-                GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
+                if (userInfo.getString('auth_token') != null) {
+                  GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+                } else {
+                  GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
+                }
               },
               color: Colors.white,
               child: Center(

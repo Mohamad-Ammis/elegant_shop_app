@@ -15,7 +15,8 @@ class CustomTextField extends StatelessWidget {
     required this.suffixIcon,
     this.isEmail,
     this.isUserName,
-    this.onChanged, this.borderRadius,
+    this.onChanged,
+    this.borderRadius,
   });
   final TextStyle textStyle;
   final Color cursorColor;
@@ -53,19 +54,23 @@ class CustomTextField extends StatelessWidget {
         fillColor: fillColor,
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: enabledBorderColor, width: 0.4),
-            borderRadius:  BorderRadius.all(Radius.circular(borderRadius??16))),
+            borderRadius:
+                BorderRadius.all(Radius.circular(borderRadius ?? 16))),
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: focusedBorderColor, width: 0.5),
-            borderRadius:  BorderRadius.all(Radius.circular(borderRadius??16))),
-        errorBorder:  OutlineInputBorder(
+            borderRadius:
+                BorderRadius.all(Radius.circular(borderRadius ?? 16))),
+        errorBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red, width: 0.5),
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius??16))),
-        focusedErrorBorder:  OutlineInputBorder(
+            borderRadius:
+                BorderRadius.all(Radius.circular(borderRadius ?? 16))),
+        focusedErrorBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red, width: 0.5),
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius??16))),
+            borderRadius:
+                BorderRadius.all(Radius.circular(borderRadius ?? 16))),
         suffixIcon: Padding(
           padding: const EdgeInsets.only(right: 8.0),
           child: Icon(

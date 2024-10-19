@@ -4,13 +4,13 @@ class RegisterInputModel {
   final String password;
   final String? image;
 
-  RegisterInputModel(
-      {required this.userName, required this.email, required this.password,required this.image,});
+  RegisterInputModel({
+    required this.userName,
+    required this.email,
+    required this.password,
+    required this.image,
+  });
   toJson() {
-    return {
-      'email':email,
-      'username':userName,
-      'password':password
-    };
+    return {'email': email, 'username': userName, 'password': password};
   }
 }

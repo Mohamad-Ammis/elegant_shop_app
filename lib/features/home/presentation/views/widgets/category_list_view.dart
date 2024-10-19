@@ -1,6 +1,10 @@
-
+import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
+import 'package:elegant_shop_app/features/home/presentation/manger/cubit/category_cubit.dart';
+import 'package:elegant_shop_app/features/home/presentation/manger/cubit/cubit/category_helper_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/category_item.dart';
+import 'package:elegant_shop_app/features/home/presentation/views/widgets/category_loading_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoriesListView extends StatefulWidget {
   const CategoriesListView({
@@ -15,22 +19,42 @@ class _CategoriesListViewState extends State<CategoriesListView> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 35,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-                onTap: () {
-                  currentIndex = index;
-                  setState(() {});
-                },
-                child: CategoryItem(
-                  title: 'All items',
-                  isActive: currentIndex == index,
-                ));
-          }),
+    return BlocBuilder<CategoryCubit, CategoryState>(
+      builder: (context, state) {
+        if (state is CategoryFailure) {
+          return CustomErrorWidget(
+            title: state.errMessage,
+          );
+        } else if (state is CategorySuccess) {
+          return BlocBuilder<CategoryHelperCubit, bool>(
+            builder: (context, helperState) {
+              return AnimatedContainer(
+                height: !helperState ? 0 : 35,
+                curve: Curves.easeInOut,
+                duration: const Duration(milliseconds: 300),
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: state.categories.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                          onTap: () {
+                            currentIndex = index;
+                            setState(() {});
+                          },
+                          child: CategoryItem(
+                            title: state.categories[index].name ?? '',
+                            isActive: currentIndex == index,
+                          ));
+                    }),
+              );
+            },
+          );
+        } else {
+          return const CategoryLoadingShimmerListView();
+        }
+      },
     );
   }
 }
+
+

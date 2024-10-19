@@ -15,8 +15,7 @@ ElegantNotification showSuccesSnackBar(title, message, {context}) {
       title,
       style: const TextStyle(fontFamily: kFontFamily),
     ),
-    description:
-        Text(message, style: const TextStyle(fontFamily: kFontFamily)),
+    description: Text(message, style: const TextStyle(fontFamily: kFontFamily)),
   );
 }
 
@@ -32,8 +31,7 @@ ElegantNotification showErrorSnackBar(title, message) {
       title,
       style: const TextStyle(fontFamily: kFontFamily),
     ),
-    description:
-        Text(message, style: const TextStyle(fontFamily:kFontFamily)),
+    description: Text(message, style: const TextStyle(fontFamily: kFontFamily)),
   );
 }
 
@@ -51,7 +49,6 @@ ElegantNotification showInfoSnackBar(title, message) {
       title,
       style: const TextStyle(fontFamily: kFontFamily),
     ),
-    description:
-        Text(message, style: const TextStyle(fontFamily: kFontFamily)),
+    description: Text(message, style: const TextStyle(fontFamily: kFontFamily)),
   );
 }
