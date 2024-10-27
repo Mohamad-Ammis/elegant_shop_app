@@ -9,7 +9,6 @@ import 'package:elegant_shop_app/features/home/presentation/manger/category_cubi
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_helper_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/home_view.dart';
-import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_card.dart';
 import 'package:elegant_shop_app/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

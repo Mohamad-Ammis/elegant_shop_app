@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_cubit.dart';

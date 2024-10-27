@@ -38,7 +38,7 @@ class HomeRepoImplementation implements HomeRepo {
   Timer? _debounce;
   @override
   Future<Either<Failure, Map<String, dynamic>>> getAllProducts(
-      {int page = 1, int? selectedCategortId}) async {
+      {int page = 1, int? selectedCategortId, String searchText = ''}) async {
     try {
       if (page == 1) {
         products = [];
@@ -50,15 +50,55 @@ class HomeRepoImplementation implements HomeRepo {
         log('category $selectedCategortId');
         var response = await apiService.get(
           url:
-              '$kBaseUrl/products/?page=$page&page_size=5&category=$selectedCategortId',
+              '$kBaseUrl/products/?page=$page&page_size=5&category=$selectedCategortId&search=$searchText',
         );
-        if ( response.data != null) {
+        if (response.data != null) {
           for (var product in response.data['results']) {
             products.add(ProductModel.fromJson(product));
           }
           log('************get Products Successfully ******************* ');
           completer.complete(Right({
             'products': products,
+            'has_next': response.data['next'] != null,
+          }));
+        } else {
+          completer.complete(
+              Left(ServerFaliure(errorMessage: 'Response or data is null')));
+        }
+      });
+      return completer.future;
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFaliure.fromDioException(e));
+      }
+      return Left(ServerFaliure(errorMessage: e.toString()));
+    }
+  }
+
+  List<ProductModel> searchProductsList = [];
+  Timer? _searchDebounce;
+  @override
+  Future<Either<Failure, Map<String, dynamic>>> searchProducts(
+      {int page = 1, String? searchText}) async {
+    log('texttttt$searchText');
+    try {
+      if (page == 1) {
+        searchProductsList = [];
+      }
+      // استخدمتو لخزن فيو البيانات يلي رح رجعا بعد التايمر
+      Completer<Either<Failure, Map<String, dynamic>>> completer = Completer();
+      if (_searchDebounce?.isActive ?? false) _searchDebounce!.cancel();
+      _searchDebounce = Timer(const Duration(milliseconds: 500), () async {
+        var response = await apiService.get(
+          url: '$kBaseUrl/products/?page=$page&page_size=5&search=$searchText',
+        );
+        if (response.data != null) {
+          for (var product in response.data['results']) {
+            products.add(ProductModel.fromJson(product));
+          }
+          log('************get Products Successfully ******************* ');
+          completer.complete(Right({
+            'products': searchProductsList,
             'has_next': response.data['next'] != null,
           }));
         } else {

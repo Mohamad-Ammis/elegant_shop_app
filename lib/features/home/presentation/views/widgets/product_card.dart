@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
-import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/home/data/models/product_model.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_image_section.dart';
 import 'package:flutter/material.dart';

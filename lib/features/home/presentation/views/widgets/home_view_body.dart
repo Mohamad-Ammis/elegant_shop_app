@@ -33,7 +33,7 @@ class HomeViewBody extends StatelessWidget {
               if (state is ProductPaginationFailure) {
                 return CustomErrorWidget(title: state.errMessage);
               } else {
-                return SizedBox.shrink();
+                return const SizedBox.shrink();
               }
             },
           )

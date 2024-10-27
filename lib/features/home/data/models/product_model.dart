@@ -9,7 +9,7 @@ class ProductModel {
   num? stock;
   bool? inStock;
   bool? isFavorite;
-
+  num? averageRating;
   ProductModel({
     this.id,
     this.name,
@@ -21,6 +21,7 @@ class ProductModel {
     this.stock,
     this.inStock,
     this.isFavorite,
+    this.averageRating
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
@@ -34,6 +35,7 @@ class ProductModel {
         stock: json['stock'] as num?,
         inStock: json['in_stock'] as bool?,
         isFavorite: json['is_favorite'] as bool?,
+        averageRating: json['avg_rating']as num?
       );
 
   Map<String, dynamic> toJson() => {
