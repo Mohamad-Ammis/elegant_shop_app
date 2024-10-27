@@ -27,8 +27,8 @@ class Assets {
   static const String imagesPers = "assets/images/pers.png";
 
   /// Assets for imagesProduct1
-  /// assets/images/Product1.png
-  static const String imagesProduct1 = "assets/images/Product1.png";
+  /// assets/images/Product1.jpg
+  static const String imagesProduct1 = "assets/images/Product1.jpg";
 
   /// Assets for imagesRegister
   /// assets/images/register.jpg
