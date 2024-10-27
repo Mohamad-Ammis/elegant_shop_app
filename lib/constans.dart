@@ -10,3 +10,4 @@ const Color kBackgroundColor = Color(0xffF9F9F9);
 Color kLightGreyColor = const Color(0xffEDEDED).withOpacity(.35);
 const double kMainPagePadding = 24;
 const String kBaseUrl = 'https://quakstore.onrender.com/api/v1';
+const String kPaginiationPageSize = '5';

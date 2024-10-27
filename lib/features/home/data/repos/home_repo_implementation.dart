@@ -48,15 +48,15 @@ class HomeRepoImplementation implements HomeRepo {
       Completer<Either<Failure, Map<String, dynamic>>> completer = Completer();
       if (_debounce?.isActive ?? false) _debounce!.cancel();
       _debounce = Timer(const Duration(milliseconds: 500), () async {
-        log('$kBaseUrl/products/?page=$page&page_size=5');
+        log('$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize');
         var response = await apiService.get(
-          url: '$kBaseUrl/products/?page=$page&page_size=5',
+          url: '$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize',
         );
         if (response.data != null) {
           for (var product in response.data['results']) {
             products.add(ProductModel.fromJson(product));
           }
-          log('************get Products Successfully ******************* ');
+          log('************get All Products Successfully ******************* ');
           completer.complete(Right({
             'products': products,
             'has_next': response.data['next'] != null,
@@ -78,7 +78,8 @@ class HomeRepoImplementation implements HomeRepo {
   Timer? _searchDebounce;
   @override
   Future<Either<Failure, Map<String, dynamic>>> searchProducts(
-      {int page = 1, String? searchText}) async {    try {
+      {int page = 1, String? searchText}) async {
+    try {
       if (page == 1) {
         products = [];
       }
@@ -86,15 +87,16 @@ class HomeRepoImplementation implements HomeRepo {
       Completer<Either<Failure, Map<String, dynamic>>> completer = Completer();
       if (_searchDebounce?.isActive ?? false) _searchDebounce!.cancel();
       _searchDebounce = Timer(const Duration(milliseconds: 500), () async {
-        log('$kBaseUrl/products/?page=$page&page_size=5&search=$searchText');
+        log('$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize&search=$searchText');
         var response = await apiService.get(
-          url: '$kBaseUrl/products/?page=$page&page_size=5&search=$searchText',
+          url:
+              '$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize&search=$searchText',
         );
         if (response.data != null) {
           for (var product in response.data['results']) {
             products.add(ProductModel.fromJson(product));
           }
-          log('************get Products Successfully ******************* ');
+          log('************get Searched Products Successfully ******************* ');
           completer.complete(Right({
             'products': products,
             'has_next': response.data['next'] != null,
