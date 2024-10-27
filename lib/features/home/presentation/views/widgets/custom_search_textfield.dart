@@ -28,7 +28,7 @@ class CustomSearchTextFiled extends StatelessWidget {
               BlocProvider.of<ProductCubit>(context).searchText = value;
               BlocProvider.of<ProductCubit>(context).page = 1;
               BlocProvider.of<ProductCubit>(context).products = [];
-              BlocProvider.of<ProductCubit>(context).getAllProducts();
+              BlocProvider.of<ProductCubit>(context).searchProducts();
             },
             textAlignVertical: TextAlignVertical.center,
             cursorColor: Colors.black,

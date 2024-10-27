@@ -37,8 +37,11 @@ class HomeRepoImplementation implements HomeRepo {
   List<ProductModel> products = [];
   Timer? _debounce;
   @override
-  Future<Either<Failure, Map<String, dynamic>>> getAllProducts(
-      {int page = 1, int? selectedCategortId, String searchText = ''}) async {
+  Future<Either<Failure, Map<String, dynamic>>> getAllProducts({
+    int page = 1,
+    int? selectedCategortId,
+    String searchText = '',
+  }) async {
     try {
       if (page == 1) {
         products = [];
@@ -75,7 +78,6 @@ class HomeRepoImplementation implements HomeRepo {
     }
   }
 
-  List<ProductModel> searchProductsList = [];
   Timer? _searchDebounce;
   @override
   Future<Either<Failure, Map<String, dynamic>>> searchProducts(
@@ -83,7 +85,7 @@ class HomeRepoImplementation implements HomeRepo {
     log('texttttt$searchText');
     try {
       if (page == 1) {
-        searchProductsList = [];
+        products = [];
       }
       // استخدمتو لخزن فيو البيانات يلي رح رجعا بعد التايمر
       Completer<Either<Failure, Map<String, dynamic>>> completer = Completer();
@@ -92,13 +94,14 @@ class HomeRepoImplementation implements HomeRepo {
         var response = await apiService.get(
           url: '$kBaseUrl/products/?page=$page&page_size=5&search=$searchText',
         );
+        log('$kBaseUrl/products/?page=$page&page_size=5&search=$searchText');
         if (response.data != null) {
           for (var product in response.data['results']) {
             products.add(ProductModel.fromJson(product));
           }
           log('************get Products Successfully ******************* ');
           completer.complete(Right({
-            'products': searchProductsList,
+            'products': products,
             'has_next': response.data['next'] != null,
           }));
         } else {

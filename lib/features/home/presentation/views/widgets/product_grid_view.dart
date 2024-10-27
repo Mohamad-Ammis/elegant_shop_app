@@ -39,8 +39,13 @@ class _ProductsGridViewState extends State<ProductsGridView> {
       } else {
         log("reach max of products List");
         if (productCubit.hasNext) {
-          log("call pagination product api");
-          productCubit.getAllProducts(fromPagination: true);
+          if (BlocProvider.of<ProductCubit>(context).searchText.isNotEmpty) {
+            productCubit.searchProducts(fromPagination: true);
+          } else {
+            productCubit.page = 1;
+            log("call pagination product api");
+            productCubit.getAllProducts(fromPagination: true);
+          }
         }
       }
     }
