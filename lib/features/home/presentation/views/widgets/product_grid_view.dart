@@ -38,11 +38,16 @@ class _ProductsGridViewState extends State<ProductsGridView> {
         return;
       } else {
         log("reach max of products List");
-        if (productCubit.hasNext) {
-          if (BlocProvider.of<ProductCubit>(context).searchText.isNotEmpty) {
+        //when reach end we have 2 state , 
+        //first we must check if we are not using category because there are no pagination in category api
+        if (productCubit.hasNext && productCubit.selectedCategoryId == -1) {
+          //first state we have search text so use search api
+          if (productCubit.searchText.isNotEmpty) {
+            log("call pagination product search api");
             productCubit.searchProducts(fromPagination: true);
-          } else {
-            productCubit.page = 1;
+          } 
+          //second state we haven't search text so use all products api
+          else {
             log("call pagination product api");
             productCubit.getAllProducts(fromPagination: true);
           }

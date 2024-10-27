@@ -39,8 +39,6 @@ class HomeRepoImplementation implements HomeRepo {
   @override
   Future<Either<Failure, Map<String, dynamic>>> getAllProducts({
     int page = 1,
-    int? selectedCategortId,
-    String searchText = '',
   }) async {
     try {
       if (page == 1) {
@@ -50,10 +48,9 @@ class HomeRepoImplementation implements HomeRepo {
       Completer<Either<Failure, Map<String, dynamic>>> completer = Completer();
       if (_debounce?.isActive ?? false) _debounce!.cancel();
       _debounce = Timer(const Duration(milliseconds: 500), () async {
-        log('category $selectedCategortId');
+        log('$kBaseUrl/products/?page=$page&page_size=5');
         var response = await apiService.get(
-          url:
-              '$kBaseUrl/products/?page=$page&page_size=5&category=$selectedCategortId&search=$searchText',
+          url: '$kBaseUrl/products/?page=$page&page_size=5',
         );
         if (response.data != null) {
           for (var product in response.data['results']) {
@@ -81,9 +78,7 @@ class HomeRepoImplementation implements HomeRepo {
   Timer? _searchDebounce;
   @override
   Future<Either<Failure, Map<String, dynamic>>> searchProducts(
-      {int page = 1, String? searchText}) async {
-    log('texttttt$searchText');
-    try {
+      {int page = 1, String? searchText}) async {    try {
       if (page == 1) {
         products = [];
       }
@@ -91,10 +86,10 @@ class HomeRepoImplementation implements HomeRepo {
       Completer<Either<Failure, Map<String, dynamic>>> completer = Completer();
       if (_searchDebounce?.isActive ?? false) _searchDebounce!.cancel();
       _searchDebounce = Timer(const Duration(milliseconds: 500), () async {
+        log('$kBaseUrl/products/?page=$page&page_size=5&search=$searchText');
         var response = await apiService.get(
           url: '$kBaseUrl/products/?page=$page&page_size=5&search=$searchText',
         );
-        log('$kBaseUrl/products/?page=$page&page_size=5&search=$searchText');
         if (response.data != null) {
           for (var product in response.data['results']) {
             products.add(ProductModel.fromJson(product));
@@ -111,6 +106,32 @@ class HomeRepoImplementation implements HomeRepo {
       });
       return completer.future;
     } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFaliure.fromDioException(e));
+      }
+      return Left(ServerFaliure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ProductModel>>> getProductsByCategory(
+      {required String selectedCategorySlug}) async {
+    try {
+      products = [];
+      var response = await apiService.get(
+        url: '$kBaseUrl/products/$selectedCategorySlug/',
+      );
+      if (response.data != null) {
+        for (var product in response.data['products']) {
+          products.add(ProductModel.fromJson(product));
+        }
+        log('************get Products By Category Successfully ******************* ');
+        log(products.toList().toString());
+        return Right(products);
+      } else {
+        return Left(ServerFaliure(errorMessage: 'Response or data is null'));
+      }
+    } on Exception catch (e) {
       if (e is DioException) {
         return Left(ServerFaliure.fromDioException(e));
       }

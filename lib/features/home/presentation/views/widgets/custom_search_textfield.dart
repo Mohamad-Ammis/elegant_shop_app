@@ -3,7 +3,6 @@ import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_helper_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
-import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,10 +24,14 @@ class CustomSearchTextFiled extends StatelessWidget {
           width: MediaQuery.sizeOf(context).width / 1.5,
           child: TextField(
             onChanged: (value) {
-              BlocProvider.of<ProductCubit>(context).searchText = value;
-              BlocProvider.of<ProductCubit>(context).page = 1;
-              BlocProvider.of<ProductCubit>(context).products = [];
-              BlocProvider.of<ProductCubit>(context).searchProducts();
+              ProductCubit cubit = BlocProvider.of<ProductCubit>(context);
+              cubit.searchText = value;
+              cubit.page = 1;
+              cubit.selectedCategoryId = -1;
+              cubit.products.clear();
+              cubit.searchText.isNotEmpty
+                  ? cubit.searchProducts()
+                  : cubit.getAllProducts();
             },
             textAlignVertical: TextAlignVertical.center,
             cursorColor: Colors.black,

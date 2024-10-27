@@ -12,7 +12,7 @@ class ProductCubit extends Cubit<ProductState> {
   final HomeRepo homeRepo;
   int page = 1;
   int searchPage = 1;
-  int? selectedCategoryId = 1;
+  int selectedCategoryId = -1;
   bool hasNext = false;
   List<ProductModel> products = [];
   String searchText = '';
@@ -25,8 +25,8 @@ class ProductCubit extends Cubit<ProductState> {
         emit(ProductLoading());
       }
       var data = await homeRepo.getAllProducts(
-          page: page,
-          selectedCategortId: selectedCategoryId,);
+        page: page,
+      );
       data.fold((left) {
         if (fromPagination) {
           emit(ProductPaginationFailure(errMessage: left.errorMessage));
@@ -55,7 +55,6 @@ class ProductCubit extends Cubit<ProductState> {
     bool fromPagination = false,
   }) async {
     try {
-      log('page $page');
       if (fromPagination) {
         emit(ProductPaginationLoading());
       } else {
@@ -84,6 +83,23 @@ class ProductCubit extends Cubit<ProductState> {
       } else {
         emit(ProductFailure(errMessage: e.toString()));
       }
+    }
+  }
+
+  Future<void> getProductsByCategory(
+      {required String selectedCategorySlug}) async {
+    try {
+      emit(ProductLoading());
+      var data = await homeRepo.getProductsByCategory(
+          selectedCategorySlug: selectedCategorySlug);
+      data.fold((left) {
+        emit(ProductFailure(errMessage: left.errorMessage));
+      }, (right) {
+        products = right;
+        emit(ProductSuccess());
+      });
+    } catch (e) {
+      emit(ProductFailure(errMessage: e.toString()));
     }
   }
 }

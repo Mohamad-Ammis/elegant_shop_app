@@ -28,11 +28,15 @@ class ApiService {
       Map<String, String>? headers}) async {
     var response = await dio.get(url,
         options: Options(
+            // receiveTimeout: Duration(seconds: 3),
+            // sendTimeout: Duration(seconds: 3),
             contentType: contentType,
-            headers: headers ?? (token!=null?
-                {
-                  'Authorization': "Bearer $token",
-                }:{})));
+            headers: headers ??
+                (token != null
+                    ? {
+                        'Authorization': "Bearer $token",
+                      }
+                    : {})));
     return response;
   }
 
