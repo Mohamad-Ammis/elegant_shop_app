@@ -14,7 +14,6 @@ class ProductMoreImagesItem extends StatelessWidget {
       height: 75,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        border: Border.all(color: kSubTitleColor, width: .5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Image.asset(

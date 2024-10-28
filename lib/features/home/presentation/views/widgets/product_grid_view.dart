@@ -38,14 +38,14 @@ class _ProductsGridViewState extends State<ProductsGridView> {
         return;
       } else {
         log("reach max of products List");
-        //when reach end we have 2 state , 
+        //when reach end we have 2 state ,
         //first we must check if we are not using category because there are no pagination in category api
         if (productCubit.hasNext && productCubit.selectedCategoryId == -1) {
           //first state we have search text so use search api
           if (productCubit.searchText.isNotEmpty) {
             log("call pagination product search api");
             productCubit.searchProducts(fromPagination: true);
-          } 
+          }
           //second state we haven't search text so use all products api
           else {
             log("call pagination product api");
@@ -65,24 +65,26 @@ class _ProductsGridViewState extends State<ProductsGridView> {
         } else if (state is ProductSuccess ||
             state is ProductPaginationLoading ||
             state is ProductPaginationFailure) {
-          return StaggeredGridView.countBuilder(
-            controller: _scrollController,
-            crossAxisCount: 4,
-            itemCount: state is ProductPaginationLoading
-                ? productCubit.products.length + 1
-                : productCubit.products.length,
-            itemBuilder: (context, index) {
-              return index < productCubit.products.length
-                  ? ProductCard(
-                      product: productCubit.products[index],
-                    )
-                  : const ProductShimmerCard();
-            },
-            staggeredTileBuilder: (int index) =>
-                StaggeredTile.count(2, index.isOdd ? 4.0 : 3.4),
-            mainAxisSpacing: 24.0,
-            crossAxisSpacing: 17.0,
-          );
+          return productCubit.products.isEmpty
+              ? CustomErrorWidget(title: 'Sorry There is no products ')
+              : StaggeredGridView.countBuilder(
+                  controller: _scrollController,
+                  crossAxisCount: 4,
+                  itemCount: state is ProductPaginationLoading
+                      ? productCubit.products.length + 1
+                      : productCubit.products.length,
+                  itemBuilder: (context, index) {
+                    return index < productCubit.products.length
+                        ? ProductCard(
+                            product: productCubit.products[index],
+                          )
+                        : const ProductShimmerCard();
+                  },
+                  staggeredTileBuilder: (int index) =>
+                      StaggeredTile.count(2, index.isOdd ? 4.0 : 3.4),
+                  mainAxisSpacing: 24.0,
+                  crossAxisSpacing: 17.0,
+                );
         } else {
           return StaggeredGridView.countBuilder(
             controller: _scrollController,

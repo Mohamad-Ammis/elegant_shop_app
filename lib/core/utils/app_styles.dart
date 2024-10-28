@@ -38,6 +38,8 @@ class Styles {
       fontFamily: kFontFamily, fontSize: 20, fontWeight: FontWeight.w600);
   static TextStyle style20Bold = const TextStyle(
       fontFamily: kFontFamily, fontSize: 20, fontWeight: FontWeight.bold);
+        static TextStyle style28SemiBold = const TextStyle(
+      fontFamily: kFontFamily, fontSize: 28, fontWeight: FontWeight.w600);
   static TextStyle style32Bold = const TextStyle(
       fontFamily: kFontFamily, fontSize: 32, fontWeight: FontWeight.bold);
 }

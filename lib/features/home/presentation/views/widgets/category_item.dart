@@ -17,7 +17,7 @@ class CategoryItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 4),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: BoxDecoration(
-        color: isActive ? Colors.black : null,
+        color: isActive ? kLightBlackColor : null,
         borderRadius: BorderRadius.circular(8),
         border: isActive ? null : Border.all(width: 0.1, color: kSubTitleColor),
       ),
