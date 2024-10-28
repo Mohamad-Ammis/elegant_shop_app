@@ -47,13 +47,13 @@ class _ProductDetailsImageSectionState
                     ),
                   ),
                 ),
-                CustomSpecialIcon(
+                const CustomSpecialIcon(
                   alignment: Alignment.topLeft,
-                  icon: const Icon(Icons.arrow_back_ios_sharp),
+                  icon: Icon(Icons.arrow_back_ios_sharp),
                 ),
-                CustomSpecialIcon(
+                const CustomSpecialIcon(
                   alignment: Alignment.topRight,
-                  icon: const Icon(Icons.favorite),
+                  icon: Icon(Icons.favorite_border),
                 ),
               ],
             ),

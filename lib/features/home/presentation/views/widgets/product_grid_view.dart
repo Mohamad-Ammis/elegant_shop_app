@@ -66,7 +66,7 @@ class _ProductsGridViewState extends State<ProductsGridView> {
             state is ProductPaginationLoading ||
             state is ProductPaginationFailure) {
           return productCubit.products.isEmpty
-              ? CustomErrorWidget(title: 'Sorry There is no products ')
+              ? const CustomErrorWidget(title: 'Sorry There is no products ')
               : StaggeredGridView.countBuilder(
                   controller: _scrollController,
                   crossAxisCount: 4,

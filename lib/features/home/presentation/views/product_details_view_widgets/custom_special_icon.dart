@@ -15,10 +15,10 @@ class CustomSpecialIcon extends StatelessWidget {
         child: Align(
       alignment: alignment,
       child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           // height: 45,
           // width: 45,
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(999),
