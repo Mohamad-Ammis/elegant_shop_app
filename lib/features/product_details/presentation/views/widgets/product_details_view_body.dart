@@ -1,6 +1,6 @@
-import 'package:elegant_shop_app/features/home/presentation/views/product_details_view_widgets/product_details_image_section.dart';
-import 'package:elegant_shop_app/features/home/presentation/views/product_details_view_widgets/product_details_info.dart';
-import 'package:elegant_shop_app/features/home/presentation/views/product_details_view_widgets/product_details_reviews_list.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_image_section.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_info.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_reviews_list.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsViewBody extends StatelessWidget {

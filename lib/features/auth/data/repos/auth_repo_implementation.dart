@@ -30,9 +30,9 @@ class AuthRepoImplementation implements AuthRepo {
       }
     } on Exception catch (e) {
       if (e is DioException) {
-        return Left(ServerFaliure.fromDioException(e));
+        return Left(ServerFailure.fromDioException(e));
       }
-      return Left(ServerFaliure(errorMessage: e.toString()));
+      return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
 
@@ -62,9 +62,9 @@ class AuthRepoImplementation implements AuthRepo {
       }
     } on Exception catch (e) {
       if (e is DioException) {
-        return Left(ServerFaliure.fromDioException(e));
+        return Left(ServerFailure.fromDioException(e));
       }
-      return Left(ServerFaliure(errorMessage: e.toString()));
+      return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
 }

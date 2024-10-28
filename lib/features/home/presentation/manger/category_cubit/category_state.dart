@@ -18,5 +18,3 @@ final class CategorySuccess extends CategoryState {
 
   CategorySuccess({required this.categories});
 }
-
-

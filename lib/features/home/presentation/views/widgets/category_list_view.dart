@@ -44,7 +44,7 @@ class _CategoriesListViewState extends State<CategoriesListView> {
                                 state.categories[index].id!;
                             currentIndex = index;
                             cubit.page = 1;
-                            
+
                             cubit.getProductsByCategory(
                                 selectedCategorySlug:
                                     cubit.selectedCategoryId.toString());

@@ -12,6 +12,7 @@ final class ProductSuccess extends ProductState {
 }
 
 final class ProductLoading extends ProductState {}
+
 final class ProductPaginationLoading extends ProductState {}
 
 final class ProductFailure extends ProductState {
@@ -19,6 +20,7 @@ final class ProductFailure extends ProductState {
 
   ProductFailure({required this.errMessage});
 }
+
 final class ProductPaginationFailure extends ProductState {
   final String errMessage;
 

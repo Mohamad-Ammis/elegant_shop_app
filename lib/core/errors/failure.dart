@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -9,115 +8,69 @@ abstract class Failure {
   Failure({required this.errorMessage});
 }
 
-class ServerFaliure extends Failure {
-  ServerFaliure({required super.errorMessage});
-  factory ServerFaliure.fromDioException(DioException dioException) {
-    log(dioException.response?.data?.toString() ?? 'response null');
+class ServerFailure extends Failure {
+  ServerFailure({required super.errorMessage});
+
+  factory ServerFailure.fromDioException(DioException dioException) {
+    // تحقق من أن response ليس null وتسجيل تفاصيل الخطأ في السجل
+    log(dioException.response?.data?.toString() ?? 'Response is null');
+
     switch (dioException.type) {
       case DioExceptionType.connectionTimeout:
-        return ServerFaliure(
-            errorMessage: 'Connection timeout with api server');
+        return ServerFailure(
+            errorMessage: 'Connection timeout with API server');
       case DioExceptionType.sendTimeout:
-        return ServerFaliure(errorMessage: 'Send timeout with api server');
+        return ServerFailure(errorMessage: 'Send timeout with API server');
       case DioExceptionType.receiveTimeout:
-        return ServerFaliure(errorMessage: 'Receive timeout with api server');
+        return ServerFailure(errorMessage: 'Receive timeout with API server');
       case DioExceptionType.badCertificate:
-        return ServerFaliure(errorMessage: 'bad Certificate with api server');
+        return ServerFailure(errorMessage: 'Bad Certificate with API server');
       case DioExceptionType.badResponse:
-        return ServerFaliure.fromResponse(
-            dioException.response!.statusCode!, dioException.response!.data);
-      case DioExceptionType.cancel:
-        return ServerFaliure(errorMessage: 'cancel with api server');
-
-      case DioExceptionType.connectionError:
-        return ServerFaliure(errorMessage: 'connectionError with api server');
-
-      case DioExceptionType.unknown:
-        if (dioException.message != null
-            ? dioException.message!.contains('SocketException')
-            : false) {
-          return ServerFaliure(errorMessage: 'No Internet Connection');
-        }
-        return ServerFaliure(errorMessage: 'unexpected Error ,try again');
-      default:
-        return ServerFaliure(errorMessage: 'unexpected Error ,try again');
-    }
-  }
-  factory ServerFaliure.fromResponse(int statusCode, dynamic resposne) {
-    if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      try {
-        return ServerFaliure(errorMessage: resposne['details']);
-      } catch (e) {
-        debugPrint('e: ${e.toString()}');
-        return ServerFaliure(
-            errorMessage: 'Error happened , please try again!');
-      }
-    } else if (statusCode == 404) {
-      return ServerFaliure(errorMessage: "request not found");
-    } else if (statusCode == 500) {
-      return ServerFaliure(
-          errorMessage: "internal Server Error, please try again later !");
-    } else {
-      return ServerFaliure(
-          errorMessage: "Oops there was an error, please try again later !");
-    }
-  }
-}
-/*
-import 'package:dio/dio.dart';
-
-abstract class Faliure {
-  final String errorMessage;
-
-  Faliure({required this.errorMessage});
-}
-
-class ServerFaliure extends Faliure {
-  ServerFaliure({required super.errorMessage});
-
-  factory ServerFaliure.fromDioException(DioException dioException) {
-    switch (dioException.type) {
-      case DioExceptionType.connectionTimeout:
-        return ServerFaliure(
-            errorMessage: 'Connection timeout with api server');
-      case DioExceptionType.sendTimeout:
-        return ServerFaliure(errorMessage: 'Send timeout with api server');
-      case DioExceptionType.receiveTimeout:
-        return ServerFaliure(errorMessage: 'Receive timeout with api server');
-      case DioExceptionType.badCertificate:
-        return ServerFaliure(errorMessage: 'bad Certificate with api server');
-      case DioExceptionType.badResponse:
-        if (dioException.response != null && dioException.response!.statusCode != null) {
-          return ServerFaliure.fromResponse(
+        // التحقق من وجود `response` و`statusCode` قبل الوصول إليهما
+        if (dioException.response != null &&
+            dioException.response!.statusCode != null) {
+          return ServerFailure.fromResponse(
               dioException.response!.statusCode!, dioException.response!.data);
         }
-        return ServerFaliure(errorMessage: 'Bad response from server');
+        return ServerFailure(
+            errorMessage: 'Received invalid response from server');
       case DioExceptionType.cancel:
-        return ServerFaliure(errorMessage: 'Request to api server was canceled');
+        return ServerFailure(errorMessage: 'Request was cancelled');
       case DioExceptionType.connectionError:
-        return ServerFaliure(errorMessage: 'Connection error with api server');
+        return ServerFailure(errorMessage: 'Connection error with API server');
       case DioExceptionType.unknown:
-        if (dioException.message != null && dioException.message!.contains('SocketException')) {
-          return ServerFaliure(errorMessage: 'No Internet Connection');
+        // تحقق من أن الرسالة تحتوي على 'SocketException' للإشارة إلى انقطاع الإنترنت
+        if (dioException.message != null &&
+            dioException.message!.contains('SocketException')) {
+          return ServerFailure(errorMessage: 'No Internet Connection');
         }
-        return ServerFaliure(errorMessage: 'Unexpected Error, try again');
+        return ServerFailure(
+            errorMessage: 'Unexpected Error, please try again');
       default:
-        return ServerFaliure(errorMessage: 'Unexpected Error, try again');
+        return ServerFailure(
+            errorMessage: 'Unexpected Error, please try again');
     }
   }
 
-  factory ServerFaliure.fromResponse(int statusCode, dynamic response) {
+  factory ServerFailure.fromResponse(int statusCode, dynamic response) {
+    // التحقق من نوع الكود ورسالته بناءً على الاستجابة
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFaliure(errorMessage: response['error']?['message'] ?? "Unauthorized request");
+      try {
+        return ServerFailure(
+            errorMessage: response['details'] ?? 'Authorization error');
+      } catch (e) {
+        debugPrint('Error parsing response: ${e.toString()}');
+        return ServerFailure(errorMessage: 'Authorization error');
+      }
     } else if (statusCode == 404) {
-      return ServerFaliure(errorMessage: "Request not found");
+      return ServerFailure(errorMessage: "Request not found");
     } else if (statusCode == 500) {
-      return ServerFaliure(
+      return ServerFailure(
           errorMessage: "Internal Server Error, please try again later!");
     } else {
-      return ServerFaliure(
-          errorMessage: "Oops there was an error, please try again later!");
+      return ServerFailure(
+          errorMessage:
+              "Oops! An unexpected error occurred, please try again.");
     }
   }
 }
-*/

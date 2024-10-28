@@ -28,9 +28,9 @@ class HomeRepoImplementation implements HomeRepo {
       return Right(categories);
     } catch (e) {
       if (e is DioException) {
-        return Left(ServerFaliure.fromDioException(e));
+        return Left(ServerFailure.fromDioException(e));
       }
-      return Left(ServerFaliure(errorMessage: e.toString()));
+      return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
 
@@ -63,15 +63,17 @@ class HomeRepoImplementation implements HomeRepo {
           }));
         } else {
           completer.complete(
-              Left(ServerFaliure(errorMessage: 'Response or data is null')));
+              Left(ServerFailure(errorMessage: 'Response or data is null')));
         }
       });
       return completer.future;
     } catch (e) {
+      log(e.toString());
       if (e is DioException) {
-        return Left(ServerFaliure.fromDioException(e));
+        return Left(ServerFailure.fromDioException(e));
+      } else {
+        return Left(ServerFailure(errorMessage: e.toString()));
       }
-      return Left(ServerFaliure(errorMessage: e.toString()));
     }
   }
 
@@ -103,15 +105,15 @@ class HomeRepoImplementation implements HomeRepo {
           }));
         } else {
           completer.complete(
-              Left(ServerFaliure(errorMessage: 'Response or data is null')));
+              Left(ServerFailure(errorMessage: 'Response or data is null')));
         }
       });
       return completer.future;
     } catch (e) {
       if (e is DioException) {
-        return Left(ServerFaliure.fromDioException(e));
+        return Left(ServerFailure.fromDioException(e));
       }
-      return Left(ServerFaliure(errorMessage: e.toString()));
+      return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
 
@@ -131,13 +133,13 @@ class HomeRepoImplementation implements HomeRepo {
         log(products.toList().toString());
         return Right(products);
       } else {
-        return Left(ServerFaliure(errorMessage: 'Response or data is null'));
+        return Left(ServerFailure(errorMessage: 'Response or data is null'));
       }
     } on Exception catch (e) {
       if (e is DioException) {
-        return Left(ServerFaliure.fromDioException(e));
+        return Left(ServerFailure.fromDioException(e));
       }
-      return Left(ServerFaliure(errorMessage: e.toString()));
+      return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
 }

@@ -1,9 +1,8 @@
-
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
-import 'package:elegant_shop_app/features/home/presentation/views/product_details_view_widgets/product_details_reviews_rating_icons.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_reviews_rating_icons.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsReviewCard extends StatelessWidget {
@@ -43,7 +42,7 @@ class ProductDetailsReviewCard extends StatelessWidget {
                     const Icon((Icons.more_vert_rounded))
                   ],
                 ),
-                const ProductDetailsReviewRating(),
+                ProductDetailsReviewRating(),
                 10.verticalSizedBox,
                 Text(
                   'Its simple and elegant shape makes it perfect for those of you who like you who want minimalist clothes Read More. . . Its simple and elegant shape makes it perfect for those of you who like you who want minimalist clothes Read More. . .',

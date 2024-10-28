@@ -1,4 +1,3 @@
-
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
@@ -32,7 +31,6 @@ class ProductDetailsFloatingBuySection extends StatelessWidget {
                 ),
               ),
             ),
-
             16.horizontalSizedBox,
             CustomButton(
               width: 60,

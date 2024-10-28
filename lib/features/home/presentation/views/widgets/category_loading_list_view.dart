@@ -1,4 +1,3 @@
-
 import 'package:elegant_shop_app/core/utils/shimmer_custom_container.dart';
 import 'package:flutter/material.dart';
 

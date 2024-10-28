@@ -1,9 +1,10 @@
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
-import 'package:elegant_shop_app/features/home/presentation/views/product_details_view_widgets/custom_special_icon.dart';
-import 'package:elegant_shop_app/features/home/presentation/views/product_details_view_widgets/product_more_image_item.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/custom_special_icon.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_more_image_item.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductDetailsImageSection extends StatefulWidget {
   const ProductDetailsImageSection({super.key});
@@ -47,9 +48,12 @@ class _ProductDetailsImageSectionState
                     ),
                   ),
                 ),
-                const CustomSpecialIcon(
+                CustomSpecialIcon(
                   alignment: Alignment.topLeft,
                   icon: Icon(Icons.arrow_back_ios_sharp),
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                  },
                 ),
                 const CustomSpecialIcon(
                   alignment: Alignment.topRight,
