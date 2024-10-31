@@ -1,14 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
+import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/custom_special_icon.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_more_image_item.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductDetailsImageSection extends StatefulWidget {
-  const ProductDetailsImageSection({super.key});
-
+  const ProductDetailsImageSection(
+      {super.key, required this.productDetailsModel});
+  final ProductDetailsModel productDetailsModel;
   @override
   State<ProductDetailsImageSection> createState() =>
       _ProductDetailsImageSectionState();
@@ -16,7 +20,12 @@ class ProductDetailsImageSection extends StatefulWidget {
 
 class _ProductDetailsImageSectionState
     extends State<ProductDetailsImageSection> {
-  String selectedImage = Assets.imagesProduct1;
+  late String selectedImage;
+  @override
+  void initState() {
+    selectedImage = widget.productDetailsModel.thumbnailUrl ?? '';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +48,30 @@ class _ProductDetailsImageSectionState
                         (Widget child, Animation<double> animation) {
                       return ScaleTransition(scale: animation, child: child);
                     },
-                    child: Image.asset(
-                      key: ValueKey<String>(selectedImage),
-                      selectedImage,
-                      width: double.infinity,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                    child: selectedImage != ''
+                        ? CachedNetworkImage(
+                            key: ValueKey<String>(selectedImage),
+                            width: double.infinity,
+                            height: double.infinity,
+                            imageUrl: selectedImage,
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            placeholder: (context, url) =>
+                                const CustomLoadingWidget(),
+                            errorWidget: (context, url, error) =>
+                                const Center(child: Icon(Icons.error)),
+                          )
+                        : Image.asset(
+                            Assets.imagesErrorImage,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 CustomSpecialIcon(
@@ -63,26 +89,34 @@ class _ProductDetailsImageSectionState
             ),
           ),
           16.verticalSizedBox,
-          SizedBox(
-            height: 75,
-            child: ListView.builder(
-              itemCount: 4,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedImage = Assets.imagesLogin;
-                      });
+          widget.productDetailsModel.images?.isEmpty ?? true
+              ? SizedBox()
+              : SizedBox(
+                  height: 75,
+                  child: ListView.builder(
+                    itemCount: widget.productDetailsModel.images?.length ?? 0,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedImage = widget
+                                      .productDetailsModel.images?[index].url ??
+                                  '';
+                            });
+                          },
+                          child: ProductMoreImagesItem(
+                            image:
+                                widget.productDetailsModel.images?[index].url ??
+                                    '',
+                          ),
+                        ),
+                      );
                     },
-                    child: const ProductMoreImagesItem(),
                   ),
-                );
-              },
-            ),
-          ),
+                ),
         ],
       ),
     );

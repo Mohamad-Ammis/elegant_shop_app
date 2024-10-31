@@ -10,6 +10,8 @@ import 'package:elegant_shop_app/features/home/presentation/manger/category_cubi
 import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/home_view.dart';
 import 'package:elegant_shop_app/features/on_boarding/presentation/views/on_boarding_view.dart';
+import 'package:elegant_shop_app/features/product_details/data/repos/product_details_repo_implementation.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/cubit/get_product_details_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/product_details_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -25,7 +27,7 @@ class AppRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const ProductDetailsView(),
+        builder: (context, state) => const OnBoardingView(),
       ),
       GoRoute(
         path: kHomeView,
@@ -44,6 +46,12 @@ class AppRouter {
                   ProductCubit(homeRepo: getIt.get<HomeRepoImplementation>())
                     ..getAllProducts(),
             ),
+            BlocProvider(
+              create: (context) =>
+                  GetProductDetailsCubit(productDetailsRepo: getIt.get<ProductDetailsRepoImplementation>())
+                    ,
+            ),
+            
           ],
           child: const HomeView(),
         ),
@@ -64,6 +72,16 @@ class AppRouter {
           child: const RegisterView(),
         ),
       ),
+      
+      GoRoute(
+        path: kProductDetailsView,
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              GetProductDetailsCubit(productDetailsRepo: getIt.get<ProductDetailsRepoImplementation>()),
+          child: ProductDetailsView(productInfoUrl: state.extra as String,),
+        ),
+      ),
+      
     ],
   );
 }

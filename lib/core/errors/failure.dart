@@ -51,26 +51,29 @@ class ServerFailure extends Failure {
             errorMessage: 'Unexpected Error, please try again');
     }
   }
-
   factory ServerFailure.fromResponse(int statusCode, dynamic response) {
-    // التحقق من نوع الكود ورسالته بناءً على الاستجابة
-    if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      try {
-        return ServerFailure(
-            errorMessage: response['details'] ?? 'Authorization error');
-      } catch (e) {
-        debugPrint('Error parsing response: ${e.toString()}');
-        return ServerFailure(errorMessage: 'Authorization error');
+    String errorMessage;
+
+    // تحقق مما إذا كانت الاستجابة عبارة عن خريطة (Map) تمثل JSON
+    if (response is Map<String, dynamic>) {
+      if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
+        errorMessage = response['details'] ?? 'Authorization error';
+      } else if (statusCode == 404) {
+        errorMessage = "Request not found";
+      } else if (statusCode == 500) {
+        errorMessage = "Internal Server Error, please try again later!";
+      } else {
+        errorMessage = "Oops! An unexpected error occurred, please try again.";
       }
-    } else if (statusCode == 404) {
-      return ServerFailure(errorMessage: "Request not found");
-    } else if (statusCode == 500) {
-      return ServerFailure(
-          errorMessage: "Internal Server Error, please try again later!");
+    } else if (response is String) {
+      // إذا كانت الاستجابة نصية (مثل HTML)، قم بإرجاع رسالة توضح ذلك
+      errorMessage = "Received unexpected response format from server.";
     } else {
-      return ServerFailure(
-          errorMessage:
-              "Oops! An unexpected error occurred, please try again.");
+      // إذا كانت الاستجابة ليست JSON ولا نصية، أعد رسالة خطأ عامة
+      errorMessage = "An error occurred, please try again later.";
     }
+
+    return ServerFailure(errorMessage: errorMessage);
   }
+
 }

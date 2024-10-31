@@ -67,7 +67,7 @@ class HomeRepoImplementation implements HomeRepo {
         }
       });
       return completer.future;
-    } catch (e) {
+    } catch  (e) {
       log(e.toString());
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));

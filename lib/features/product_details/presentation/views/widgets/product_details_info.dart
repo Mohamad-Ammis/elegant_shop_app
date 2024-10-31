@@ -2,13 +2,16 @@ import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ProductDetailsInfo extends StatelessWidget {
   const ProductDetailsInfo({
     super.key,
+    required this.productDetailsModel,
   });
+  final ProductDetailsModel productDetailsModel;
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +25,17 @@ class ProductDetailsInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Light Dress Bless',
-                style: Styles.style24SemiBold.copyWith(fontSize: 28),
+              SizedBox(
+                width: MediaQuery.sizeOf(context).width / 1.7,
+                child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  productDetailsModel.name ?? '',
+                  style: Styles.style24SemiBold.copyWith(fontSize: 28),
+                ),
               ),
               Text(
-                r'140$',
+                '${productDetailsModel.price ?? ''}\$',
                 style: Styles.style16SemiBold,
               ),
             ],
@@ -40,7 +48,7 @@ class ProductDetailsInfo extends StatelessWidget {
               4.horizontalSizedBox,
               Text.rich(TextSpan(children: [
                 TextSpan(
-                  text: '4.8',
+                  text: productDetailsModel.avgRating.toString(),
                   style: Styles.style12Regular.copyWith(color: kSubTitleColor),
                 ),
                 TextSpan(
@@ -52,7 +60,7 @@ class ProductDetailsInfo extends StatelessWidget {
           ),
           16.verticalSizedBox,
           Text(
-            'Its simple and elegant shape makes it perfect for those of you who like you who want minimalist clothes Read More. . . Its simple and elegant shape makes it perfect for those of you who like you who want minimalist clothes Read More. . .',
+            productDetailsModel.description ?? '',
             style: Styles.style12Regular.copyWith(color: kSubTitleColor),
           ),
         ],

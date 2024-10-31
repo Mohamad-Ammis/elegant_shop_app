@@ -1,11 +1,14 @@
 import 'dart:developer';
+import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_card.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_shimmer_card.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/products_loading_shimmer_grid_view.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/cubit/get_product_details_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
@@ -74,8 +77,13 @@ class _ProductsGridViewState extends State<ProductsGridView> {
                       : productCubit.products.length,
                   itemBuilder: (context, index) {
                     return index < productCubit.products.length
-                        ? ProductCard(
-                            product: productCubit.products[index],
+                        ? GestureDetector(
+                            onTap: () async {
+                              context.push(AppRouter.kProductDetailsView,extra: productCubit.products[index].absoluteUrl);
+                            },
+                            child: ProductCard(
+                              product: productCubit.products[index],
+                            ),
                           )
                         : const ProductShimmerCard();
                   },
