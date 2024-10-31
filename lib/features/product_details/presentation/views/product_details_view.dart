@@ -45,12 +45,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                     ProductDetailsViewBody(
                       productDetailsModel: state.productDetailsModel,
                     ),
-                    ProductDetailsFloatingBuySection(),
+                    const ProductDetailsFloatingBuySection(),
                   ],
                 )
               : state is GetProductDetailsFailure
                   ? CustomErrorWidget(title: state.errMessage)
-                  : CustomLoadingWidget();
+                  : const CustomLoadingWidget();
         },
       ),
     );

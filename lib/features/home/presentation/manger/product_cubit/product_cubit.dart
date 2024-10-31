@@ -86,23 +86,6 @@ class ProductCubit extends Cubit<ProductState> {
     }
   }
 
-  Future<void> getProductsByCategory(
-      {required String selectedCategorySlug}) async {
-    try {
-      emit(ProductLoading());
-      var data = await homeRepo.getProductsByCategory(
-          selectedCategorySlug: selectedCategorySlug);
-      data.fold((left) {
-        emit(ProductFailure(errMessage: left.errorMessage));
-      }, (right) {
-        products = right;
-        emit(ProductSuccess());
-      });
-    } catch (e) {
-      emit(ProductFailure(errMessage: e.toString()));
-    }
-  }
-
   @override
   Future<void> close() {
     log('home Cubit closed');

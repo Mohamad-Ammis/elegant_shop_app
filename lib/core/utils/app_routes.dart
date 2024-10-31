@@ -7,7 +7,9 @@ import 'package:elegant_shop_app/features/auth/presentation/register_presentatio
 import 'package:elegant_shop_app/features/home/data/repos/home_repo_implementation.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_helper_cubit.dart';
+import 'package:elegant_shop_app/features/home/presentation/manger/cubit/get_category_products_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
+import 'package:elegant_shop_app/features/home/presentation/views/category_products_view.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/home_view.dart';
 import 'package:elegant_shop_app/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:elegant_shop_app/features/product_details/data/repos/product_details_repo_implementation.dart';
@@ -27,6 +29,7 @@ class AppRouter {
   static const String kHomeView = "/homeView";
   static const String kProductDetailsView = "/productDetailsView";
   static const String kProductDetailsReviewsView = "/productDetailsReviewsView";
+  static const String kCategoryProductsView = "/categoryProductsView";
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -54,6 +57,10 @@ class AppRouter {
               create: (context) => GetProductDetailsCubit(
                   productDetailsRepo:
                       getIt.get<ProductDetailsRepoImplementation>()),
+            ),
+            BlocProvider(
+              create: (context) => GetCategoryProductsCubit(
+                  homeRepo: getIt.get<HomeRepoImplementation>()),
             ),
           ],
           child: const HomeView(),
@@ -110,7 +117,22 @@ class AppRouter {
             productUrl: state.extra as String,
           ),
         ),
-      )
+      ),
+     GoRoute(
+  path: kCategoryProductsView,
+  builder: (context, state) {
+    final extra = state.extra as Map<String, String>;
+    return BlocProvider(
+      create: (context) => GetCategoryProductsCubit(
+          homeRepo: getIt.get<HomeRepoImplementation>()),
+      child: CategoryProductsView(
+        categoryApiUrl: extra['categoryApiUrl'] ?? '',
+        categoryName: extra['categoryName'] ?? '',
+      ),
+    );
+  },
+),
+
     ],
   );
 }

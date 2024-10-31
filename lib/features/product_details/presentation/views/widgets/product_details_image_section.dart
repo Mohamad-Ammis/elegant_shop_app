@@ -76,7 +76,7 @@ class _ProductDetailsImageSectionState
                 ),
                 CustomSpecialIcon(
                   alignment: Alignment.topLeft,
-                  icon: Icon(Icons.arrow_back_ios_sharp),
+                  icon: const Icon(Icons.arrow_back_ios_sharp),
                   onTap: () {
                     GoRouter.of(context).pop();
                   },
@@ -90,7 +90,7 @@ class _ProductDetailsImageSectionState
           ),
           16.verticalSizedBox,
           widget.productDetailsModel.images?.isEmpty ?? true
-              ? SizedBox()
+              ? const SizedBox()
               : SizedBox(
                   height: 75,
                   child: ListView.builder(

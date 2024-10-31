@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 
 class CategoryHelperCubit extends Cubit<bool> {
   CategoryHelperCubit(super.initialState);
-  bool showCategory = false;
+  bool showCategory = true;
   changeCategoryState() {
     log(showCategory.toString());
     if (showCategory) {

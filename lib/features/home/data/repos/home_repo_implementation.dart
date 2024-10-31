@@ -119,12 +119,12 @@ class HomeRepoImplementation implements HomeRepo {
 
   @override
   Future<Either<Failure, List<ProductModel>>> getProductsByCategory(
-      {required String selectedCategorySlug}) async {
+      {required String apiUrl}) async {
     try {
       products = [];
-      log('$kBaseUrl/products/$selectedCategorySlug/');
+      log(apiUrl);
       var response = await apiService.get(
-        url: '$kBaseUrl/products/$selectedCategorySlug/',
+        url: apiUrl,
       );
       if (response.data != null) {
         for (var product in response.data['products']) {

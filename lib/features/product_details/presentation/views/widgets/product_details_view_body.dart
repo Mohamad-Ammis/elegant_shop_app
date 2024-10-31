@@ -24,7 +24,7 @@ class ProductDetailsViewBody extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Container(
-                margin: EdgeInsets.only(bottom: 100),
+                margin: const EdgeInsets.only(bottom: 100),
                 child: ProductDetailsReviewsList(productUrl: productDetailsModel.absoluteUrl??'',)),
           ),
         ],

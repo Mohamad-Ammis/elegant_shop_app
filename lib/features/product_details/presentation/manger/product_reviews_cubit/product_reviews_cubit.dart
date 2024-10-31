@@ -40,8 +40,7 @@ class ProductReviewsCubit extends Cubit<ProductReviewsState> {
         emit(ProductReviewsFailure(errMessage: e.toString()));
       }
     } on StateError catch (e) {
-      log('e: ${e}');
-      // TODO
+      log('e: $e');
     }
   }
 }

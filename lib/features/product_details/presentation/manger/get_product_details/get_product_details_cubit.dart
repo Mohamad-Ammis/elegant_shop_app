@@ -27,8 +27,7 @@ class GetProductDetailsCubit extends Cubit<GetProductDetailsState> {
         emit(GetProductDetailsFailure(errMessage: e.toString()));
       }
     } on StateError catch (e) {
-      log('e: ${e}');
-      // TODO
+      log('e: $e');
     }
   }
 

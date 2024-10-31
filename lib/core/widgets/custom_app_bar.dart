@@ -15,7 +15,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             context.pop();
           },
-          icon: Icon(Icons.arrow_back_ios)),
+          icon: const Icon(Icons.arrow_back_ios)),
       title: Text(
         title,
         style: Styles.style16SemiBold,
@@ -25,5 +25,5 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size(double.infinity, 56);
+  Size get preferredSize => const Size(double.infinity, 56);
 }

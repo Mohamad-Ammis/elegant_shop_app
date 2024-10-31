@@ -11,5 +11,5 @@ abstract class HomeRepo {
   Future<Either<Failure, Map<String, dynamic>>> searchProducts(
       {int page = 1, String? searchText});
   Future<Either<Failure, List<ProductModel>>> getProductsByCategory(
-      {required String selectedCategorySlug});
+      {required String apiUrl});
 }

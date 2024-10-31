@@ -51,7 +51,9 @@ class ProductCard extends StatelessWidget {
                   4.horizontalSizedBox,
                   Text(
                     overflow: TextOverflow.ellipsis,
-                    '5.0',
+                    product.averageRating != null
+                        ? product.averageRating!.toStringAsFixed(1)
+                        : '0.0',
                     style: Styles.style12Regular,
                   ),
                 ],

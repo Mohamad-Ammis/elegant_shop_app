@@ -1,19 +1,16 @@
+
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_shimmer_card.dart';
 import 'package:flutter/material.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
-class ProductsLoadingShimmerGridView extends StatelessWidget {
-  const ProductsLoadingShimmerGridView({
-    super.key,
-  });
+class CategoryProductsShimmerGridView extends StatelessWidget {
+  const CategoryProductsShimmerGridView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return StaggeredGridView.countBuilder(
       crossAxisCount: 4,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
       itemCount: 6,
       itemBuilder: (context, index) {
         return const ProductShimmerCard();
@@ -23,5 +20,6 @@ class ProductsLoadingShimmerGridView extends StatelessWidget {
       mainAxisSpacing: 24.0,
       crossAxisSpacing: 17.0,
     );
+    
   }
 }

@@ -34,7 +34,7 @@ class ProductDetailsReviewsList extends StatelessWidget {
                           style: Styles.style20Regular,
                         ),
                         TextButton(
-                          style: ButtonStyle(
+                          style: const ButtonStyle(
                             padding: WidgetStatePropertyAll(
                               EdgeInsets.all(0),
                             ),
@@ -65,7 +65,7 @@ class ProductDetailsReviewsList extends StatelessWidget {
               )
             : state is ProductImportantReviewsFailure
                 ? CustomErrorWidget(title: state.errMessage)
-                : CustomLoadingWidget();
+                : const CustomLoadingWidget();
       },
     );
   }

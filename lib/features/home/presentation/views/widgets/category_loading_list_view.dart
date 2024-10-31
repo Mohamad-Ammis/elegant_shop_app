@@ -9,15 +9,15 @@ class CategoryLoadingShimmerListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 35,
+      height: 60,
       child: ListView.builder(
           itemCount: 5,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return const ShimmerContainer(
               width: 60,
-              height: 30,
-              circularRadius: 16,
+              height: 60,
+              circularRadius: 999,
               margin: EdgeInsets.only(right: 8),
             );
           }),

@@ -27,8 +27,7 @@ class ProductImportantReviewsCubit extends Cubit<ProductImportantReviewsState> {
     emit(ProductImportantReviewsFailure(errMessage: e.toString()));
   }
 } on StateError catch (e) {
-  log('e: ${e}');
-  // TODO
+  log('e: $e');
 }
   }
 
