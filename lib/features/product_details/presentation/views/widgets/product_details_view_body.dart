@@ -9,17 +9,23 @@ class ProductDetailsViewBody extends StatelessWidget {
   final ProductDetailsModel productDetailsModel;
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
+    return SafeArea(
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: ProductDetailsImageSection(productDetailsModel: productDetailsModel,),
+            child: ProductDetailsImageSection(
+              productDetailsModel: productDetailsModel,
+            ),
           ),
           SliverToBoxAdapter(
-            child: ProductDetailsInfo(productDetailsModel: productDetailsModel,),
+            child: ProductDetailsInfo(
+              productDetailsModel: productDetailsModel,
+            ),
           ),
           SliverToBoxAdapter(
-            child: ProductDetailsReviewsList(),
+            child: Container(
+                margin: EdgeInsets.only(bottom: 100),
+                child: ProductDetailsReviewsList()),
           ),
         ],
       ),

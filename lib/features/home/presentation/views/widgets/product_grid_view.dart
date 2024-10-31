@@ -5,7 +5,7 @@ import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_card.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_shimmer_card.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/products_loading_shimmer_grid_view.dart';
-import 'package:elegant_shop_app/features/product_details/presentation/manger/cubit/get_product_details_cubit.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/get_product_details/get_product_details_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -79,7 +79,9 @@ class _ProductsGridViewState extends State<ProductsGridView> {
                     return index < productCubit.products.length
                         ? GestureDetector(
                             onTap: () async {
-                              context.push(AppRouter.kProductDetailsView,extra: productCubit.products[index].absoluteUrl);
+                              context.push(AppRouter.kProductDetailsView,
+                                  extra:
+                                      productCubit.products[index].absoluteUrl);
                             },
                             child: ProductCard(
                               product: productCubit.products[index],

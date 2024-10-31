@@ -22,7 +22,6 @@ class ProductImageSection extends StatelessWidget {
         ),
         child: product.thumbnailUrl != null
             ? CachedNetworkImage(
-              
                 width: double.infinity,
                 imageUrl: product.thumbnailUrl!,
                 imageBuilder: (context, imageProvider) => Container(

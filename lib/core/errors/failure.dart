@@ -75,5 +75,4 @@ class ServerFailure extends Failure {
 
     return ServerFailure(errorMessage: errorMessage);
   }
-
 }

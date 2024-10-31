@@ -15,19 +15,30 @@ class GetProductDetailsCubit extends Cubit<GetProductDetailsState> {
     try {
       try {
         emit(GetProductDetailsLoading());
-        var data =
-            await productDetailsRepo.getProductsInfo(productUrl: productUrl);
-        data.fold((failure) {
-          emit(GetProductDetailsFailure(errMessage: failure.errorMessage));
-        }, (data) {
-          emit(GetProductDetailsSuccess(productDetailsModel: data));
-        });
-      } catch (e) {
-        emit(GetProductDetailsFailure(errMessage: e.toString()));
+      } on Exception catch (e) {
+        log('e: ${e}');
       }
-    } on StateError catch (e) {
-      log('e: ${e}');
-      // TODO
+      var data =
+          await productDetailsRepo.getProductsInfo(productUrl: productUrl);
+      data.fold((failure) {
+        try {
+          emit(GetProductDetailsFailure(errMessage: failure.errorMessage));
+        } on Exception catch (e) {
+          log('e: ${e}');
+        }
+      }, (data) {
+        try {
+          emit(GetProductDetailsSuccess(productDetailsModel: data));
+        } on Exception catch (e) {
+          log('e: ${e}');
+        }
+      });
+    } catch (e) {
+      try {
+        emit(GetProductDetailsFailure(errMessage: e.toString()));
+      } on Exception catch (e) {
+        log('e: ${e}');
+      }
     }
   }
 }
