@@ -13,32 +13,28 @@ class GetProductDetailsCubit extends Cubit<GetProductDetailsState> {
   final ProductDetailsRepo productDetailsRepo;
   Future<void> getProductDetails({required String productUrl}) async {
     try {
+      //only for handel bad state exception
       try {
         emit(GetProductDetailsLoading());
-      } on Exception catch (e) {
-        log('e: ${e}');
-      }
-      var data =
-          await productDetailsRepo.getProductsInfo(productUrl: productUrl);
-      data.fold((failure) {
-        try {
+        var data =
+            await productDetailsRepo.getProductsInfo(productUrl: productUrl);
+        data.fold((failure) {
           emit(GetProductDetailsFailure(errMessage: failure.errorMessage));
-        } on Exception catch (e) {
-          log('e: ${e}');
-        }
-      }, (data) {
-        try {
+        }, (data) {
           emit(GetProductDetailsSuccess(productDetailsModel: data));
-        } on Exception catch (e) {
-          log('e: ${e}');
-        }
-      });
-    } catch (e) {
-      try {
+        });
+      } catch (e) {
         emit(GetProductDetailsFailure(errMessage: e.toString()));
-      } on Exception catch (e) {
-        log('e: ${e}');
       }
+    } on StateError catch (e) {
+      log('e: ${e}');
+      // TODO
     }
+  }
+
+  @override
+  Future<void> close() {
+    log('get product details cubit closed');
+    return super.close();
   }
 }

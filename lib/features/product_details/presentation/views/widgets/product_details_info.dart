@@ -48,7 +48,7 @@ class ProductDetailsInfo extends StatelessWidget {
               4.horizontalSizedBox,
               Text.rich(TextSpan(children: [
                 TextSpan(
-                  text: productDetailsModel.avgRating.toString(),
+                  text: productDetailsModel.toString(),
                   style: Styles.style12Regular.copyWith(color: kSubTitleColor),
                 ),
                 TextSpan(

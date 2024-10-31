@@ -9,5 +9,8 @@ abstract class ProductDetailsRepo {
       
   Future<Either<Failure, List<ReviewModel>>> getProductsImportantReviews(
       {required String productUrl});
+      
+  Future<Either<Failure, Map<String,dynamic>>> getProductsReviews(
+      {required String productUrl,int page=1});
 
 }

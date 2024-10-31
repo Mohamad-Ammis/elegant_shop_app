@@ -122,6 +122,7 @@ class HomeRepoImplementation implements HomeRepo {
       {required String selectedCategorySlug}) async {
     try {
       products = [];
+      log('$kBaseUrl/products/$selectedCategorySlug/');
       var response = await apiService.get(
         url: '$kBaseUrl/products/$selectedCategorySlug/',
       );

@@ -28,7 +28,7 @@ class _ProductsGridViewState extends State<ProductsGridView> {
   void initState() {
     productCubit = context.read<ProductCubit>();
     super.initState();
-    _scrollController.addListener(_onScroll); // الاستماع لعملية التمرير
+    _scrollController.addListener(_onScroll); 
   }
 
   void _onScroll() {

@@ -7,7 +7,6 @@ import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/review_model/review_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_reviews_rating_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class ProductDetailsReviewCard extends StatelessWidget {
   const ProductDetailsReviewCard({

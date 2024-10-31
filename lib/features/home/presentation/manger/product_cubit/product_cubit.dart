@@ -102,4 +102,10 @@ class ProductCubit extends Cubit<ProductState> {
       emit(ProductFailure(errMessage: e.toString()));
     }
   }
+
+  @override
+  Future<void> close() {
+    log('home Cubit closed');
+    return super.close();
+  }
 }
