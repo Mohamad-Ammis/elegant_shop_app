@@ -4,6 +4,7 @@ import 'package:elegant_shop_app/features/auth/presentation/login_presentation/v
 import 'package:elegant_shop_app/features/auth/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:elegant_shop_app/features/auth/presentation/manger/register_cubit/register_cubit.dart';
 import 'package:elegant_shop_app/features/auth/presentation/register_presentation/presentation/views/register_view.dart';
+import 'package:elegant_shop_app/features/favorite/presentation/views/favorite_view.dart';
 import 'package:elegant_shop_app/features/home/data/repos/home_repo_implementation.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_helper_cubit.dart';
@@ -11,7 +12,6 @@ import 'package:elegant_shop_app/features/home/presentation/manger/cubit/get_cat
 import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/category_products_view.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/home_view.dart';
-import 'package:elegant_shop_app/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:elegant_shop_app/features/product_details/data/repos/product_details_repo_implementation.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/get_product_details/get_product_details_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
@@ -34,7 +34,7 @@ class AppRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const OnBoardingView(),
+        builder: (context, state) => const FavoriteView(),
       ),
       GoRoute(
         path: kHomeView,
