@@ -18,9 +18,14 @@ class ProductDetailsRepoImplementation implements ProductDetailsRepo {
   Future<Either<Failure, ProductDetailsModel>> getProductsInfo(
       {required String productUrl}) async {
     try {
-      var response = await apiService.get(url: productUrl, headers: {
-        'Accept': 'application/json',
-      });
+      var response = await apiService.get(
+          url: productUrl,
+          headers: {
+            'Accept': 'application/json',
+            "Authorization":
+                "Token ${userInfo.getString('auth_token').toString()}"
+          },
+          contentType: 'application/json');
       ProductDetailsModel model = ProductDetailsModel.fromJson(response.data);
       log('get product info Successfuly');
       return Right(model);
@@ -107,7 +112,7 @@ class ProductDetailsRepoImplementation implements ProductDetailsRepo {
       if (response.statusCode == 201) {
         log("Review Added Successfully");
         return const Right(true);
-      }else {
+      } else {
         return const Right(false);
       }
     } catch (e) {

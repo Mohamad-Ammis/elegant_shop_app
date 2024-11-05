@@ -6,14 +6,18 @@ import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_review_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductDetailsReviewsList extends StatelessWidget {
-  const ProductDetailsReviewsList({super.key, required this.productDetailsModel});
+  const ProductDetailsReviewsList(
+      {super.key, required this.productDetailsModel, required this.productImportantReviewsCubit, required this.reviewsCubit});
   final ProductDetailsModel productDetailsModel;
+    final ProductImportantReviewsCubit productImportantReviewsCubit;
+  final ProductReviewsCubit reviewsCubit;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductImportantReviewsCubit,
@@ -41,7 +45,14 @@ class ProductDetailsReviewsList extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            context.push(AppRouter.kProductDetailsReviewsView,extra:productDetailsModel );
+                            context.push(AppRouter.kProductDetailsReviewsView,
+                                extra: {
+                                  'product_details_model': productDetailsModel,
+                                  'product_important_reviews_cubit': context
+                                      .read<ProductImportantReviewsCubit>(),
+                                      'reviews_cubit': context
+                                      .read<ProductReviewsCubit>(),
+                                });
                           },
                           child: Text(
                             'See more',
@@ -58,7 +69,7 @@ class ProductDetailsReviewsList extends StatelessWidget {
                       itemCount: state.reviews.length,
                       itemBuilder: (context, index) {
                         return ProductDetailsReviewCard(
-                            reviewModel: state.reviews[index]);
+                            reviewModel: state.reviews[index], productImportantReviewsCubit: productImportantReviewsCubit, reviewsCubit: reviewsCubit,);
                       },
                     ),
                   ],

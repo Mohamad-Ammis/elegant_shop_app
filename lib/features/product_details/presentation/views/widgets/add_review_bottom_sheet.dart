@@ -8,6 +8,7 @@ import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/review_input_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/cubit/add_product_review_cubit.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:elegant_shop_app/main.dart';
 import 'package:elegant_shop_app/widgets/custom_button.dart';
@@ -18,13 +19,16 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AddReviewBottomSheet extends StatefulWidget {
-  final ProductReviewsCubit reviewsCubit;
 
-  const AddReviewBottomSheet(
-      {super.key,
-      required this.reviewsCubit,
-      required this.productDetailsModel});
+  const AddReviewBottomSheet({
+    super.key,
+    required this.reviewsCubit,
+    required this.productDetailsModel,
+    required this.productImportantReviewsCubit,
+  });
   final ProductDetailsModel productDetailsModel;
+  final ProductImportantReviewsCubit productImportantReviewsCubit;
+  final ProductReviewsCubit reviewsCubit;
 
   @override
   State<AddReviewBottomSheet> createState() => _AddReviewBottomSheetState();
@@ -127,6 +131,8 @@ class _AddReviewBottomSheetState extends State<AddReviewBottomSheet> {
       Navigator.of(context).pop();
       widget.reviewsCubit.page = 1;
       widget.reviewsCubit.getProductReviews(
+          productUrl: widget.productDetailsModel.absoluteUrl!);
+      widget.productImportantReviewsCubit.getProductImportantReviews(
           productUrl: widget.productDetailsModel.absoluteUrl!);
     } else {
       Navigator.of(context).pop();

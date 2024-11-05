@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:elegant_shop_app/core/widgets/custom_empty_state_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_review_card.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ProductReviewsListView extends StatefulWidget {
   const ProductReviewsListView({
     super.key,
-    required this.productUrl,
+    required this.productUrl, required this.productImportantReviewsCubit, required this.reviewsCubit,
   });
   final String productUrl;
+    final ProductImportantReviewsCubit productImportantReviewsCubit;
+  final ProductReviewsCubit reviewsCubit;
   @override
   State<ProductReviewsListView> createState() => _ProductReviewsListViewState();
 }
@@ -64,7 +67,7 @@ class _ProductReviewsListViewState extends State<ProductReviewsListView> {
                     itemBuilder: (context, index) {
                       return index < cubit.productReview.length
                           ? ProductDetailsReviewCard(
-                              reviewModel: cubit.productReview[index])
+                              reviewModel: cubit.productReview[index], productImportantReviewsCubit: widget.productImportantReviewsCubit, reviewsCubit: widget.reviewsCubit,)
                           : const CustomLoadingWidget();
                     },
                     separatorBuilder: (BuildContext context, int index) {

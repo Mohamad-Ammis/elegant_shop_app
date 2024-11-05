@@ -1,9 +1,13 @@
+import 'package:dio/dio.dart';
+import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/core/utils/service_locator.dart';
 import 'package:elegant_shop_app/features/auth/data/repos/auth_repo_implementation.dart';
 import 'package:elegant_shop_app/features/auth/presentation/login_presentation/views/login_view.dart';
 import 'package:elegant_shop_app/features/auth/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:elegant_shop_app/features/auth/presentation/manger/register_cubit/register_cubit.dart';
 import 'package:elegant_shop_app/features/auth/presentation/register_presentation/presentation/views/register_view.dart';
+import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo_implementation.dart';
+import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/toggle_favorite_cubit.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/views/favorite_view.dart';
 import 'package:elegant_shop_app/features/home/data/repos/home_repo_implementation.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_cubit.dart';
@@ -37,13 +41,6 @@ class AppRouter {
   static const String kAddProductsReviewView = "/addProductReview";
   static final router = GoRouter(
     routes: [
-      GoRoute(
-        path: kAddProductsReviewView,
-        builder: (context, state) => AddReviewBottomSheet(
-          reviewsCubit: state.extra as ProductReviewsCubit,
-          productDetailsModel: state.extra as ProductDetailsModel,
-        ),
-      ),
       GoRoute(
         path: '/',
         builder: (context, state) => const OnBoardingView(),
@@ -113,6 +110,11 @@ class AppRouter {
                   productDetailsRepo:
                       getIt.get<ProductDetailsRepoImplementation>()),
             ),
+            BlocProvider(
+              create: (context) => ToggleFavoriteCubit(
+                  favoriteRepo: FavoriteRepoImplementation(
+                      apiService: ApiService(dio: Dio()))),
+            ),
           ],
           child: ProductDetailsView(
             productInfoUrl: state.extra as String,
@@ -120,25 +122,33 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: kProductDetailsReviewsView,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => ProductReviewsCubit(
-                  productDetailsRepo:
-                      getIt.get<ProductDetailsRepoImplementation>()),
-            ),
-            BlocProvider(
-              create: (context) => AddProductReviewCubit(
-                  productDetailsRepo:
-                      getIt.get<ProductDetailsRepoImplementation>()),
-            ),
-          ],
-          child: ProductReviewsView(
-            productDetailsModel: state.extra as ProductDetailsModel,
-          ),
-        ),
-      ),
+          path: kProductDetailsReviewsView,
+          builder: (context, state) {
+            final extra = state.extra as Map<String, dynamic>;
+
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => ProductReviewsCubit(
+                      productDetailsRepo:
+                          getIt.get<ProductDetailsRepoImplementation>()),
+                ),
+                BlocProvider(
+                  create: (context) => AddProductReviewCubit(
+                      productDetailsRepo:
+                          getIt.get<ProductDetailsRepoImplementation>()),
+                ),
+              ],
+              child: ProductReviewsView(
+                productDetailsModel:
+                    extra['product_details_model'] as ProductDetailsModel,
+                productImportantReviewsCubit:
+                    extra['product_important_reviews_cubit']
+                        as ProductImportantReviewsCubit,
+                reviewsCubit: extra['reviews_cubit'] as ProductReviewsCubit,
+              ),
+            );
+          }),
       GoRoute(
         path: kCategoryProductsView,
         builder: (context, state) {

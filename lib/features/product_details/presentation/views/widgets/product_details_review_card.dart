@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
@@ -5,7 +7,10 @@ import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/review_model/review_model.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_reviews_rating_icons.dart';
+import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 
@@ -13,8 +18,12 @@ class ProductDetailsReviewCard extends StatelessWidget {
   const ProductDetailsReviewCard({
     super.key,
     required this.reviewModel,
+    required this.productImportantReviewsCubit,
+    required this.reviewsCubit,
   });
   final ReviewModel reviewModel;
+  final ProductImportantReviewsCubit productImportantReviewsCubit;
+  final ProductReviewsCubit reviewsCubit;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +40,6 @@ class ProductDetailsReviewCard extends StatelessWidget {
               child: reviewModel.user?.avatar == null
                   ? Image.asset(Assets.imagesPers)
                   : CachedNetworkImage(
-                    
                       imageUrl: reviewModel.user?.avatar ?? '',
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
@@ -63,7 +71,33 @@ class ProductDetailsReviewCard extends StatelessWidget {
                         style: Styles.style20Regular,
                       ),
                     ),
-                    const Icon((Icons.more_vert_rounded))
+                    reviewModel.user!.username.toString() ==
+                            userInfo.getString('user_name')
+                        ? PopupMenuButton<int>(
+                            color: Colors.white,
+                            onSelected: (value) {
+                              if (value == 1) {
+                                // تنفيذ كود الحذف هنا
+                              }
+                            },
+                            itemBuilder: (context) => [
+                              PopupMenuItem(
+                                height: 25,
+                                value: 1,
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.delete, color: Colors.red),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Delete",
+                                      style: Styles.style14Regular,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        : SizedBox()
                   ],
                 ),
                 ProductDetailsReviewRating(

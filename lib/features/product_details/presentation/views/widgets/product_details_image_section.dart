@@ -1,12 +1,20 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:elegant_shop_app/constans.dart';
+import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
+import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo.dart';
+import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo_implementation.dart';
+import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/toggle_favorite_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/custom_special_icon.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_more_image_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductDetailsImageSection extends StatefulWidget {
@@ -20,10 +28,13 @@ class ProductDetailsImageSection extends StatefulWidget {
 
 class _ProductDetailsImageSectionState
     extends State<ProductDetailsImageSection> {
+  late bool isFavorite;
   late String selectedImage;
   @override
   void initState() {
     selectedImage = widget.productDetailsModel.thumbnailUrl ?? '';
+    log('widget.productDetailsModel.isFavorite: ${widget.productDetailsModel.isFavorite}');
+    isFavorite = widget.productDetailsModel.isFavorite ?? false;
     super.initState();
   }
 
@@ -81,9 +92,31 @@ class _ProductDetailsImageSectionState
                     GoRouter.of(context).pop();
                   },
                 ),
-                const CustomSpecialIcon(
-                  alignment: Alignment.topRight,
-                  icon: Icon(Icons.favorite_border),
+                BlocBuilder<ToggleFavoriteCubit, ToggleFavoriteState>(
+                  builder: (context, state) {
+                    return CustomSpecialIcon(
+                      alignment: Alignment.topRight,
+                      icon: state is ToggleFavoriteLoading
+                          ? SizedBox(
+                              height: 23,
+                              width: 23,
+                              child: CircularProgressIndicator(),
+                            )
+                          : Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: isFavorite ? Colors.red : Colors.black,
+                            ),
+                      onTap: () async {
+                        isFavorite = await context
+                            .read<ToggleFavoriteCubit>()
+                            .toggleFavorite(
+                                productID:
+                                    widget.productDetailsModel.id.toString());
+                      },
+                    );
+                  },
                 ),
               ],
             ),

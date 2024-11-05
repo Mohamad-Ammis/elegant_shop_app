@@ -7,7 +7,7 @@ class CustomSpecialIcon extends StatelessWidget {
     required this.alignment,
     this.onTap,
   });
-  final Icon icon;
+  final Widget icon;
   final Alignment alignment;
   final void Function()? onTap;
   @override
