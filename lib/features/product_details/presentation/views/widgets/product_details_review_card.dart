@@ -7,6 +7,7 @@ import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/review_model/review_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_reviews_rating_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:readmore/readmore.dart';
 
 class ProductDetailsReviewCard extends StatelessWidget {
   const ProductDetailsReviewCard({
@@ -30,6 +31,7 @@ class ProductDetailsReviewCard extends StatelessWidget {
               child: reviewModel.user?.avatar == null
                   ? Image.asset(Assets.imagesPers)
                   : CachedNetworkImage(
+                    
                       imageUrl: reviewModel.user?.avatar ?? '',
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(
@@ -68,9 +70,17 @@ class ProductDetailsReviewCard extends StatelessWidget {
                   count: reviewModel.rating ?? 0,
                 ),
                 10.verticalSizedBox,
-                Text(
+                ReadMoreText(
                   reviewModel.comment ?? '',
+                  trimMode: TrimMode.Line,
+                  trimLines: 5,
                   style: Styles.style12Regular.copyWith(color: kSubTitleColor),
+                  colorClickableText: Colors.pink,
+                  moreStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),

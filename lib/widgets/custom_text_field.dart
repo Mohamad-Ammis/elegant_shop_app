@@ -13,12 +13,14 @@ class CustomTextField extends StatelessWidget {
     required this.focusedBorderColor,
     required this.enabledBorderColor,
     required this.suffixIcon,
+    this.maxLines,
     this.isEmail,
     this.isUserName,
     this.onChanged,
     this.borderRadius,
   });
   final TextStyle textStyle;
+  final int? maxLines;
   final Color cursorColor;
   final String label;
   final TextStyle labelStyle;
@@ -34,6 +36,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       onChanged: onChanged,
       validator: (value) {
         if (isEmail ?? false) {
@@ -47,6 +50,7 @@ class CustomTextField extends StatelessWidget {
       cursorColor: cursorColor,
       style: textStyle,
       decoration: InputDecoration(
+        alignLabelWithHint: true,
         contentPadding: const EdgeInsets.fromLTRB(32, 16, 8, 16),
         label: Text(label),
         labelStyle: labelStyle,

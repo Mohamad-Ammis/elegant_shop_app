@@ -118,21 +118,20 @@ class AppRouter {
           ),
         ),
       ),
-     GoRoute(
-  path: kCategoryProductsView,
-  builder: (context, state) {
-    final extra = state.extra as Map<String, String>;
-    return BlocProvider(
-      create: (context) => GetCategoryProductsCubit(
-          homeRepo: getIt.get<HomeRepoImplementation>()),
-      child: CategoryProductsView(
-        categoryApiUrl: extra['categoryApiUrl'] ?? '',
-        categoryName: extra['categoryName'] ?? '',
+      GoRoute(
+        path: kCategoryProductsView,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, String>;
+          return BlocProvider(
+            create: (context) => GetCategoryProductsCubit(
+                homeRepo: getIt.get<HomeRepoImplementation>()),
+            child: CategoryProductsView(
+              categoryApiUrl: extra['categoryApiUrl'] ?? '',
+              categoryName: extra['categoryName'] ?? '',
+            ),
+          );
+        },
       ),
-    );
-  },
-),
-
     ],
   );
 }

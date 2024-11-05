@@ -15,32 +15,35 @@ class ProductImageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: product.thumbnailUrl != null
-            ? CachedNetworkImage(
-                width: double.infinity,
-                imageUrl: product.thumbnailUrl!,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
+      child: Hero(
+        tag: product.absoluteUrl!,
+        child: Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: product.thumbnailUrl != null
+              ? CachedNetworkImage(
+                  width: double.infinity,
+                  imageUrl: product.thumbnailUrl!,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
+                  placeholder: (context, url) => const CustomLoadingWidget(),
+                  errorWidget: (context, url, error) =>
+                      const Center(child: Icon(Icons.error)),
+                )
+              : Image.asset(
+                  Assets.imagesErrorImage,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
-                placeholder: (context, url) => const CustomLoadingWidget(),
-                errorWidget: (context, url, error) =>
-                    const Center(child: Icon(Icons.error)),
-              )
-            : Image.asset(
-                Assets.imagesErrorImage,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+        ),
       ),
     );
   }

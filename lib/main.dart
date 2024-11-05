@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ Future<void> main() async {
   ));
   setup();
   userInfo = await SharedPreferences.getInstance();
+  log('userInfo: ${userInfo.getString('auth_token')}');
   runApp(const MyApp());
 }
 

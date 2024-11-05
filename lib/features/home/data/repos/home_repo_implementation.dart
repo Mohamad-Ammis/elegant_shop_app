@@ -94,6 +94,8 @@ class HomeRepoImplementation implements HomeRepo {
           url:
               '$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize&search=$searchText',
         );
+        log(response.data.toString());
+
         if (response.data != null) {
           for (var product in response.data['results']) {
             products.add(ProductModel.fromJson(product));

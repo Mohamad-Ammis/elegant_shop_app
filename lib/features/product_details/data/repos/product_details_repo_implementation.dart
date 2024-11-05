@@ -7,6 +7,7 @@ import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/review_model/review_model.dart';
 import 'package:elegant_shop_app/features/product_details/data/repos/product_details_repo.dart';
+import 'package:elegant_shop_app/main.dart';
 
 class ProductDetailsRepoImplementation implements ProductDetailsRepo {
   final ApiService apiService;
@@ -65,10 +66,12 @@ class ProductDetailsRepoImplementation implements ProductDetailsRepo {
       if (page == 1) {
         productReviews.clear();
       }
-      var response = await apiService
-          .get(url: '${productUrl}reviews/?page=$page&page_size=10', headers: {
-        'Accept': 'application/json',
-      });
+      var response = await apiService.get(
+          url: '${productUrl}reviews/?page=$page&page_size=10',
+          headers: {
+            'Accept': 'application/json',
+          },
+          token: userInfo.getString('auth_token'));
       for (var i = 0; i < response.data['results'].length; i++) {
         productReviews.add(ReviewModel.fromJson(response.data['results'][i]));
       }

@@ -13,8 +13,11 @@ class ProductDetailsViewBody extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: ProductDetailsImageSection(
-              productDetailsModel: productDetailsModel,
+            child: Hero(
+              tag: productDetailsModel.absoluteUrl!,
+              child: ProductDetailsImageSection(
+                productDetailsModel: productDetailsModel,
+              ),
             ),
           ),
           SliverToBoxAdapter(
@@ -25,7 +28,9 @@ class ProductDetailsViewBody extends StatelessWidget {
           SliverToBoxAdapter(
             child: Container(
                 margin: const EdgeInsets.only(bottom: 100),
-                child: ProductDetailsReviewsList(productUrl: productDetailsModel.absoluteUrl??'',)),
+                child: ProductDetailsReviewsList(
+                  productUrl: productDetailsModel.absoluteUrl ?? '',
+                )),
           ),
         ],
       ),
