@@ -29,8 +29,7 @@ class ProductDetailsViewBody extends StatelessWidget {
             child: Container(
                 margin: const EdgeInsets.only(bottom: 100),
                 child: ProductDetailsReviewsList(
-                  productUrl: productDetailsModel.absoluteUrl ?? '',
-                )),
+                    productDetailsModel: productDetailsModel)),
           ),
         ],
       ),

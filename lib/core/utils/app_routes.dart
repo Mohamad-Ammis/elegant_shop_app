@@ -12,12 +12,16 @@ import 'package:elegant_shop_app/features/home/presentation/manger/cubit/get_cat
 import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/category_products_view.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/home_view.dart';
+import 'package:elegant_shop_app/features/on_boarding/presentation/views/on_boarding_view.dart';
+import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/data/repos/product_details_repo_implementation.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/cubit/add_product_review_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/get_product_details/get_product_details_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/product_details_view.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/product_reviews_view.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/add_review_bottom_sheet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -30,11 +34,19 @@ class AppRouter {
   static const String kProductDetailsView = "/productDetailsView";
   static const String kProductDetailsReviewsView = "/productDetailsReviewsView";
   static const String kCategoryProductsView = "/categoryProductsView";
+  static const String kAddProductsReviewView = "/addProductReview";
   static final router = GoRouter(
     routes: [
       GoRoute(
+        path: kAddProductsReviewView,
+        builder: (context, state) => AddReviewBottomSheet(
+          reviewsCubit: state.extra as ProductReviewsCubit,
+          productDetailsModel: state.extra as ProductDetailsModel,
+        ),
+      ),
+      GoRoute(
         path: '/',
-        builder: (context, state) => const FavoriteView(),
+        builder: (context, state) => const OnBoardingView(),
       ),
       GoRoute(
         path: kHomeView,
@@ -109,12 +121,21 @@ class AppRouter {
       ),
       GoRoute(
         path: kProductDetailsReviewsView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => ProductReviewsCubit(
-              productDetailsRepo:
-                  getIt.get<ProductDetailsRepoImplementation>()),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => ProductReviewsCubit(
+                  productDetailsRepo:
+                      getIt.get<ProductDetailsRepoImplementation>()),
+            ),
+            BlocProvider(
+              create: (context) => AddProductReviewCubit(
+                  productDetailsRepo:
+                      getIt.get<ProductDetailsRepoImplementation>()),
+            ),
+          ],
           child: ProductReviewsView(
-            productUrl: state.extra as String,
+            productDetailsModel: state.extra as ProductDetailsModel,
           ),
         ),
       ),

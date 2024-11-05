@@ -4,6 +4,7 @@ import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
+import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_review_card.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductDetailsReviewsList extends StatelessWidget {
-  const ProductDetailsReviewsList({super.key, required this.productUrl});
-  final String productUrl;
+  const ProductDetailsReviewsList({super.key, required this.productDetailsModel});
+  final ProductDetailsModel productDetailsModel;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductImportantReviewsCubit,
@@ -40,7 +41,7 @@ class ProductDetailsReviewsList extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            context.push(AppRouter.kProductDetailsReviewsView,extra:productUrl );
+                            context.push(AppRouter.kProductDetailsReviewsView,extra:productDetailsModel );
                           },
                           child: Text(
                             'See more',

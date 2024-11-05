@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:elegant_shop_app/core/errors/failure.dart';
 import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
+import 'package:elegant_shop_app/features/product_details/data/models/review_input_model.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/review_model/review_model.dart';
 import 'package:elegant_shop_app/features/product_details/data/repos/product_details_repo.dart';
 import 'package:elegant_shop_app/main.dart';
@@ -82,6 +83,35 @@ class ProductDetailsRepoImplementation implements ProductDetailsRepo {
       }
       return Right({'has_next': hasNext, 'reviews': productReviews});
     } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> addProductReview(
+      {required ReviewInputModel reviewModel}) async {
+    try {
+      log(reviewModel.toJson().toString());
+      var response = await apiService.post(
+        url: '${reviewModel.apiUrl}reviews/',
+        body: reviewModel.toJson(),
+        headers: {
+          "Accept": 'application/json',
+          'Authorization': "Token ${userInfo.getString('auth_token')}"
+        },
+        contentType: 'application/json',
+      );
+      if (response.statusCode == 201) {
+        log("Review Added Successfully");
+        return const Right(true);
+      }else {
+        return const Right(false);
+      }
+    } catch (e) {
+      log(e.toString());
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));
       }

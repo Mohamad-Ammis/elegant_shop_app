@@ -16,7 +16,7 @@ class ApiService {
             contentType: contentType,
             headers: headers ??
                 {
-                  'Authorization': "Bearer $token",
+                  'Authorization': "Token $token",
                 }));
     return response;
   }
