@@ -36,7 +36,7 @@ class ToggleFavoriteCubit extends Cubit<ToggleFavoriteState> {
     } on StateError catch (e) {
       log('e: $e');
       return status;
-      // 
+      //
     }
   }
 }

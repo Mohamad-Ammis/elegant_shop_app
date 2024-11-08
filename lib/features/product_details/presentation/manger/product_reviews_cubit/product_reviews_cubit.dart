@@ -16,7 +16,8 @@ class ProductReviewsCubit extends Cubit<ProductReviewsState> {
   bool hasNext = false;
   Future<void> getProductReviews(
       {required String productUrl, bool fromPagination = false}) async {
-    try {//only for handel bad state exception
+    try {
+      //only for handel bad state exception
       try {
         if (fromPagination) {
           emit(ProductReviewsPaginaationLoading());

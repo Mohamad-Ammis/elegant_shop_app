@@ -12,10 +12,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AddReviewFloatingButton extends StatelessWidget {
   const AddReviewFloatingButton({
     super.key,
-    required this.productDetailsModel, required this.productImportantReviewsCubit,
+    required this.productDetailsModel,
+    required this.productImportantReviewsCubit,
   });
   final ProductDetailsModel productDetailsModel;
-    final ProductImportantReviewsCubit productImportantReviewsCubit;
+  final ProductImportantReviewsCubit productImportantReviewsCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,8 @@ class AddReviewFloatingButton extends StatelessWidget {
                       getIt.get<ProductDetailsRepoImplementation>()),
               child: AddReviewBottomSheet(
                 reviewsCubit: reviewsCubit,
-                productDetailsModel: productDetailsModel, productImportantReviewsCubit: productImportantReviewsCubit,
+                productDetailsModel: productDetailsModel,
+                productImportantReviewsCubit: productImportantReviewsCubit,
               ),
             );
           },

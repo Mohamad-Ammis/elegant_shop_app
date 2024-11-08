@@ -18,7 +18,9 @@ final class ProductReviewsFailure extends ProductReviewsState {
 
   ProductReviewsFailure({required this.errMessage});
 }
+
 final class ProductReviewsPaginaationLoading extends ProductReviewsState {}
+
 final class ProductReviewsPaginaationFailure extends ProductReviewsState {
   final String errMessage;
 

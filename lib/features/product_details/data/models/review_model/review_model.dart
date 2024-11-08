@@ -24,7 +24,7 @@ class ReviewModel {
   });
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) => ReviewModel(
-    id: json['id'],
+        id: json['id'],
         user: json['user'] == null
             ? null
             : User.fromJson(json['user'] as Map<String, dynamic>),

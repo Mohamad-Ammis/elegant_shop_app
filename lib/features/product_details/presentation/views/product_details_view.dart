@@ -44,9 +44,10 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
               ? Stack(
                   children: [
                     ProductDetailsViewBody(
-                      productDetailsModel: state.productDetailsModel, productImportantReviewsCubit: context
-          .read<ProductImportantReviewsCubit>(), reviewsCubit: context
-          .read<ProductReviewsCubit>(),
+                      productDetailsModel: state.productDetailsModel,
+                      productImportantReviewsCubit:
+                          context.read<ProductImportantReviewsCubit>(),
+                      reviewsCubit: context.read<ProductReviewsCubit>(),
                     ),
                     const ProductDetailsFloatingBuySection(),
                   ],

@@ -7,8 +7,13 @@ import 'package:elegant_shop_app/features/product_details/presentation/views/wid
 import 'package:flutter/material.dart';
 
 class ProductDetailsViewBody extends StatelessWidget {
-  const ProductDetailsViewBody({super.key, required this.productDetailsModel, required this.productImportantReviewsCubit, required this.reviewsCubit});
-  final ProductDetailsModel productDetailsModel;  final ProductImportantReviewsCubit productImportantReviewsCubit;
+  const ProductDetailsViewBody(
+      {super.key,
+      required this.productDetailsModel,
+      required this.productImportantReviewsCubit,
+      required this.reviewsCubit});
+  final ProductDetailsModel productDetailsModel;
+  final ProductImportantReviewsCubit productImportantReviewsCubit;
   final ProductReviewsCubit reviewsCubit;
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,11 @@ class ProductDetailsViewBody extends StatelessWidget {
             child: Container(
                 margin: const EdgeInsets.only(bottom: 100),
                 child: ProductDetailsReviewsList(
-                    productDetailsModel: productDetailsModel, productImportantReviewsCubit: productImportantReviewsCubit, reviewsCubit: reviewsCubit, productUrl: productDetailsModel.absoluteUrl!,)),
+                  productDetailsModel: productDetailsModel,
+                  productImportantReviewsCubit: productImportantReviewsCubit,
+                  reviewsCubit: reviewsCubit,
+                  productUrl: productDetailsModel.absoluteUrl!,
+                )),
           ),
         ],
       ),

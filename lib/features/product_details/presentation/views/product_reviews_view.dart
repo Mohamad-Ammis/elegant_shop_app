@@ -50,13 +50,11 @@ class _ProductReviewsViewState extends State<ProductReviewsView> {
                     widget.productImportantReviewsCubit,
               );
             }
-          }
-          else{
-              return AddReviewFloatingButton(
-                productDetailsModel: widget.productDetailsModel,
-                productImportantReviewsCubit:
-                    widget.productImportantReviewsCubit,
-              );
+          } else {
+            return AddReviewFloatingButton(
+              productDetailsModel: widget.productDetailsModel,
+              productImportantReviewsCubit: widget.productImportantReviewsCubit,
+            );
           }
         }
         return const SizedBox();

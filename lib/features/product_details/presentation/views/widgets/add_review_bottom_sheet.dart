@@ -21,7 +21,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AddReviewBottomSheet extends StatefulWidget {
-
   const AddReviewBottomSheet({
     super.key,
     required this.reviewsCubit,
@@ -78,7 +77,8 @@ class _AddReviewBottomSheetState extends State<AddReviewBottomSheet> {
                   textStyle: Styles.style14Regular,
                   cursorColor: Colors.black,
                   label: 'Comment',
-                  labelStyle: Styles.style16Regular.copyWith(color: Colors.black54),
+                  labelStyle:
+                      Styles.style16Regular.copyWith(color: Colors.black54),
                   filled: true,
                   fillColor: kLightGreyColor,
                   focusedBorderColor: kLightBlackColor.withOpacity(.2),

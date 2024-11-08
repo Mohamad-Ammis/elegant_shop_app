@@ -7,17 +7,16 @@ import 'package:elegant_shop_app/features/product_details/data/models/review_mod
 abstract class ProductDetailsRepo {
   Future<Either<Failure, ProductDetailsModel>> getProductsInfo(
       {required String productUrl});
-      
+
   Future<Either<Failure, List<ReviewModel>>> getProductsImportantReviews(
       {required String productUrl});
-      
-  Future<Either<Failure, Map<String,dynamic>>> getProductsReviews(
-      {required String productUrl,int page=1});
-  
+
+  Future<Either<Failure, Map<String, dynamic>>> getProductsReviews(
+      {required String productUrl, int page = 1});
+
   Future<Either<Failure, bool>> addProductReview(
       {required ReviewInputModel reviewModel});
-  
-  Future<Either<Failure, bool>> deleteProductReview(
-      {required String productUrl,required String reviewId});
 
+  Future<Either<Failure, bool>> deleteProductReview(
+      {required String productUrl, required String reviewId});
 }

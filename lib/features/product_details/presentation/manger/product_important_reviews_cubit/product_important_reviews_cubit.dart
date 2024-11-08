@@ -13,22 +13,23 @@ class ProductImportantReviewsCubit extends Cubit<ProductImportantReviewsState> {
   final ProductDetailsRepo productDetailsRepo;
   Future<void> getProductImportantReviews({required String productUrl}) async {
     try {
-  try {
-    emit(ProductImportantReviewsLoading());
-  
-    var data = await productDetailsRepo.getProductsImportantReviews(
-        productUrl: productUrl);
-    data.fold((failure) {
-      emit(ProductImportantReviewsFailure(errMessage: failure.errorMessage));
-    }, (data) {
-      emit(ProductImportantReviewsSuccess(reviews: data));
-    });
-  } catch (e) {
-    emit(ProductImportantReviewsFailure(errMessage: e.toString()));
-  }
-} on StateError catch (e) {
-  log('e: $e');
-}
+      try {
+        emit(ProductImportantReviewsLoading());
+
+        var data = await productDetailsRepo.getProductsImportantReviews(
+            productUrl: productUrl);
+        data.fold((failure) {
+          emit(
+              ProductImportantReviewsFailure(errMessage: failure.errorMessage));
+        }, (data) {
+          emit(ProductImportantReviewsSuccess(reviews: data));
+        });
+      } catch (e) {
+        emit(ProductImportantReviewsFailure(errMessage: e.toString()));
+      }
+    } on StateError catch (e) {
+      log('e: $e');
+    }
   }
 
   @override

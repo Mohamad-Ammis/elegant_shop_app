@@ -5,7 +5,9 @@ import 'package:elegant_shop_app/features/auth/presentation/manger/login_cubit/l
 import 'package:elegant_shop_app/features/auth/presentation/manger/register_cubit/register_cubit.dart';
 import 'package:elegant_shop_app/features/auth/presentation/register_presentation/presentation/views/register_view.dart';
 import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo_implementation.dart';
-import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/toggle_favorite_cubit.dart';
+import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/get_all_favorites_products_cubit.dart';
+import 'package:elegant_shop_app/features/favorite/presentation/manger/toggle_favorite_cubit/toggle_favorite_cubit.dart';
+import 'package:elegant_shop_app/features/favorite/presentation/views/favorite_view.dart';
 import 'package:elegant_shop_app/features/home/data/repos/home_repo_implementation.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_helper_cubit.dart';
@@ -36,10 +38,11 @@ class AppRouter {
   static const String kProductDetailsReviewsView = "/productDetailsReviewsView";
   static const String kCategoryProductsView = "/categoryProductsView";
   static const String kAddProductsReviewView = "/addProductReview";
+  static const String kFavoriteView = "/favoriteView";
   static final router = GoRouter(
     routes: [
       GoRoute(
-        path: '/',
+        path: '/1',
         builder: (context, state) => const OnBoardingView(),
       ),
       GoRoute(
@@ -140,10 +143,10 @@ class AppRouter {
                           getIt.get<ProductDetailsRepoImplementation>()),
                 ),
                 BlocProvider(
-              create: (context) => DeleteProductReviewCubit(
-                  productDetailsRepo:
-                      getIt.get<ProductDetailsRepoImplementation>()),
-            ),
+                  create: (context) => DeleteProductReviewCubit(
+                      productDetailsRepo:
+                          getIt.get<ProductDetailsRepoImplementation>()),
+                ),
               ],
               child: ProductReviewsView(
                 productDetailsModel:
@@ -167,6 +170,17 @@ class AppRouter {
               categoryName: extra['categoryName'] ?? '',
             ),
           );
+        },
+      ),
+      GoRoute(
+        path: '/',
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => GetAllFavoritesProductsCubit(
+                favoriteRepo: getIt.get<FavoriteRepoImplementation>())..getAllFavoriteProducts(),
+          child: FavoriteView(),
+          );
+          
         },
       ),
     ],

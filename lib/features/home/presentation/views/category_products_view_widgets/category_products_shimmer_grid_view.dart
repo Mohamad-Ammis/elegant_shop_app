@@ -1,4 +1,3 @@
-
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_shimmer_card.dart';
 import 'package:flutter/material.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
@@ -20,6 +19,5 @@ class CategoryProductsShimmerGridView extends StatelessWidget {
       mainAxisSpacing: 24.0,
       crossAxisSpacing: 17.0,
     );
-    
   }
 }

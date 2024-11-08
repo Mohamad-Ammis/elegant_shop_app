@@ -5,7 +5,7 @@ import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
-import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/toggle_favorite_cubit.dart';
+import 'package:elegant_shop_app/features/favorite/presentation/manger/toggle_favorite_cubit/toggle_favorite_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/custom_special_icon.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_more_image_item.dart';

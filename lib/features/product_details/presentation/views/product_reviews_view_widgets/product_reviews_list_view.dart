@@ -12,10 +12,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ProductReviewsListView extends StatefulWidget {
   const ProductReviewsListView({
     super.key,
-    required this.productUrl, required this.productImportantReviewsCubit, required this.reviewsCubit,
+    required this.productUrl,
+    required this.productImportantReviewsCubit,
+    required this.reviewsCubit,
   });
   final String productUrl;
-    final ProductImportantReviewsCubit productImportantReviewsCubit;
+  final ProductImportantReviewsCubit productImportantReviewsCubit;
   final ProductReviewsCubit reviewsCubit;
   @override
   State<ProductReviewsListView> createState() => _ProductReviewsListViewState();
@@ -67,7 +69,12 @@ class _ProductReviewsListViewState extends State<ProductReviewsListView> {
                     itemBuilder: (context, index) {
                       return index < cubit.productReview.length
                           ? ProductDetailsReviewCard(
-                              reviewModel: cubit.productReview[index], productImportantReviewsCubit: widget.productImportantReviewsCubit, reviewsCubit: widget.reviewsCubit, productUrl: widget.productUrl,)
+                              reviewModel: cubit.productReview[index],
+                              productImportantReviewsCubit:
+                                  widget.productImportantReviewsCubit,
+                              reviewsCubit: widget.reviewsCubit,
+                              productUrl: widget.productUrl,
+                            )
                           : const CustomLoadingWidget();
                     },
                     separatorBuilder: (BuildContext context, int index) {

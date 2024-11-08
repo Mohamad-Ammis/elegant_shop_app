@@ -1,4 +1,3 @@
-
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/widgets/custom_empty_state_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';

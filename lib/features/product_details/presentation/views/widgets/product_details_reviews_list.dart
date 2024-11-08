@@ -17,7 +17,8 @@ class ProductDetailsReviewsList extends StatelessWidget {
       {super.key,
       required this.productDetailsModel,
       required this.productImportantReviewsCubit,
-      required this.reviewsCubit, required this.productUrl});
+      required this.reviewsCubit,
+      required this.productUrl});
   final ProductDetailsModel productDetailsModel;
   final ProductImportantReviewsCubit productImportantReviewsCubit;
   final ProductReviewsCubit reviewsCubit;
