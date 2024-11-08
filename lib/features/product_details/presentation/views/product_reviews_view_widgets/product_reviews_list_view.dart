@@ -67,7 +67,7 @@ class _ProductReviewsListViewState extends State<ProductReviewsListView> {
                     itemBuilder: (context, index) {
                       return index < cubit.productReview.length
                           ? ProductDetailsReviewCard(
-                              reviewModel: cubit.productReview[index], productImportantReviewsCubit: widget.productImportantReviewsCubit, reviewsCubit: widget.reviewsCubit,)
+                              reviewModel: cubit.productReview[index], productImportantReviewsCubit: widget.productImportantReviewsCubit, reviewsCubit: widget.reviewsCubit, productUrl: widget.productUrl,)
                           : const CustomLoadingWidget();
                     },
                     separatorBuilder: (BuildContext context, int index) {

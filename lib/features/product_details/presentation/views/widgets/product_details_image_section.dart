@@ -1,14 +1,10 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:elegant_shop_app/constans.dart';
-import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
-import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo.dart';
-import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo_implementation.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/toggle_favorite_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/custom_special_icon.dart';
@@ -97,7 +93,7 @@ class _ProductDetailsImageSectionState
                     return CustomSpecialIcon(
                       alignment: Alignment.topRight,
                       icon: state is ToggleFavoriteLoading
-                          ? SizedBox(
+                          ? const SizedBox(
                               height: 23,
                               width: 23,
                               child: CircularProgressIndicator(),

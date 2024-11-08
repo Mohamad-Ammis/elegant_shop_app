@@ -53,7 +53,7 @@ class ProductDetailsInfo extends StatelessWidget {
                   style: Styles.style12Regular.copyWith(color: kSubTitleColor),
                 ),
                 TextSpan(
-                  text: ' (7932 reviews)',
+                  text: ' (${productDetailsModel.ratingCount} reviews)',
                   style: Styles.style12Regular.copyWith(color: kSubTitleColor),
                 ),
               ])),

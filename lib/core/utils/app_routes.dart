@@ -1,5 +1,3 @@
-import 'package:dio/dio.dart';
-import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/core/utils/service_locator.dart';
 import 'package:elegant_shop_app/features/auth/data/repos/auth_repo_implementation.dart';
 import 'package:elegant_shop_app/features/auth/presentation/login_presentation/views/login_view.dart';
@@ -8,7 +6,6 @@ import 'package:elegant_shop_app/features/auth/presentation/manger/register_cubi
 import 'package:elegant_shop_app/features/auth/presentation/register_presentation/presentation/views/register_view.dart';
 import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo_implementation.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/toggle_favorite_cubit.dart';
-import 'package:elegant_shop_app/features/favorite/presentation/views/favorite_view.dart';
 import 'package:elegant_shop_app/features/home/data/repos/home_repo_implementation.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_helper_cubit.dart';
@@ -19,13 +16,13 @@ import 'package:elegant_shop_app/features/home/presentation/views/home_view.dart
 import 'package:elegant_shop_app/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/data/repos/product_details_repo_implementation.dart';
-import 'package:elegant_shop_app/features/product_details/presentation/manger/cubit/add_product_review_cubit.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/add_product_review_cubit/add_product_review_cubit.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/cubit/delete_product_review_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/get_product_details/get_product_details_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/product_details_view.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/product_reviews_view.dart';
-import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/add_review_bottom_sheet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -112,8 +109,12 @@ class AppRouter {
             ),
             BlocProvider(
               create: (context) => ToggleFavoriteCubit(
-                  favoriteRepo: FavoriteRepoImplementation(
-                      apiService: ApiService(dio: Dio()))),
+                  favoriteRepo: getIt.get<FavoriteRepoImplementation>()),
+            ),
+            BlocProvider(
+              create: (context) => DeleteProductReviewCubit(
+                  productDetailsRepo:
+                      getIt.get<ProductDetailsRepoImplementation>()),
             ),
           ],
           child: ProductDetailsView(
@@ -138,6 +139,11 @@ class AppRouter {
                       productDetailsRepo:
                           getIt.get<ProductDetailsRepoImplementation>()),
                 ),
+                BlocProvider(
+              create: (context) => DeleteProductReviewCubit(
+                  productDetailsRepo:
+                      getIt.get<ProductDetailsRepoImplementation>()),
+            ),
               ],
               child: ProductReviewsView(
                 productDetailsModel:

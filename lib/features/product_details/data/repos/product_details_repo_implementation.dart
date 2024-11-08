@@ -123,4 +123,34 @@ class ProductDetailsRepoImplementation implements ProductDetailsRepo {
       return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> deleteProductReview(
+      {required String productUrl, required String reviewId}) async {
+    try {
+      log('${productUrl}reviews/$reviewId/');
+      var response = await apiService.delete(
+        url: '${productUrl}reviews/$reviewId/',
+        headers: {
+          "Accept": 'application/json',
+          'Authorization': "Token ${userInfo.getString('auth_token')}"
+        },
+        contentType: 'application/json',
+        body: {},
+      );
+      log(response.statusCode.toString());
+      if (response.statusCode == 204) {
+        log("Review Deleted Successfully");
+        return const Right(true);
+      } else {
+        return const Right(false);
+      }
+    } catch (e) {
+      log(e.toString());
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,11 +9,13 @@ import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/review_model/review_model.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/cubit/delete_product_review_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_reviews_rating_icons.dart';
 import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetailsReviewCard extends StatelessWidget {
@@ -20,10 +24,12 @@ class ProductDetailsReviewCard extends StatelessWidget {
     required this.reviewModel,
     required this.productImportantReviewsCubit,
     required this.reviewsCubit,
+    required this.productUrl,
   });
   final ReviewModel reviewModel;
   final ProductImportantReviewsCubit productImportantReviewsCubit;
   final ProductReviewsCubit reviewsCubit;
+  final String productUrl;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,31 +79,60 @@ class ProductDetailsReviewCard extends StatelessWidget {
                     ),
                     reviewModel.user!.username.toString() ==
                             userInfo.getString('user_name')
-                        ? PopupMenuButton<int>(
-                            color: Colors.white,
-                            onSelected: (value) {
-                              if (value == 1) {
-                                // تنفيذ كود الحذف هنا
-                              }
-                            },
-                            itemBuilder: (context) => [
-                              PopupMenuItem(
-                                height: 25,
-                                value: 1,
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.delete, color: Colors.red),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      "Delete",
-                                      style: Styles.style14Regular,
+                        ? BlocBuilder<DeleteProductReviewCubit,
+                            DeleteProductReviewState>(
+                            builder: (context, state) {
+                              return PopupMenuButton<int>(
+                                color: Colors.white,
+                                onSelected: (value) async {
+                                  if (value == 1) {
+                                    if (state is! DeleteProductReviewLoading) {
+                                      bool status = await BlocProvider.of<
+                                              DeleteProductReviewCubit>(context)
+                                          .deleteProductReview(
+                                              productUrl: productUrl,
+                                              reviewId:
+                                                  reviewModel.id.toString());
+
+                                      log('status: $status');
+                                      if (status) {
+                                        context
+                                            .read<ProductReviewsCubit>()
+                                            .page = 1;
+                                        await context
+                                            .read<ProductReviewsCubit>()
+                                            .getProductReviews(
+                                                productUrl: productUrl);
+                                        await productImportantReviewsCubit
+                                            .getProductImportantReviews(
+                                                productUrl: productUrl);
+                                      }
+                                    }
+                                  }
+                                },
+                                itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                    height: 25,
+                                    value: 1,
+                                    child: Row(
+                                      children: [
+                                        state is DeleteProductReviewLoading
+                                            ? const CircularProgressIndicator()
+                                            : const Icon(Icons.delete,
+                                                color: Colors.red),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          "Delete",
+                                          style: Styles.style14Regular,
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                                  ),
+                                ],
+                              );
+                            },
                           )
-                        : SizedBox()
+                        : const SizedBox()
                   ],
                 ),
                 ProductDetailsReviewRating(

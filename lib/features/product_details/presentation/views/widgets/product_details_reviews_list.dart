@@ -14,10 +14,14 @@ import 'package:go_router/go_router.dart';
 
 class ProductDetailsReviewsList extends StatelessWidget {
   const ProductDetailsReviewsList(
-      {super.key, required this.productDetailsModel, required this.productImportantReviewsCubit, required this.reviewsCubit});
+      {super.key,
+      required this.productDetailsModel,
+      required this.productImportantReviewsCubit,
+      required this.reviewsCubit, required this.productUrl});
   final ProductDetailsModel productDetailsModel;
-    final ProductImportantReviewsCubit productImportantReviewsCubit;
+  final ProductImportantReviewsCubit productImportantReviewsCubit;
   final ProductReviewsCubit reviewsCubit;
+  final String productUrl;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductImportantReviewsCubit,
@@ -35,7 +39,7 @@ class ProductDetailsReviewsList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Reviews (7201)',
+                          'Reviews (${productDetailsModel.ratingCount})',
                           style: Styles.style20Regular,
                         ),
                         TextButton(
@@ -50,8 +54,8 @@ class ProductDetailsReviewsList extends StatelessWidget {
                                   'product_details_model': productDetailsModel,
                                   'product_important_reviews_cubit': context
                                       .read<ProductImportantReviewsCubit>(),
-                                      'reviews_cubit': context
-                                      .read<ProductReviewsCubit>(),
+                                  'reviews_cubit':
+                                      context.read<ProductReviewsCubit>(),
                                 });
                           },
                           child: Text(
@@ -69,7 +73,12 @@ class ProductDetailsReviewsList extends StatelessWidget {
                       itemCount: state.reviews.length,
                       itemBuilder: (context, index) {
                         return ProductDetailsReviewCard(
-                            reviewModel: state.reviews[index], productImportantReviewsCubit: productImportantReviewsCubit, reviewsCubit: reviewsCubit,);
+                          productUrl: productUrl,
+                          reviewModel: state.reviews[index],
+                          productImportantReviewsCubit:
+                              productImportantReviewsCubit,
+                          reviewsCubit: reviewsCubit,
+                        );
                       },
                     ),
                   ],

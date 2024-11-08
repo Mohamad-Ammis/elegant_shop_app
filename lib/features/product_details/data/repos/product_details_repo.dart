@@ -16,5 +16,8 @@ abstract class ProductDetailsRepo {
   
   Future<Either<Failure, bool>> addProductReview(
       {required ReviewInputModel reviewModel});
+  
+  Future<Either<Failure, bool>> deleteProductReview(
+      {required String productUrl,required String reviewId});
 
 }

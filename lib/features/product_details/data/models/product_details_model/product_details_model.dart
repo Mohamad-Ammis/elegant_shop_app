@@ -13,6 +13,7 @@ class ProductDetailsModel {
   bool? inStock;
   dynamic isFavorite;
   dynamic avgRating;
+  num? ratingCount;
   List<Image>? images;
   Category? category;
 
@@ -28,6 +29,7 @@ class ProductDetailsModel {
     this.inStock,
     this.isFavorite,
     this.avgRating,
+    this.ratingCount,
     this.images,
     this.category,
   });
@@ -45,6 +47,7 @@ class ProductDetailsModel {
       inStock: json['in_stock'] as bool?,
       isFavorite: json['is_favorite'] as dynamic,
       avgRating: json['avg_rating'] as dynamic,
+      ratingCount: json['rating_count'] as num?,
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => Image.fromJson(e as Map<String, dynamic>))
           .toList(),

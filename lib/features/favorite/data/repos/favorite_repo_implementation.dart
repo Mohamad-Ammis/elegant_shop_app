@@ -9,7 +9,6 @@ import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo.dart
 import 'package:elegant_shop_app/main.dart';
 
 class FavoriteRepoImplementation implements FavoriteRepo {
-  @override
   final ApiService apiService;
 
   FavoriteRepoImplementation({required this.apiService});
@@ -27,9 +26,9 @@ class FavoriteRepoImplementation implements FavoriteRepo {
           contentType: 'application/json');
       log(response.statusCode.toString());
       if (response.statusCode == 201) {
-        return Right(true);
+        return const Right(true);
       } else if (response.statusCode == 204) {
-        return Right(false);
+        return const Right(false);
       } else {
         return left(ServerFailure(errorMessage: 'unexpected action'));
       }

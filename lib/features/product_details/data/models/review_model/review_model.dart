@@ -1,6 +1,7 @@
 import 'user.dart';
 
 class ReviewModel {
+  int? id;
   User? user;
   int? product;
   int? rating;
@@ -11,6 +12,7 @@ class ReviewModel {
   String? modifiedSince;
 
   ReviewModel({
+    this.id,
     this.user,
     this.product,
     this.rating,
@@ -22,6 +24,7 @@ class ReviewModel {
   });
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) => ReviewModel(
+    id: json['id'],
         user: json['user'] == null
             ? null
             : User.fromJson(json['user'] as Map<String, dynamic>),

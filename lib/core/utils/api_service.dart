@@ -20,6 +20,22 @@ class ApiService {
                 }));
     return response;
   }
+  Future<Response> delete(
+      {required String url,
+      required body,
+      String? token,
+      contentType,
+      Map<String, String>? headers}) async {
+    var response = await dio.delete(url,
+        data: body,
+        options: Options(
+            contentType: contentType,
+            headers: headers ??
+                {
+                  'Authorization': "Token $token",
+                }));
+    return response;
+  }
 
   Future<Response> get(
       {required String url,

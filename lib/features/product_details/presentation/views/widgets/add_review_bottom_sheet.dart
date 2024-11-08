@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:elegant_shop_app/constans.dart';
@@ -7,7 +9,7 @@ import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/review_input_model.dart';
-import 'package:elegant_shop_app/features/product_details/presentation/manger/cubit/add_product_review_cubit.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/manger/add_product_review_cubit/add_product_review_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:elegant_shop_app/main.dart';
@@ -98,7 +100,7 @@ class _AddReviewBottomSheetState extends State<AddReviewBottomSheet> {
                   color: kPrimaryColor,
                   child: Center(
                     child: state is AddProductReviewLoading
-                        ? CustomLoadingWidget()
+                        ? const CustomLoadingWidget()
                         : Text(
                             'Submit',
                             style: Styles.style16Bold
@@ -137,7 +139,7 @@ class _AddReviewBottomSheetState extends State<AddReviewBottomSheet> {
     } else {
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('something went wrong')));
+          .showSnackBar(const SnackBar(content: Text('something went wrong')));
     }
   }
 }
