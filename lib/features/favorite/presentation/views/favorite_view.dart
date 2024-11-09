@@ -19,13 +19,13 @@ class FavoriteView extends StatelessWidget {
             return SizedBox(
                 height: 50, child: CustomErrorWidget(title: state.errMessage));
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         },
       ),
-      appBar: CustomAppbar(title: 'Favorites'),
+      appBar: const CustomAppbar(title: 'Favorites'),
       backgroundColor: kBackgroundColor,
-      body: FavoriteViewBody(),
+      body: const FavoriteViewBody(),
     );
   }
 }

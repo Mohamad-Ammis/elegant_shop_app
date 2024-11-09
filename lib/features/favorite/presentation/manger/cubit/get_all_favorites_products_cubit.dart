@@ -35,7 +35,7 @@ class GetAllFavoritesProductsCubit extends Cubit<GetAllFavoritesProductsState> {
         products = success['products'];
         hasNext = success['hasNext'];
         log('success[hasNext]: ${success['hasNext']}');
-        log('hasNext: ${hasNext}');
+        log('hasNext: $hasNext');
         emit(GetAllFavoritesProductsSuccess(products: success['products']));
         if (hasNext) {
           this.page++;
@@ -52,7 +52,7 @@ class GetAllFavoritesProductsCubit extends Cubit<GetAllFavoritesProductsState> {
 
   @override
   void onChange(Change<GetAllFavoritesProductsState> change) {
-    log('change: ${change}');
+    log('change: $change');
 
     super.onChange(change);
   }

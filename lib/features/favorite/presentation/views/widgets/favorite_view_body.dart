@@ -80,7 +80,7 @@ class _FavoriteViewBodyState extends State<FavoriteViewBody> {
                               favoriteProductModel: cubit.products[index],
                             ),
                           )
-                        : CustomLoadingWidget();
+                        : const CustomLoadingWidget();
                   },
                   staggeredTileBuilder: (int index) =>
                       StaggeredTile.count(2, index.isOdd ? 3.5 : 3.1),
@@ -89,8 +89,8 @@ class _FavoriteViewBodyState extends State<FavoriteViewBody> {
                 ))
             : state is GetAllFavoritesProductsFailure
                 ? CustomErrorWidget(title: state.errMessage)
-                : Padding(
-                    padding: const EdgeInsets.symmetric(
+                : const Padding(
+                    padding: EdgeInsets.symmetric(
                         horizontal: kMainPagePadding),
                     child: ProductsLoadingShimmerGridView(),
                   );

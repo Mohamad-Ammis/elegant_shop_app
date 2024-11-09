@@ -11,7 +11,7 @@ class CartViewBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(kMainPagePadding),
       child: ListView(
-        children: [
+        children: const [
           CartProductCard(),
         ],
       ),

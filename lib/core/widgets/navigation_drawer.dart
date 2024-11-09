@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/drawer_item.dart';
@@ -59,7 +58,7 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
           children: [
             headerWidget(),
             16.verticalSizedBox,
-            Divider(
+            const Divider(
               thickness: 0.5,
               indent: 20,
               endIndent: 20,
@@ -77,7 +76,7 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
                           setState(() {
                             selectedIndex = index;
                           });
-                          log('selectedIndex: ${selectedIndex}');
+                          log('selectedIndex: $selectedIndex');
                         },
                         child: DrawerItem(
                           model: items[index],
@@ -180,7 +179,7 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
             children: [
               Text('Person name',
                   style: Styles.style16Regular.copyWith(color: Colors.white)),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text('person@email.com',

@@ -50,10 +50,10 @@ class FavoriteRepoImplementation implements FavoriteRepo {
       if (page == 1) {
         products.clear();
       }
-      log('${kBaseUrl}/favorites/?page=$page&page_size=$kPaginiationPageSize');
+      log('$kBaseUrl/favorites/?page=$page&page_size=$kPaginiationPageSize');
       var response = await apiService.get(
           url:
-              '${kBaseUrl}/favorites/?page=$page&page_size=$kPaginiationPageSize',
+              '$kBaseUrl/favorites/?page=$page&page_size=$kPaginiationPageSize',
           headers: {
             "Accept": "application/json",
             "Authorization": "Token ${userInfo.getString('auth_token')}"
@@ -71,7 +71,7 @@ class FavoriteRepoImplementation implements FavoriteRepo {
             errorMessage: 'unexpected statusCode ${response.statusCode} '));
       }
     } catch (e) {
-      log('e: ${e}');
+      log('e: $e');
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));
       } else {
