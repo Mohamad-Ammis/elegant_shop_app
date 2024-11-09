@@ -39,4 +39,3 @@ class CartProductCardInfo extends StatelessWidget {
     );
   }
 }
-

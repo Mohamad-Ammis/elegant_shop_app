@@ -1,4 +1,3 @@
-
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +12,7 @@ class CartProductCardImage extends StatelessWidget {
         child: ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Image.asset(
-        Assets.imagesLogin,
+        Assets.imagesProduct1,
         fit: BoxFit.cover,
         height: 85,
       ),
