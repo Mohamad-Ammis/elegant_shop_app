@@ -27,15 +27,20 @@ class HomeViewAppbar extends StatelessWidget {
             ),
           ],
         ),
-        Center(
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 24,
-            backgroundImage: (userInfo.getString('profile_image') != null &&
-                    userInfo.getString('profile_image').toString().isNotEmpty)
-                ? FileImage(
-                    File(userInfo.getString('profile_image').toString()))
-                : const AssetImage(Assets.imagesPers),
+        GestureDetector(
+          onTap: () {
+            Scaffold.of(context).openDrawer();
+          },
+          child: Center(
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 24,
+              backgroundImage: (userInfo.getString('profile_image') != null &&
+                      userInfo.getString('profile_image').toString().isNotEmpty)
+                  ? FileImage(
+                      File(userInfo.getString('profile_image').toString()))
+                  : const AssetImage(Assets.imagesPers),
+            ),
           ),
         ),
       ],

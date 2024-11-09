@@ -53,7 +53,14 @@ class _ProductDetailsImageSectionState
                     duration: const Duration(milliseconds: 500),
                     transitionBuilder:
                         (Widget child, Animation<double> animation) {
-                      return ScaleTransition(scale: animation, child: child);
+                      return SlideTransition(
+                        position: Tween<Offset>(
+                          begin:
+                              const Offset(2.0, 0.0), // تبدأ الانتقال من اليمين
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
+                      );
                     },
                     child: selectedImage != ''
                         ? CachedNetworkImage(

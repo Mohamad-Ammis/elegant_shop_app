@@ -1,15 +1,15 @@
 import 'dart:developer';
 
 import 'package:elegant_shop_app/constans.dart';
-import 'package:elegant_shop_app/core/utils/service_locator.dart';
+import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
-import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo_implementation.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/get_all_favorites_products_cubit.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/views/widgets/favorite_product_card.dart';
+import 'package:elegant_shop_app/features/home/presentation/views/widgets/products_loading_shimmer_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:go_router/go_router.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
@@ -40,13 +40,7 @@ class _FavoriteViewBodyState extends State<FavoriteViewBody> {
         return;
       } else {
         log("reach max of products List");
-        //when reach end we have 2 state ,
-        //first we must check if we are not using category because there are no pagination in category api
         if (favoritesProductsCubit.hasNext) {
-          //first state we have search text so use search api
-
-          //second state we haven't search text so use all products api
-
           log("call pagination product api");
           favoritesProductsCubit.getAllFavoriteProducts(formPagination: true);
         }
@@ -62,18 +56,31 @@ class _FavoriteViewBodyState extends State<FavoriteViewBody> {
         GetAllFavoritesProductsState>(
       builder: (context, state) {
         return state is GetAllFavoritesProductsSuccess ||
-                state is GetAllFavoritesProductsPaginationLoading
+                state is GetAllFavoritesProductsPaginationLoading ||
+                state is GetAllFavoritesProductsPaginationFailure
             ? Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: kMainPagePadding),
                 child: StaggeredGridView.countBuilder(
                   controller: _scrollController,
                   crossAxisCount: 4,
-                  itemCount: cubit.products.length,
+                  itemCount: state is GetAllFavoritesProductsPaginationLoading
+                      ? cubit.products.length + 1
+                      : cubit.products.length,
                   itemBuilder: (context, index) {
-                    return FavoriteProductCard(
-                      favoriteProductModel: cubit.products[index],
-                    );
+                    return index < cubit.products.length
+                        ? GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context).push(
+                                  AppRouter.kProductDetailsView,
+                                  extra: cubit
+                                      .products[index].product!.absoluteUrl);
+                            },
+                            child: FavoriteProductCard(
+                              favoriteProductModel: cubit.products[index],
+                            ),
+                          )
+                        : CustomLoadingWidget();
                   },
                   staggeredTileBuilder: (int index) =>
                       StaggeredTile.count(2, index.isOdd ? 3.5 : 3.1),
@@ -82,7 +89,11 @@ class _FavoriteViewBodyState extends State<FavoriteViewBody> {
                 ))
             : state is GetAllFavoritesProductsFailure
                 ? CustomErrorWidget(title: state.errMessage)
-                : CustomLoadingWidget();
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: kMainPagePadding),
+                    child: ProductsLoadingShimmerGridView(),
+                  );
       },
     );
   }

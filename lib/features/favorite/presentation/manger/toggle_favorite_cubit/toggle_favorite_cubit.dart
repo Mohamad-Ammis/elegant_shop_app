@@ -10,6 +10,7 @@ part 'toggle_favorite_state.dart';
 class ToggleFavoriteCubit extends Cubit<ToggleFavoriteState> {
   ToggleFavoriteCubit({required this.favoriteRepo})
       : super(ToggleFavoriteInitial());
+  bool isLoading = false;
   final FavoriteRepo favoriteRepo;
   Future<bool> toggleFavorite({required String productID}) async {
     bool status = false;

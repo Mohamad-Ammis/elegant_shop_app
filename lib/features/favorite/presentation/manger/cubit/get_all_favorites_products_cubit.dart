@@ -42,7 +42,18 @@ class GetAllFavoritesProductsCubit extends Cubit<GetAllFavoritesProductsState> {
         }
       });
     } catch (e) {
+      if (formPagination) {
+        emit(
+            GetAllFavoritesProductsPaginationFailure(errMessage: e.toString()));
+      }
       emit(GetAllFavoritesProductsFailure(errMessage: e.toString()));
     }
+  }
+
+  @override
+  void onChange(Change<GetAllFavoritesProductsState> change) {
+    log('change: ${change}');
+
+    super.onChange(change);
   }
 }

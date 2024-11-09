@@ -4,6 +4,7 @@ import 'package:elegant_shop_app/features/auth/presentation/login_presentation/v
 import 'package:elegant_shop_app/features/auth/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:elegant_shop_app/features/auth/presentation/manger/register_cubit/register_cubit.dart';
 import 'package:elegant_shop_app/features/auth/presentation/register_presentation/presentation/views/register_view.dart';
+import 'package:elegant_shop_app/features/cart/presentation/cart_view.dart';
 import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo_implementation.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/get_all_favorites_products_cubit.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/toggle_favorite_cubit/toggle_favorite_cubit.dart';
@@ -42,8 +43,8 @@ class AppRouter {
   static final router = GoRouter(
     routes: [
       GoRoute(
-        path: '/1',
-        builder: (context, state) => const OnBoardingView(),
+        path: '/',
+        builder: (context, state) => const CartView(),
       ),
       GoRoute(
         path: kHomeView,
@@ -173,14 +174,21 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: '/',
+        path: '/1',
         builder: (context, state) {
-          return BlocProvider(
-            create: (context) => GetAllFavoritesProductsCubit(
-                favoriteRepo: getIt.get<FavoriteRepoImplementation>())..getAllFavoriteProducts(),
-          child: FavoriteView(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => GetAllFavoritesProductsCubit(
+                    favoriteRepo: getIt.get<FavoriteRepoImplementation>())
+                  ..getAllFavoriteProducts(),
+              ),
+              BlocProvider(
+                  create: (context) => ToggleFavoriteCubit(
+                      favoriteRepo: getIt.get<FavoriteRepoImplementation>())),
+            ],
+            child: FavoriteView(),
           );
-          
         },
       ),
     ],
