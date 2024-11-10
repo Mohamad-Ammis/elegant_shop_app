@@ -49,7 +49,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           context.read<ProductImportantReviewsCubit>(),
                       reviewsCubit: context.read<ProductReviewsCubit>(),
                     ),
-                    const ProductDetailsFloatingBuySection(),
+                    ProductDetailsFloatingBuySection(
+                      productDetailsModel: state.productDetailsModel,
+                    ),
                   ],
                 )
               : state is GetProductDetailsFailure
