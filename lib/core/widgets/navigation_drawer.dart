@@ -1,10 +1,12 @@
 import 'dart:developer';
 
+import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/drawer_item.dart';
 import 'package:elegant_shop_app/core/widgets/drawer_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomNavigationDrawer extends StatefulWidget {
   const CustomNavigationDrawer({super.key});
@@ -19,17 +21,17 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
   initState() {
     items = [
       DrawerModel(
-        name: 'People',
-        icon: Icons.people,
+        name: 'Home',
+        icon: Icons.home,
         onPressed: () => onItemPressed(context, index: 0),
       ),
       DrawerModel(
-          name: 'My Account',
-          icon: Icons.account_box_rounded,
+          name: 'Favorites',
+          icon: Icons.favorite,
           onPressed: () => onItemPressed(context, index: 1)),
       DrawerModel(
-          name: 'Chats',
-          icon: Icons.message_outlined,
+          name: 'Cart',
+          icon: Icons.shopping_cart_outlined,
           onPressed: () => onItemPressed(context, index: 2)),
       DrawerModel(
           name: 'Favourites',
@@ -151,13 +153,16 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
   }
 
   void onItemPressed(BuildContext context, {required int index}) {
-    // Navigator.pop(context);
+    Navigator.pop(context);
 
-    // switch(index){
-    //   case 0:
-    //     Navigator.push(context, MaterialPageRoute(builder: (context) => const People()));
-    //     break;
-    // }
+    switch (index) {
+      case 1:
+        GoRouter.of(context).push(AppRouter.kFavoriteView);
+        break;
+      case 2:
+        GoRouter.of(context).push(AppRouter.kCartView);
+        break;
+    }
   }
 
   Widget headerWidget() {

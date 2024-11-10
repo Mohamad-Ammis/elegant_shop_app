@@ -49,11 +49,9 @@ class ProductDetailsInfo extends StatelessWidget {
               4.horizontalSizedBox,
               Text.rich(TextSpan(children: [
                 TextSpan(
-                  text: productDetailsModel.avgRating.toString(),
-                  style: Styles.style12Regular.copyWith(color: kSubTitleColor),
-                ),
-                TextSpan(
-                  text: ' (${productDetailsModel.ratingCount} reviews)',
+                  text: productDetailsModel.avgRating == null
+                      ? '0.0'
+                      : productDetailsModel.avgRating.toString(),
                   style: Styles.style12Regular.copyWith(color: kSubTitleColor),
                 ),
               ])),

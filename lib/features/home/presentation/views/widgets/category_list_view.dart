@@ -46,7 +46,7 @@ class CategoriesListView extends StatelessWidget {
                                   );
                                 },
                                 child: CategoryItem(
-                                  title: state.categories[index].name ?? '',
+                                  model: state.categories[index],
                                 ));
                           }),
                     )

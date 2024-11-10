@@ -10,9 +10,9 @@ class CartProductsListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
         itemBuilder: (context, index) {
-          return CartProductCard();
+          return const CartProductCard();
         },
-        separatorBuilder: (context, index) => Divider(
+        separatorBuilder: (context, index) => const Divider(
               color: Color(
                 0xffDFDEDE,
               ),

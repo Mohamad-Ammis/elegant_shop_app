@@ -14,7 +14,7 @@ class CartShippingInforamtionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(
             blurRadius: 20,
@@ -31,22 +31,22 @@ class CartShippingInforamtionSection extends StatelessWidget {
             style: Styles.style14SemiBold,
           ),
           28.verticalSizedBox,
-          ShippingInformationItem(
+          const ShippingInformationItem(
             title: 'Total (9 items)',
             subTitle: r'$1,014.95',
           ),
           12.verticalSizedBox,
-          ShippingInformationItem(
+          const ShippingInformationItem(
             title: 'Shipping Fee',
             subTitle: r'$.0.00',
           ),
           12.verticalSizedBox,
-          ShippingInformationItem(
+          const ShippingInformationItem(
             title: 'Discount',
             subTitle: r'$.0.00',
           ),
           12.verticalSizedBox,
-          Divider(
+          const Divider(
             color: Color(
               0xffDFDEDE,
             ),
@@ -55,16 +55,16 @@ class CartShippingInforamtionSection extends StatelessWidget {
             endIndent: 8,
           ),
           12.verticalSizedBox,
-          ShippingInformationItem(
+          const ShippingInformationItem(
               title: 'Sub Total', subTitle: r'$1,014.95'),
-          Spacer(),
+          const Spacer(),
           CustomButton(
+            color: kLightBlackColor,
             child: Text(
               textAlign: TextAlign.center,
               'Checkout',
               style: Styles.style14Bold.copyWith(color: Colors.white),
             ),
-            color: kLightBlackColor,
           )
         ],
       ),

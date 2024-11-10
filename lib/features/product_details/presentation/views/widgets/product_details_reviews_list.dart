@@ -40,7 +40,7 @@ class ProductDetailsReviewsList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Reviews (${productDetailsModel.ratingCount})',
+                          'Reviews (${state.reviews.length})',
                           style: Styles.style20Regular,
                         ),
                         TextButton(

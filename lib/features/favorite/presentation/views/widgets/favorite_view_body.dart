@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
+import 'package:elegant_shop_app/core/widgets/custom_empty_state_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/get_all_favorites_products_cubit.dart';
@@ -61,37 +62,40 @@ class _FavoriteViewBodyState extends State<FavoriteViewBody> {
             ? Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: kMainPagePadding),
-                child: StaggeredGridView.countBuilder(
-                  controller: _scrollController,
-                  crossAxisCount: 4,
-                  itemCount: state is GetAllFavoritesProductsPaginationLoading
-                      ? cubit.products.length + 1
-                      : cubit.products.length,
-                  itemBuilder: (context, index) {
-                    return index < cubit.products.length
-                        ? GestureDetector(
-                            onTap: () {
-                              GoRouter.of(context).push(
-                                  AppRouter.kProductDetailsView,
-                                  extra: cubit
-                                      .products[index].product!.absoluteUrl);
-                            },
-                            child: FavoriteProductCard(
-                              favoriteProductModel: cubit.products[index],
-                            ),
-                          )
-                        : const CustomLoadingWidget();
-                  },
-                  staggeredTileBuilder: (int index) =>
-                      StaggeredTile.count(2, index.isOdd ? 3.5 : 3.1),
-                  mainAxisSpacing: 24.0,
-                  crossAxisSpacing: 17.0,
-                ))
+                child: cubit.products.isEmpty
+                    ? const CustomEmptyStateWidget(
+                        title: 'there is no products in favorite')
+                    : StaggeredGridView.countBuilder(
+                        controller: _scrollController,
+                        crossAxisCount: 4,
+                        itemCount:
+                            state is GetAllFavoritesProductsPaginationLoading
+                                ? cubit.products.length + 1
+                                : cubit.products.length,
+                        itemBuilder: (context, index) {
+                          return index < cubit.products.length
+                              ? GestureDetector(
+                                  onTap: () {
+                                    GoRouter.of(context).push(
+                                        AppRouter.kProductDetailsView,
+                                        extra: cubit.products[index].product!
+                                            .absoluteUrl);
+                                  },
+                                  child: FavoriteProductCard(
+                                    favoriteProductModel: cubit.products[index],
+                                  ),
+                                )
+                              : const CustomLoadingWidget();
+                        },
+                        staggeredTileBuilder: (int index) =>
+                            StaggeredTile.count(2, index.isOdd ? 3.5 : 3.1),
+                        mainAxisSpacing: 24.0,
+                        crossAxisSpacing: 17.0,
+                      ))
             : state is GetAllFavoritesProductsFailure
                 ? CustomErrorWidget(title: state.errMessage)
                 : const Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: kMainPagePadding),
+                    padding: EdgeInsets.symmetric(horizontal: kMainPagePadding),
                     child: ProductsLoadingShimmerGridView(),
                   );
       },

@@ -1,15 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elegant_shop_app/constans.dart';
-import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
+import 'package:elegant_shop_app/features/home/data/models/category_model/category_model.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
     super.key,
-    required this.title,
+    required this.model,
   });
-  final String title;
+  final CategoryModel model;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,9 +27,22 @@ class CategoryItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(999),
               border: Border.all(width: .1, color: kSubTitleColor)),
           duration: const Duration(milliseconds: 300),
-          child: Image.asset(
-            Assets.imagesPers,
-            fit: BoxFit.cover,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CachedNetworkImage(
+              imageUrl: model.icon ?? '',
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              placeholder: (context, url) => const CustomLoadingWidget(),
+              errorWidget: (context, url, error) =>
+                  const Center(child: Icon(Icons.error)),
+            ),
           ),
         ),
         4.verticalSizedBox,
@@ -37,7 +52,7 @@ class CategoryItem extends StatelessWidget {
             child: Text(
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              title,
+              model.name ?? '',
               style: Styles.style12Regular,
             ),
           ),
