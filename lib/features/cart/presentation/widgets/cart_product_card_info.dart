@@ -1,6 +1,7 @@
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/cart_product_card_info_header.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/cart_product_card_quantity_section.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,9 @@ import 'package:flutter/material.dart';
 class CartProductCardInfo extends StatelessWidget {
   const CartProductCardInfo({
     super.key,
+    required this.cartProductModel,
   });
-
+  final CartProductModel cartProductModel;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -17,7 +19,9 @@ class CartProductCardInfo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CartProductCardInfoHeader(),
+          CartProductCardInfoHeader(
+            cartProductModel: cartProductModel,
+          ),
           4.verticalSizedBox,
           Text(
             'T-Shirt',
@@ -28,7 +32,7 @@ class CartProductCardInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                r'212.99$',
+                r'$' '${cartProductModel.product!.price.toString()}',
                 style: Styles.style14SemiBold,
               ),
               const CartProductCardQuantitySection()

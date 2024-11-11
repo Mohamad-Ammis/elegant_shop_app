@@ -1,4 +1,5 @@
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/cart_product_card_image.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/cart_product_card_info.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,9 @@ import 'package:flutter/material.dart';
 class CartProductCard extends StatelessWidget {
   const CartProductCard({
     super.key,
+    required this.cartProductModel,
   });
-
+  final CartProductModel cartProductModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,9 +21,13 @@ class CartProductCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CartProductCardImage(),
+          CartProductCardImage(
+            cartProductModel: cartProductModel,
+          ),
           16.horizontalSizedBox,
-          const CartProductCardInfo()
+          CartProductCardInfo(
+            cartProductModel: cartProductModel,
+          )
         ],
       ),
     );

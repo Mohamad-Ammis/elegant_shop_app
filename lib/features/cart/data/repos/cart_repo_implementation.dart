@@ -1,11 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/errors/failure.dart';
 import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
+import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo.dart';
 import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +54,29 @@ class CartRepoImplementation implements CartRepo {
                 .show(context);
           }
         }
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CartProductModel>>> getAllCartProducts() async {
+    try {
+      List<CartProductModel> cartProducts = [];
+      log('message');
+      var response = await apiService.get(
+          url: '$kBaseUrl/cart/items/', headers: kCommonApiHeaders);
+      log('response: ${response.data}');
+      if (response.statusCode == 200) {
+        for (var i = 0; i < response.data.length; i++) {
+          cartProducts.add(CartProductModel.fromJson(response.data[i]));
+        }
+      }
+      return Right(cartProducts);
+    } catch (e) {
+      log('e: $e');
+      if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));
       }
       return Left(ServerFailure(errorMessage: e.toString()));

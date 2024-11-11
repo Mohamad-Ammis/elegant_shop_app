@@ -1,4 +1,3 @@
-
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:elegant_shop_app/features/favorite/data/models/favorite_product_model.dart';

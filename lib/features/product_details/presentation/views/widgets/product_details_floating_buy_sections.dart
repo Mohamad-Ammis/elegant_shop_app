@@ -5,7 +5,7 @@ import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
-import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/add_to_cart_cubit.dart';
+import 'package:elegant_shop_app/features/cart/presentation/mangers/add_to_cart_cubit/add_to_cart_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';

@@ -18,9 +18,7 @@ class CartViewBody extends StatelessWidget {
             flex: 3,
             child: CartProductsListView(),
           ),
-          Expanded(
-              flex: 2,
-              child: CartShippingInforamtionSection())
+          Expanded(flex: 2, child: CartShippingInforamtionSection())
         ],
       ),
     );

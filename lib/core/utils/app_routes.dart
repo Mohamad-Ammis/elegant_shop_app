@@ -6,7 +6,8 @@ import 'package:elegant_shop_app/features/auth/presentation/manger/register_cubi
 import 'package:elegant_shop_app/features/auth/presentation/register_presentation/presentation/views/register_view.dart';
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo_implementation.dart';
 import 'package:elegant_shop_app/features/cart/presentation/cart_view.dart';
-import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/add_to_cart_cubit.dart';
+import 'package:elegant_shop_app/features/cart/presentation/mangers/add_to_cart_cubit/add_to_cart_cubit.dart';
+import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/get_all_cart_products_cubit.dart';
 import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo_implementation.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/get_all_favorites_products_cubit.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/toggle_favorite_cubit/toggle_favorite_cubit.dart';
@@ -124,9 +125,8 @@ class AppRouter {
                       getIt.get<ProductDetailsRepoImplementation>()),
             ),
             BlocProvider(
-              create: (context) => AddToCartCubit(
-                  cartRepo:
-                      getIt.get<CartRepoImplementation>()),
+              create: (context) =>
+                  AddToCartCubit(cartRepo: getIt.get<CartRepoImplementation>()),
             ),
           ],
           child: ProductDetailsView(
@@ -202,7 +202,14 @@ class AppRouter {
       GoRoute(
         path: kCartView,
         builder: (context, state) {
-          return const CartView();
+          return MultiBlocProvider(providers: [
+            BlocProvider(
+              create: (context) {
+                return GetAllCartProductsCubit(
+                    cartRepo: getIt.get<CartRepoImplementation>());
+              },
+            )
+          ], child: CartView());
         },
       )
     ],
