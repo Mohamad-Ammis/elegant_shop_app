@@ -8,6 +8,7 @@ abstract class CartRepo {
       {required String productId,
       required String productQuantity,
       required BuildContext context});
-  Future<Either<Failure, List<CartProductModel>>> getAllCartProducts(
-      );
+  Future<Either<Failure, List<CartProductModel>>> getAllCartProducts();
+  Future<Either<Failure, bool>> deleteCartProduct(
+      {required String productId, required BuildContext context});
 }

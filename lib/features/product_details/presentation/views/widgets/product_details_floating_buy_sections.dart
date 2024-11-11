@@ -54,7 +54,7 @@ class ProductDetailsFloatingBuySection extends StatelessWidget {
                           } else {
                             context.read<AddToCartCubit>().addProductToCart(
                                 productId: productDetailsModel.id.toString(),
-                                productQuantity: "10000",
+                                productQuantity: "1",
                                 context: context);
                           }
                         },

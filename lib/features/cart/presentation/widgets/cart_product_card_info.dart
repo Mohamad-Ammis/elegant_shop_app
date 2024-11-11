@@ -35,7 +35,7 @@ class CartProductCardInfo extends StatelessWidget {
                 r'$' '${cartProductModel.product!.price.toString()}',
                 style: Styles.style14SemiBold,
               ),
-              const CartProductCardQuantitySection()
+               CartProductCardQuantitySection(cartProductModel: cartProductModel,)
             ],
           ),
         ],

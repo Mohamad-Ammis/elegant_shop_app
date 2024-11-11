@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
+import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/delete_cart_product_cubit.dart';
+import 'package:elegant_shop_app/features/cart/presentation/mangers/get_all_products_cubit/get_all_cart_products_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartProductCardInfoHeader extends StatelessWidget {
   const CartProductCardInfoHeader({
@@ -21,7 +26,58 @@ class CartProductCardInfoHeader extends StatelessWidget {
             style: Styles.style14SemiBold,
           ),
         ),
-        const Icon(Icons.more_horiz)
+        BlocBuilder<DeleteCartProductCubit,DeleteCartProductState>(
+          builder: (context, state) {
+            return GestureDetector(
+              onTapDown: (TapDownDetails details) {
+                showMenu(
+                  menuPadding: EdgeInsets.all(0),
+                  color: Colors.white,
+                  context: context,
+                  position: RelativeRect.fromLTRB(
+                    details.globalPosition.dx,
+                    details.globalPosition.dy,
+                    details.globalPosition.dx,
+                    details.globalPosition.dy,
+                  ),
+                  items: [
+                    PopupMenuItem(
+                      onTap: () async {
+                        bool status = await context
+                            .read<DeleteCartProductCubit>()
+                            .deleteCartProduct(
+                                productId: cartProductModel.id.toString(),
+                                context: context);
+                        if (status) {
+                          await context
+                              .read<GetAllCartProductsCubit>()
+                              .getAllCartProducts();
+                        }
+                      },
+                      child: state is DeleteCartProductLoading
+                          ? CircularProgressIndicator()
+                          : Row(
+                              children: [
+                                Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Delete',
+                                  style: Styles.style14Bold,
+                                ),
+                              ],
+                            ),
+                    ),
+                    // يمكنك إضافة خيارات إضافية هنا
+                  ],
+                );
+              },
+              child: Icon(Icons.more_horiz),
+            );
+          },
+        ), // const Icon(Icons.more_horiz)
       ],
     );
   }

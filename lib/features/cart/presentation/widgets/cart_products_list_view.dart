@@ -1,4 +1,6 @@
-import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/get_all_cart_products_cubit.dart';
+import 'dart:developer';
+
+import 'package:elegant_shop_app/features/cart/presentation/mangers/get_all_products_cubit/get_all_cart_products_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/cart_product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +14,12 @@ class CartProductsListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GetAllCartProductsCubit, GetAllCartProductsState>(
       builder: (context, state) {
+        // if (state is GetAllCartProductsSuccess) {
+        //   log(context
+        //       .read<GetAllCartProductsCubit>()
+        //       .calculatePrice(state.cartProducts)
+        //       .toString());
+        // }
         return state is GetAllCartProductsSuccess
             ? ListView.separated(
                 itemBuilder: (context, index) {

@@ -64,10 +64,8 @@ class CartRepoImplementation implements CartRepo {
   Future<Either<Failure, List<CartProductModel>>> getAllCartProducts() async {
     try {
       List<CartProductModel> cartProducts = [];
-      log('message');
       var response = await apiService.get(
           url: '$kBaseUrl/cart/items/', headers: kCommonApiHeaders);
-      log('response: ${response.data}');
       if (response.statusCode == 200) {
         for (var i = 0; i < response.data.length; i++) {
           cartProducts.add(CartProductModel.fromJson(response.data[i]));
@@ -76,6 +74,26 @@ class CartRepoImplementation implements CartRepo {
       return Right(cartProducts);
     } catch (e) {
       log('e: $e');
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> deleteCartProduct(
+      {required String productId, required BuildContext context}) async {
+    try {
+      var response = await apiService.delete(
+          url: '$kBaseUrl/cart/items/$productId/', headers: kCommonApiHeaders);
+      if (response.statusCode == 204) {
+        return Right(true);
+      } else {
+        showErrorSnackBar('Error Happened', 'un expected error').show(context);
+        return Right(false);
+      }
+    } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));
       }

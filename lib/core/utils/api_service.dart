@@ -23,7 +23,7 @@ class ApiService {
 
   Future<Response> delete(
       {required String url,
-      required body,
+      Map<String,dynamic>? body,
       String? token,
       contentType,
       Map<String, String>? headers}) async {

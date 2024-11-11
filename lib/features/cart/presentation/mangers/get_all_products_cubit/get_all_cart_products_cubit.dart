@@ -11,6 +11,7 @@ class GetAllCartProductsCubit extends Cubit<GetAllCartProductsState> {
   GetAllCartProductsCubit({required this.cartRepo})
       : super(GetAllCartProductsInitial());
   final CartRepo cartRepo;
+  List<CartProductModel> cartProducts = [];
   Future<void> getAllCartProducts() async {
     try {
       emit(GetAllCartProductsLoading());
@@ -19,6 +20,7 @@ class GetAllCartProductsCubit extends Cubit<GetAllCartProductsState> {
         emit(GetAllCartProductsFailure(errMessage: failure.errorMessage));
       }, (success) {
         emit(GetAllCartProductsSuccess(cartProducts: success));
+        cartProducts = success;
       });
     } catch (e) {
       log('e: ${e}');
@@ -30,5 +32,15 @@ class GetAllCartProductsCubit extends Cubit<GetAllCartProductsState> {
   void onChange(Change<GetAllCartProductsState> change) {
     log('change: $change');
     super.onChange(change);
+  }
+
+  num calculatePrice(List<CartProductModel> cartProducts) {
+    num price = 0;
+    for (var i = 0; i < cartProducts.length; i++) {
+      int quantity = cartProducts[i].quantity ?? 1;
+      num tempPrice = cartProducts[i].product?.price ?? 1;
+      price += (quantity * tempPrice);
+    }
+    return price;
   }
 }
