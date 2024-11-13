@@ -3,6 +3,7 @@ class ProductModel {
   String? name;
   String? thumbnailUrl;
   String? absoluteUrl;
+  String? category;
   String? description;
   dynamic discount;
   num? price;
@@ -15,6 +16,7 @@ class ProductModel {
       this.name,
       this.thumbnailUrl,
       this.absoluteUrl,
+      this.category,
       this.description,
       this.discount,
       this.price,
@@ -28,6 +30,7 @@ class ProductModel {
       name: json['name'] as String?,
       thumbnailUrl: json['thumbnail_url'] as String?,
       absoluteUrl: json['absolute_url'] as String?,
+      category: json['category']['name'] as String?,
       description: json['description'] as String?,
       discount: json['discount'] as dynamic,
       price: json['price'] as num?,

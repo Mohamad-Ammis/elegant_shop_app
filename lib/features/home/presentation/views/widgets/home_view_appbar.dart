@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
+import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
+import 'package:elegant_shop_app/features/home/presentation/views/widgets/home_view_app_bar_image.dart';
 import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -31,16 +34,14 @@ class HomeViewAppbar extends StatelessWidget {
           onTap: () {
             Scaffold.of(context).openDrawer();
           },
-          child: Center(
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 24,
-              backgroundImage: (userInfo.getString('profile_image') != null &&
-                      userInfo.getString('profile_image').toString().isNotEmpty)
-                  ? FileImage(
-                      File(userInfo.getString('profile_image').toString()))
-                  : const AssetImage(Assets.imagesPers),
+          child: Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(999),
             ),
+            width: 50,
+            height: 50,
+            child: HomeViewAppBarImage(),
           ),
         ),
       ],

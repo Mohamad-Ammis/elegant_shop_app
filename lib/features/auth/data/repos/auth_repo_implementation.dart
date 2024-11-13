@@ -24,6 +24,9 @@ class AuthRepoImplementation implements AuthRepo {
       log(response.data.toString());
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         await userInfo.setString('auth_token', response.data['auth_token']);
+        await userInfo.setString('user_name', response.data['user']['username']);
+        await userInfo.setString('email', response.data['user']['email']);
+        await userInfo.setString('avatar', response.data['user']['avatar']);
         return const Right(true);
       } else {
         return const Right(false);

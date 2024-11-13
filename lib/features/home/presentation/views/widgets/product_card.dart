@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
           4.verticalSizedBox,
           Text(
             overflow: TextOverflow.ellipsis,
-            'T-shirt',
+            '${product.category}',
             style: Styles.style10Regular.copyWith(color: kSubTitleColor),
           ),
           12.verticalSizedBox,

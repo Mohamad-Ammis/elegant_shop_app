@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 class CartProductCardInfo extends StatelessWidget {
   const CartProductCardInfo({
     super.key,
-    required this.cartProductModel, required this.cartProductModelIndex,
+    required this.cartProductModel,
+    required this.cartProductModelIndex,
   });
   final CartProductModel cartProductModel;
   final int cartProductModelIndex;
@@ -25,7 +26,7 @@ class CartProductCardInfo extends StatelessWidget {
           ),
           4.verticalSizedBox,
           Text(
-            'T-Shirt',
+            '${cartProductModel.product!.category.toString()}',
             style: Styles.style10Regular.copyWith(color: kSubTitleColor),
           ),
           16.verticalSizedBox,
@@ -37,7 +38,7 @@ class CartProductCardInfo extends StatelessWidget {
                 style: Styles.style14SemiBold,
               ),
               CartProductCardQuantitySection(
-                 cartProductModelIndex: cartProductModelIndex,
+                cartProductModelIndex: cartProductModelIndex,
               )
             ],
           ),
