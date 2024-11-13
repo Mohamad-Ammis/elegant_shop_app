@@ -7,9 +7,10 @@ import 'package:flutter/material.dart';
 class CartProductCard extends StatelessWidget {
   const CartProductCard({
     super.key,
-    required this.cartProductModel,
+    required this.cartProductModel, required this.cartProductModelIndex,
   });
   final CartProductModel cartProductModel;
+  final int cartProductModelIndex;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +27,7 @@ class CartProductCard extends StatelessWidget {
           ),
           16.horizontalSizedBox,
           CartProductCardInfo(
-            cartProductModel: cartProductModel,
+            cartProductModel: cartProductModel, cartProductModelIndex: cartProductModelIndex,
           )
         ],
       ),

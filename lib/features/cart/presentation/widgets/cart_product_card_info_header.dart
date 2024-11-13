@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
-import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/delete_cart_product_cubit.dart';
+import 'package:elegant_shop_app/features/cart/presentation/mangers/delete_cart_product_cubit/delete_cart_product_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/get_all_products_cubit/get_all_cart_products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +26,7 @@ class CartProductCardInfoHeader extends StatelessWidget {
             style: Styles.style14SemiBold,
           ),
         ),
-        BlocBuilder<DeleteCartProductCubit,DeleteCartProductState>(
+        BlocBuilder<DeleteCartProductCubit, DeleteCartProductState>(
           builder: (context, state) {
             return GestureDetector(
               onTapDown: (TapDownDetails details) {
@@ -42,18 +42,20 @@ class CartProductCardInfoHeader extends StatelessWidget {
                   ),
                   items: [
                     PopupMenuItem(
-                      onTap: () async {
-                        bool status = await context
-                            .read<DeleteCartProductCubit>()
-                            .deleteCartProduct(
-                                productId: cartProductModel.id.toString(),
-                                context: context);
-                        if (status) {
-                          await context
-                              .read<GetAllCartProductsCubit>()
-                              .getAllCartProducts();
-                        }
-                      },
+                      onTap: state is DeleteCartProductLoading
+                          ? null
+                          : () async {
+                              bool status = await context
+                                  .read<DeleteCartProductCubit>()
+                                  .deleteCartProduct(
+                                      productId: cartProductModel.id.toString(),
+                                      context: context);
+                              if (status) {
+                                await context
+                                    .read<GetAllCartProductsCubit>()
+                                    .getAllCartProducts();
+                              }
+                            },
                       child: state is DeleteCartProductLoading
                           ? CircularProgressIndicator()
                           : Row(

@@ -25,6 +25,7 @@ class CartProductsListView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return CartProductCard(
                     cartProductModel: state.cartProducts[index],
+                    cartProductModelIndex: index,
                   );
                 },
                 separatorBuilder: (context, index) => const Divider(

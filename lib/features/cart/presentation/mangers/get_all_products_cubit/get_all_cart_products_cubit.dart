@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo.dart';
+import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/cart_price_cubit.dart';
 import 'package:meta/meta.dart';
 
 part 'get_all_cart_products_state.dart';
@@ -34,13 +35,14 @@ class GetAllCartProductsCubit extends Cubit<GetAllCartProductsState> {
     super.onChange(change);
   }
 
-  num calculatePrice(List<CartProductModel> cartProducts) {
-    num price = 0;
-    for (var i = 0; i < cartProducts.length; i++) {
-      int quantity = cartProducts[i].quantity ?? 1;
-      num tempPrice = cartProducts[i].product?.price ?? 1;
-      price += (quantity * tempPrice);
-    }
-    return price;
-  }
+  // num calculatePrice(List<CartProductModel> cartProducts) {
+  //   num price = 0;
+  //   for (var i = 0; i < cartProducts.length; i++) {
+  //     int quantity = cartProducts[i].quantity ?? 1;
+  //     num tempPrice = cartProducts[i].product?.price ?? 1;
+  //     price += (quantity * tempPrice);
+  //   }
+  //   // emit(CartPriceSuccess());
+  //   return price;
+  // }
 }

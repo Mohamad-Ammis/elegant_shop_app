@@ -9,9 +9,10 @@ import 'package:flutter/material.dart';
 class CartProductCardInfo extends StatelessWidget {
   const CartProductCardInfo({
     super.key,
-    required this.cartProductModel,
+    required this.cartProductModel, required this.cartProductModelIndex,
   });
   final CartProductModel cartProductModel;
+  final int cartProductModelIndex;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -35,7 +36,9 @@ class CartProductCardInfo extends StatelessWidget {
                 r'$' '${cartProductModel.product!.price.toString()}',
                 style: Styles.style14SemiBold,
               ),
-               CartProductCardQuantitySection(cartProductModel: cartProductModel,)
+              CartProductCardQuantitySection(
+                 cartProductModelIndex: cartProductModelIndex,
+              )
             ],
           ),
         ],

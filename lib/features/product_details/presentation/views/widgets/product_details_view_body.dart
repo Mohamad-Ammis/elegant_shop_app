@@ -21,11 +21,8 @@ class ProductDetailsViewBody extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: Hero(
-              tag: productDetailsModel.absoluteUrl!,
-              child: ProductDetailsImageSection(
-                productDetailsModel: productDetailsModel,
-              ),
+            child: ProductDetailsImageSection(
+              productDetailsModel: productDetailsModel,
             ),
           ),
           SliverToBoxAdapter(
