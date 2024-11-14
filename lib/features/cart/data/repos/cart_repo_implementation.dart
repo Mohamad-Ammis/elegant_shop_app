@@ -114,12 +114,19 @@ class CartRepoImplementation implements CartRepo {
       if (response.statusCode == 200) {
         return const Right(true);
       }
+      showErrorSnackBar(
+              'Error Hapened ', 'we can\'t update cart products ! try again ')
+          .show(context);
       return const Right(false);
     } catch (e) {
       log('e: $e');
       if (e is DioException) {
+        showErrorSnackBar('Error Hapened ',
+                ServerFailure.fromDioException(e).errorMessage)
+            .show(context);
         return Left(ServerFailure.fromDioException(e));
       }
+      showErrorSnackBar('Error Hapened ', e.toString()).show(context);
       return Left(ServerFailure(errorMessage: e.toString()));
     }
   }

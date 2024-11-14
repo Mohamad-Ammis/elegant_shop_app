@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
+  
+  /// Assets for imagesCashOnDelivery
+  /// assets/images/cash-on-delivery.png
+  static const String imagesCashOnDelivery = "assets/images/cash-on-delivery.png";
 
-  /// Assets for images2215
-  /// assets/images/2215.jpg
-  static const String images2215 = "assets/images/2215.jpg";
+  /// Assets for imagesCreditCard
+  /// assets/images/credit-card.png
+  static const String imagesCreditCard = "assets/images/credit-card.png";
 
   /// Assets for imagesErrorImage
   /// assets/images/error_image.jpg
@@ -30,10 +34,6 @@ class Assets {
   /// assets/images/Product1.jpg
   static const String imagesProduct1 = "assets/images/Product1.jpg";
 
-  /// Assets for imagesRegister
-  /// assets/images/register.jpg
-  static const String imagesRegister = "assets/images/register.jpg";
-
   /// Assets for imagesSearchIcon
   /// assets/images/search_icon.svg
   static const String imagesSearchIcon = "assets/images/search_icon.svg";
@@ -42,3 +42,4 @@ class Assets {
   /// assets/images/star.svg
   static const String imagesStar = "assets/images/star.svg";
 }
+
