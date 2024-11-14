@@ -39,12 +39,23 @@ class ProductCard extends StatelessWidget {
           Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                overflow: TextOverflow.ellipsis,
-                r'$' '${product.price ?? ''}',
-                style: Styles.style14Bold,
-              ),
-              40.horizontalSizedBox,
+              product.discount?.active ?? false
+                  ? Text.rich(TextSpan(children: [
+                      TextSpan(
+                          text: r'$'
+                              '${product.price.toString()}',
+                          style: Styles.style10Regular.copyWith(
+                              decoration: TextDecoration.lineThrough)),
+                      TextSpan(
+                          text: r'  $'
+                              '${(product.price!.toDouble() / double.parse(product.discount?.percent ?? '1')).toStringAsFixed(2)}',
+                          style: Styles.style12Bold),
+                    ]))
+                  : Text(
+                      r'$' '${product.price.toString()}',
+                      style: Styles.style12Bold,
+                    ),
+              30.horizontalSizedBox,
               Row(
                 children: [
                   SvgPicture.asset(Assets.imagesStar),
