@@ -13,6 +13,6 @@ const double kMainPagePadding = 24;
 const String kBaseUrl = 'https://quakstore.onrender.com/api/v1';
 const String kPaginiationPageSize = '5';
 var kCommonApiHeaders = {
-        "Accept":'application/json',
-        'Authorization':"Token ${userInfo.getString('auth_token')}"
-      };
+  "Accept": 'application/json',
+  'Authorization': "Token ${userInfo.getString('auth_token')}"
+};

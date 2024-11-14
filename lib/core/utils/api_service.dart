@@ -23,7 +23,7 @@ class ApiService {
 
   Future<Response> delete(
       {required String url,
-      Map<String,dynamic>? body,
+      Map<String, dynamic>? body,
       String? token,
       contentType,
       Map<String, String>? headers}) async {
@@ -82,7 +82,8 @@ class ApiService {
         ));
     return response;
   }
-    Future<Response> patch(
+
+  Future<Response> patch(
       {required String url,
       required body,
       String? token,
@@ -98,5 +99,4 @@ class ApiService {
                 }));
     return response;
   }
-
 }

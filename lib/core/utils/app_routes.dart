@@ -23,6 +23,7 @@ import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit
 import 'package:elegant_shop_app/features/home/presentation/views/category_products_view.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/home_view.dart';
 import 'package:elegant_shop_app/features/on_boarding/presentation/views/on_boarding_view.dart';
+import 'package:elegant_shop_app/features/orders/presentation/order_view.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/data/repos/product_details_repo_implementation.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/add_product_review_cubit/add_product_review_cubit.dart';
@@ -47,6 +48,7 @@ class AppRouter {
   static const String kAddProductsReviewView = "/addProductReview";
   static const String kFavoriteView = "/favoriteView";
   static const String kCartView = "/cartView";
+  static const String kOrderView = "/orderView";
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -230,6 +232,12 @@ class AppRouter {
               },
             ),
           ], child: const CartView());
+        },
+      ),
+      GoRoute(
+        path: kOrderView,
+        builder: (context, state) {
+          return OrderView();
         },
       )
     ],

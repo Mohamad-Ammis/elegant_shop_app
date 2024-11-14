@@ -37,12 +37,17 @@ class UpdateCartProductsCubit extends Cubit<UpdateCartProductsState> {
       return false;
     }
   }
-  List<Map<String,dynamic>>handleCartProductsAsJson(List<CartProductModel>cartProducts){
-List<Map<String,dynamic>>data=[];
-for (var i = 0; i < cartProducts.length; i++) {
-  data.add({'id':cartProducts[i].id.toString(),"quantity":cartProducts[i].quantity.toString()});
-} 
-log('cart product as json  : ${data}');
-return data;
+
+  List<Map<String, dynamic>> handleCartProductsAsJson(
+      List<CartProductModel> cartProducts) {
+    List<Map<String, dynamic>> data = [];
+    for (var i = 0; i < cartProducts.length; i++) {
+      data.add({
+        'id': cartProducts[i].id.toString(),
+        "quantity": cartProducts[i].quantity.toString()
+      });
+    }
+    log('cart product as json  : ${data}');
+    return data;
   }
 }

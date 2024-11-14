@@ -4,4 +4,5 @@ part of 'cart_price_cubit.dart';
 sealed class CartPriceState {}
 
 final class CartPriceInitial extends CartPriceState {}
+
 final class CartPriceSuccess extends CartPriceState {}

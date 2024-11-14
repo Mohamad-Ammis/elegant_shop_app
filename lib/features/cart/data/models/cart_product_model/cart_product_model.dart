@@ -1,6 +1,5 @@
 import 'package:elegant_shop_app/features/home/data/models/product_model.dart';
 
-
 class CartProductModel {
   int? id;
   ProductModel? product;

@@ -21,27 +21,47 @@ class ProductImageSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         child: product.thumbnailUrl != null
-            ? CachedNetworkImage(
-                width: double.infinity,
-                imageUrl: product.thumbnailUrl!,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                placeholder: (context, url) => const CustomLoadingWidget(),
-                errorWidget: (context, url, error) =>
-                    const Center(child: Icon(Icons.error)),
-              )
+            ? product.discount?.active ?? false
+                ? Banner(
+                    message: '${product.discount!.percent.toString()}%',
+                    location: BannerLocation.topStart,
+                    child: ProductCardCachedNetworkImage(product: product),
+                  )
+                : ProductCardCachedNetworkImage(product: product)
             : Image.asset(
                 Assets.imagesErrorImage,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
       ),
+    );
+  }
+}
+
+class ProductCardCachedNetworkImage extends StatelessWidget {
+  const ProductCardCachedNetworkImage({
+    super.key,
+    required this.product,
+  });
+
+  final ProductModel product;
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      width: double.infinity,
+      imageUrl: product.thumbnailUrl!,
+      imageBuilder: (context, imageProvider) => Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+      placeholder: (context, url) => const CustomLoadingWidget(),
+      errorWidget: (context, url, error) =>
+          const Center(child: Icon(Icons.error)),
     );
   }
 }

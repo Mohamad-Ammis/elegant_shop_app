@@ -36,8 +36,8 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
           icon: Icons.shopping_cart_outlined,
           onPressed: () => onItemPressed(context, index: 2)),
       DrawerModel(
-          name: 'Favourites',
-          icon: Icons.favorite_outline,
+          name: 'Orders',
+          icon: Icons.shopping_bag_outlined,
           onPressed: () => onItemPressed(context, index: 3)),
       DrawerModel(
           name: 'Setting',
@@ -105,6 +105,9 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
         break;
       case 2:
         GoRouter.of(context).push(AppRouter.kCartView);
+        break;
+      case 3:
+        GoRouter.of(context).push(AppRouter.kOrderView);
         break;
     }
   }

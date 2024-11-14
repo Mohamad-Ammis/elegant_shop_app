@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 class CartProductCard extends StatelessWidget {
   const CartProductCard({
     super.key,
-    required this.cartProductModel, required this.cartProductModelIndex,
+    required this.cartProductModel,
+    required this.cartProductModelIndex,
   });
   final CartProductModel cartProductModel;
   final int cartProductModelIndex;
@@ -27,7 +28,8 @@ class CartProductCard extends StatelessWidget {
           ),
           16.horizontalSizedBox,
           CartProductCardInfo(
-            cartProductModel: cartProductModel, cartProductModelIndex: cartProductModelIndex,
+            cartProductModel: cartProductModel,
+            cartProductModelIndex: cartProductModelIndex,
           )
         ],
       ),

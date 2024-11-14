@@ -26,19 +26,32 @@ class CartProductCardInfo extends StatelessWidget {
           ),
           4.verticalSizedBox,
           Text(
-            cartProductModel.product!.category.toString(),
+            cartProductModel.product!.category!.name.toString(),
             style: Styles.style10Regular.copyWith(color: kSubTitleColor),
           ),
           16.verticalSizedBox,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                r'$' '${cartProductModel.product!.price.toString()}',
-                style: Styles.style14SemiBold,
-              ),
+              cartProductModel.product?.discount?.active ?? false
+                  ? Text.rich(TextSpan(children: [
+                      TextSpan(
+                          text: r'$'
+                              '${cartProductModel.product!.price.toString()}',
+                          style: TextStyle(
+                              decoration: TextDecoration.lineThrough)),
+                      TextSpan(
+                          text: r'  $'
+                              '${(cartProductModel.product!.price!.toDouble() / double.parse(cartProductModel.product?.discount?.percent ?? '1')).toStringAsFixed(2)}',
+                          style: Styles.style14SemiBold),
+                    ]))
+                  : Text(
+                      r'$' '${cartProductModel.product!.price.toString()}',
+                      style: Styles.style14SemiBold,
+                    ),
               CartProductCardQuantitySection(
-                cartProductModelIndex: cartProductModelIndex, cartProductModel: cartProductModel,
+                cartProductModelIndex: cartProductModelIndex,
+                cartProductModel: cartProductModel,
               )
             ],
           ),

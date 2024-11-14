@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
+import 'package:elegant_shop_app/features/cart/presentation/widgets/cart_product_card_cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CartProductCardImage extends StatelessWidget {
@@ -14,22 +13,18 @@ class CartProductCardImage extends StatelessWidget {
     return Expanded(
         child: ClipRRect(
       borderRadius: BorderRadius.circular(16),
-      child: CachedNetworkImage(
-        // width: double.infinity,
-        height: 85,
-        imageUrl: cartProductModel.product!.thumbnailUrl ?? '',
-        imageBuilder: (context, imageProvider) => Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
+      child: cartProductModel.product?.discount?.active ?? false
+          ? Banner(
+              message:
+                  '${cartProductModel.product?.discount!.percent.toString()}%',
+              location: BannerLocation.topStart,
+              child: CartProductCardCashedNetworkImage(
+                cartProductModel: cartProductModel,
+              ),
+            )
+          : CartProductCardCashedNetworkImage(
+              cartProductModel: cartProductModel,
             ),
-          ),
-        ),
-        placeholder: (context, url) => const CustomLoadingWidget(),
-        errorWidget: (context, url, error) =>
-            const Center(child: Icon(Icons.error)),
-      ),
     ));
   }
 }

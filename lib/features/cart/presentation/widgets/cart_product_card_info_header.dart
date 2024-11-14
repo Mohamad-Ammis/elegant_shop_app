@@ -1,4 +1,3 @@
-
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/delete_cart_product_cubit/delete_cart_product_cubit.dart';

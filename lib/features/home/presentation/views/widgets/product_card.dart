@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
           4.verticalSizedBox,
           Text(
             overflow: TextOverflow.ellipsis,
-            '${product.category}',
+            '${product.category!.name.toString()}',
             style: Styles.style10Regular.copyWith(color: kSubTitleColor),
           ),
           12.verticalSizedBox,
@@ -51,8 +51,8 @@ class ProductCard extends StatelessWidget {
                   4.horizontalSizedBox,
                   Text(
                     overflow: TextOverflow.ellipsis,
-                    product.averageRating != null
-                        ? product.averageRating!.toStringAsFixed(1)
+                    product.avgRating != null
+                        ? product.avgRating!.toStringAsFixed(1)
                         : '0.0',
                     style: Styles.style12Regular,
                   ),

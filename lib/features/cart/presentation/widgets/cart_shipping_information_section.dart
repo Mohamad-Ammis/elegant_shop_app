@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/cart_price_cubit/cart_price_cubit.dart';
-import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/update_cart_products_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/get_all_products_cubit/get_all_cart_products_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/cart_shipping_inforamtion_item.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/choose_payment_method_bottom_sheet.dart';
@@ -51,9 +48,10 @@ class CartShippingInforamtionSection extends StatelessWidget {
                 subTitle: r'$.0.00',
               ),
               12.verticalSizedBox,
-              const ShippingInformationItem(
+              ShippingInformationItem(
                 title: 'Discount',
-                subTitle: r'$.0.00',
+                subTitle: r'$'
+                    "${context.read<CartPriceCubit>().totlaDiscount.toStringAsFixed(2)}",
               ),
               12.verticalSizedBox,
               const Divider(
@@ -68,7 +66,7 @@ class CartShippingInforamtionSection extends StatelessWidget {
               ShippingInformationItem(
                   title: 'Sub Total',
                   subTitle: r'$'
-                      "${context.read<CartPriceCubit>().totalPrice.toStringAsFixed(2)}"),
+                      "${context.read<CartPriceCubit>().subTotal.toStringAsFixed(2)}"),
               const Spacer(),
               CustomButton(
                 onTap: () async {
@@ -77,7 +75,7 @@ class CartShippingInforamtionSection extends StatelessWidget {
                     context: context,
                     showDragHandle: true,
                     builder: (context) {
-                      return ChoosePaymentMethodBottomSheet();
+                      return const ChoosePaymentMethodBottomSheet();
                     },
                   );
                   // List<Map<String, dynamic>> data = context

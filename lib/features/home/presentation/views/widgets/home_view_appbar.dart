@@ -1,4 +1,3 @@
-
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/home_view_app_bar_image.dart';
 import 'package:elegant_shop_app/main.dart';
