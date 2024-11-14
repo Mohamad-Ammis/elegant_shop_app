@@ -88,12 +88,35 @@ class CartRepoImplementation implements CartRepo {
       var response = await apiService.delete(
           url: '$kBaseUrl/cart/items/$productId/', headers: kCommonApiHeaders);
       if (response.statusCode == 204) {
-        return Right(true);
+        return const Right(true);
       } else {
         showErrorSnackBar('Error Happened', 'un expected error').show(context);
-        return Right(false);
+        return const Right(false);
       }
     } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioException(e));
+      }
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateCartProducts(
+      {required List<Map<String, dynamic>> cartProducts,
+      required BuildContext context}) async {
+    try {
+      var response = await apiService.patch(
+          url: '$kBaseUrl/cart/items/bulk_update/',
+          body: {"items": cartProducts},
+          headers: kCommonApiHeaders);
+      log(response.data.toString());
+      if (response.statusCode == 200) {
+        return const Right(true);
+      }
+      return const Right(false);
+    } catch (e) {
+      log('e: $e');
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));
       }

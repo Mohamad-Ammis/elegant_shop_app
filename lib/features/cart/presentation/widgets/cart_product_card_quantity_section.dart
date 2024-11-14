@@ -2,7 +2,7 @@ import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/utils/service_locator.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo_implementation.dart';
-import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/cart_price_cubit.dart';
+import 'package:elegant_shop_app/features/cart/presentation/mangers/cart_price_cubit/cart_price_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/get_all_products_cubit/get_all_cart_products_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/cart_product_card_quantity_item.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,9 @@ class CartProductCardQuantitySection extends StatefulWidget {
   const CartProductCardQuantitySection({
     super.key,
     required this.cartProductModelIndex,
+    required this.cartProductModel,
   });
+  final CartProductModel cartProductModel;
   final int cartProductModelIndex;
   @override
   State<CartProductCardQuantitySection> createState() =>
@@ -21,7 +23,13 @@ class CartProductCardQuantitySection extends StatefulWidget {
 
 class _CartProductCardQuantitySectionState
     extends State<CartProductCardQuantitySection> {
-  int count = 1;
+  late int count;
+  @override
+  void initState() {
+    count = widget.cartProductModel.quantity!;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final CartPriceCubit cartPriceCubit = context.read<CartPriceCubit>();

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:elegant_shop_app/features/cart/presentation/mangers/get_all_products_cubit/get_all_cart_products_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/cart_product_card.dart';
@@ -37,7 +36,7 @@ class CartProductsListView extends StatelessWidget {
                       endIndent: 10,
                     ),
                 itemCount: state.cartProducts.length)
-            : SizedBox();
+            : const SizedBox();
       },
     );
   }

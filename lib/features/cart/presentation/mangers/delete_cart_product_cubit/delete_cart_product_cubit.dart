@@ -26,7 +26,7 @@ class DeleteCartProductCubit extends Cubit<DeleteCartProductState> {
       });
       return status;
     } catch (e) {
-      log('e: ${e}');
+      log('e: $e');
       emit(DeleteCartProductFailure());
       return false;
     }

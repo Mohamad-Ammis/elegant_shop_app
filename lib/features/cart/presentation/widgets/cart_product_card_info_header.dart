@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
@@ -31,7 +30,7 @@ class CartProductCardInfoHeader extends StatelessWidget {
             return GestureDetector(
               onTapDown: (TapDownDetails details) {
                 showMenu(
-                  menuPadding: EdgeInsets.all(0),
+                  menuPadding: const EdgeInsets.all(0),
                   color: Colors.white,
                   context: context,
                   position: RelativeRect.fromLTRB(
@@ -51,20 +50,21 @@ class CartProductCardInfoHeader extends StatelessWidget {
                                       productId: cartProductModel.id.toString(),
                                       context: context);
                               if (status) {
+                                // ignore: use_build_context_synchronously
                                 await context
                                     .read<GetAllCartProductsCubit>()
                                     .getAllCartProducts();
                               }
                             },
                       child: state is DeleteCartProductLoading
-                          ? CircularProgressIndicator()
+                          ? const CircularProgressIndicator()
                           : Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.delete,
                                   color: Colors.red,
                                 ),
-                                SizedBox(width: 8),
+                                const SizedBox(width: 8),
                                 Text(
                                   'Delete',
                                   style: Styles.style14Bold,
@@ -76,7 +76,7 @@ class CartProductCardInfoHeader extends StatelessWidget {
                   ],
                 );
               },
-              child: Icon(Icons.more_horiz),
+              child: const Icon(Icons.more_horiz),
             );
           },
         ), // const Icon(Icons.more_horiz)

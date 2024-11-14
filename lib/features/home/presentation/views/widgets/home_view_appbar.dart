@@ -1,9 +1,5 @@
-import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
-import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/home_view_app_bar_image.dart';
 import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +37,7 @@ class HomeViewAppbar extends StatelessWidget {
             ),
             width: 50,
             height: 50,
-            child: HomeViewAppBarImage(),
+            child: const HomeViewAppBarImage(),
           ),
         ),
       ],

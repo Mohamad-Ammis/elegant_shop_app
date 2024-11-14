@@ -110,8 +110,6 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
   }
 
   Widget headerWidget() {
-    const url =
-        'https://media.istockphoto.com/photos/learn-to-love-yourself-first-picture-id1291208214?b=1&k=20&m=1291208214&s=170667a&w=0&h=sAq9SonSuefj3d4WKy4KzJvUiLERXge9VgZO-oqKUOo=';
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
@@ -122,7 +120,7 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
                   BoxDecoration(borderRadius: BorderRadius.circular(999)),
               height: 50,
               width: 50,
-              child: HomeViewAppBarImage()),
+              child: const HomeViewAppBarImage()),
           const SizedBox(
             width: 20,
           ),

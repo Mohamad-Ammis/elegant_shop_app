@@ -14,24 +14,30 @@ class AddToCartCubit extends Cubit<AddToCartState> {
       required String productQuantity,
       required BuildContext context}) async {
     try {
-      emit(AddToCartLoading());
-      bool status = false;
-      var data = await cartRepo.addProductToCart(
-          productId: productId,
-          productQuantity: productQuantity,
-          context: context);
-      data.fold((failure) {
-        status = false;
+      try {
+        emit(AddToCartLoading());
+        bool status = false;
+        var data = await cartRepo.addProductToCart(
+            productId: productId,
+            productQuantity: productQuantity,
+            context: context);
+        data.fold((failure) {
+          status = false;
+          emit(AddToCartFailure());
+        }, (success) {
+          status = success;
+          emit(AddToCartSuccess());
+        });
+        return status;
+      } catch (e) {
         emit(AddToCartFailure());
-      }, (success) {
-        status = success;
-        emit(AddToCartSuccess());
-      });
-      return status;
-    } catch (e) {
-      emit(AddToCartFailure());
-      log('e: $e');
+        log('e: $e');
+        return false;
+      }
+    } on StateError catch (e) {
+      log('e: ${e}');
       return false;
+      // TODO
     }
   }
 }

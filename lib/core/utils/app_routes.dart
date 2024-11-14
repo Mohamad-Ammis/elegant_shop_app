@@ -7,7 +7,8 @@ import 'package:elegant_shop_app/features/auth/presentation/register_presentatio
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo_implementation.dart';
 import 'package:elegant_shop_app/features/cart/presentation/cart_view.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/add_to_cart_cubit/add_to_cart_cubit.dart';
-import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/cart_price_cubit.dart';
+import 'package:elegant_shop_app/features/cart/presentation/mangers/cart_price_cubit/cart_price_cubit.dart';
+import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/update_cart_products_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/delete_cart_product_cubit/delete_cart_product_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/get_all_products_cubit/get_all_cart_products_cubit.dart';
 import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo_implementation.dart';
@@ -221,8 +222,14 @@ class AppRouter {
               create: (context) {
                 return CartPriceCubit();
               },
-            )
-          ], child: CartView());
+            ),
+            BlocProvider(
+              create: (context) {
+                return UpdateCartProductsCubit(
+                    cartRepo: getIt.get<CartRepoImplementation>());
+              },
+            ),
+          ], child: const CartView());
         },
       )
     ],
