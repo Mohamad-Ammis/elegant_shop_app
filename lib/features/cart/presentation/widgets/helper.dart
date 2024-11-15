@@ -1,13 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:elegant_shop_app/core/errors/failure.dart';
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/core/utils/service_locator.dart';
 import 'package:elegant_shop_app/core/utils/stripe_service.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/create_order_cubit.dart';
-import 'package:elegant_shop_app/features/orders/data/models/order_model/order_model.dart';
+import 'package:elegant_shop_app/features/orders/data/models/create_order_model/create_order_model.dart';
 import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,8 @@ import 'package:go_router/go_router.dart';
 
 Future<void> createOrder(BuildContext context, int selectedIndex) async {
   CreateOrderCubit createOrderCubit = context.read<CreateOrderCubit>();
-  OrderModel? orderModel = await createOrderCubit.createOrder(context: context);
+  CreateOrderModel? orderModel =
+      await createOrderCubit.createOrder(context: context);
   //cash payment
   if (selectedIndex == 0) {
     handleOrderCashPayment(orderModel, context);
@@ -24,7 +26,8 @@ Future<void> createOrder(BuildContext context, int selectedIndex) async {
   }
 }
 
-void handleOrderCashPayment(OrderModel? orderModel, BuildContext context) {
+void handleOrderCashPayment(
+    CreateOrderModel? orderModel, BuildContext context) {
   log('status: ${orderModel != null}');
   if (orderModel != null) {
     GoRouter.of(context).go(AppRouter.kHomeView);
@@ -32,7 +35,7 @@ void handleOrderCashPayment(OrderModel? orderModel, BuildContext context) {
 }
 
 Future<void> handleOrderCreditCardPayment(
-    OrderModel orderModel, BuildContext context) async {
+    CreateOrderModel orderModel, BuildContext context) async {
   try {
     // GoRouter.of(context).pop();
     await getIt.get<StripeService>().makePayment(

@@ -1,4 +1,4 @@
-import 'package:elegant_shop_app/features/orders/presentation/widgets/order_card.dart';
+import 'package:elegant_shop_app/features/orders/presentation/widgets/orders_list_view.dart';
 import 'package:flutter/material.dart';
 
 class OrderViewBody extends StatelessWidget {
@@ -6,13 +6,9 @@ class OrderViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
-        Expanded(child: ListView.builder(
-          itemBuilder: (context, index) {
-            return const OrderCard();
-          },
-        ))
+        Expanded(child: OrdersListView())
       ],
     );
   }

@@ -45,6 +45,7 @@ dependencies:
   go_router: ^14.3.0
   hero_animation: ^1.1.4
   image_picker: ^1.1.2
+  intl: null
   meta: ^1.15.0
   readmore: ^3.0.0
   shared_preferences: ^2.3.2

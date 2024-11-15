@@ -1,16 +1,17 @@
 import 'order.dart';
 
-class OrderModel {
-  Order? order;
+class CreateOrderModel {
+  OrderModel? order;
   String? clientSecret;
   String? paymentState;
 
-  OrderModel({this.order, this.clientSecret, this.paymentState});
+  CreateOrderModel({this.order, this.clientSecret, this.paymentState});
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+  factory CreateOrderModel.fromJson(Map<String, dynamic> json) =>
+      CreateOrderModel(
         order: json['order'] == null
             ? null
-            : Order.fromJson(json['order'] as Map<String, dynamic>),
+            : OrderModel.fromJson(json['order'] as Map<String, dynamic>),
         clientSecret: json['client_secret'] as String?,
         paymentState: json['payment_state'] as String?,
       );

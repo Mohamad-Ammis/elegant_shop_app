@@ -1,4 +1,5 @@
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/features/orders/data/models/create_order_model/order.dart';
 import 'package:elegant_shop_app/features/orders/presentation/widgets/order_card_header.dart';
 import 'package:elegant_shop_app/features/orders/presentation/widgets/order_card_info.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,9 @@ import 'package:flutter/material.dart';
 class OrderCard extends StatelessWidget {
   const OrderCard({
     super.key,
+    required this.orderModel,
   });
-
+  final OrderModel orderModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,9 +24,11 @@ class OrderCard extends StatelessWidget {
         children: [
           Column(
             children: [
-              const OrderCardHeader(),
+              OrderCardHeader(orderModel: orderModel,),
               20.verticalSizedBox,
-              const OrderCardInfo(),
+              OrderCardInfo(
+                orderModel: orderModel,
+              ),
             ],
           ),
           // 8.verticalSizedBox

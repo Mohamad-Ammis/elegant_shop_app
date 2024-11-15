@@ -1,17 +1,12 @@
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
 import 'package:elegant_shop_app/constans.dart';
-import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
-import 'package:elegant_shop_app/core/utils/stripe_service.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
-import 'package:elegant_shop_app/features/cart/data/models/payment_intent_input_model.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/add_to_cart_cubit/add_to_cart_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
-import 'package:elegant_shop_app/main.dart';
 import 'package:elegant_shop_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,8 +29,7 @@ class ProductDetailsFloatingBuySection extends StatelessWidget {
           children: [
             Expanded(
               child: CustomButton(
-                onTap: () async {
-                },
+                onTap: () async {},
                 width: 200,
                 color: kLightBlackColor,
                 borderRadius: BorderRadius.circular(16),

@@ -10,7 +10,7 @@ import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo.dart';
-import 'package:elegant_shop_app/features/orders/data/models/order_model/order_model.dart';
+import 'package:elegant_shop_app/features/orders/data/models/create_order_model/create_order_model.dart';
 import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -133,7 +133,7 @@ class CartRepoImplementation implements CartRepo {
   }
 
   @override
-  Future<Either<Failure, OrderModel>> createOrder(
+  Future<Either<Failure, CreateOrderModel>> createOrder(
       {required BuildContext context}) async {
     try {
       var response = await apiService.post(
@@ -144,9 +144,9 @@ class CartRepoImplementation implements CartRepo {
                 'Order Placed', "Your Order Has been placed Successfully")
             .show(context);
       }
-      return Right(OrderModel.fromJson(response.data));
+      return Right(CreateOrderModel.fromJson(response.data));
     } catch (e) {
-      log('e: ${e}');
+      log('e: $e');
       if (e is DioException) {
         showErrorSnackBar('Error Hapeened',
                 ServerFailure.fromDioException(e).errorMessage)

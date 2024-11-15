@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
@@ -99,7 +101,7 @@ class CartShippingInforamtionSection extends StatelessWidget {
                             },
                       color: kLightBlackColor,
                       child: state is UpdateCartProductsLoading
-                          ? CustomLoadingWidget(
+                          ? const CustomLoadingWidget(
                               color: Colors.white,
                             )
                           : Text(

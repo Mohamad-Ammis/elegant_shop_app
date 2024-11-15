@@ -1,27 +1,19 @@
-import 'dart:developer';
 
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
-import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
-import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/utils/service_locator.dart';
-import 'package:elegant_shop_app/core/utils/stripe_service.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/cart/data/models/payment_method_item_model.dart';
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo_implementation.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/cubit/create_order_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/get_all_products_cubit/get_all_cart_products_cubit.dart';
-import 'package:elegant_shop_app/features/cart/presentation/mangers/update_cart_products/update_cart_products_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/helper.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/payment_method_item.dart';
-import 'package:elegant_shop_app/features/orders/data/models/order_model/order_model.dart';
-import 'package:elegant_shop_app/main.dart';
 import 'package:elegant_shop_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class ChoosePaymentMethodBottomSheet extends StatefulWidget {
   const ChoosePaymentMethodBottomSheet({
@@ -93,12 +85,11 @@ class _ChoosePaymentMethodBottomSheetState
                   onTap: state is CreateOrderLoading
                       ? null
                       : () async {
-                          
                           await createOrder(context, selectedIndex);
                         },
                   color: kLightBlackColor,
                   child: state is CreateOrderLoading
-                      ? CustomLoadingWidget(
+                      ? const CustomLoadingWidget(
                           color: Colors.white,
                         )
                       : Text(

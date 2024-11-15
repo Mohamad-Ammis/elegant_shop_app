@@ -40,7 +40,7 @@ class ProductDetailsInfo extends StatelessWidget {
                       TextSpan(
                           text: r'$'
                               '${(productDetailsModel.price! / 100).toString()}',
-                          style: TextStyle(
+                          style: const TextStyle(
                               decoration: TextDecoration.lineThrough)),
                       TextSpan(
                           text: r'  $'

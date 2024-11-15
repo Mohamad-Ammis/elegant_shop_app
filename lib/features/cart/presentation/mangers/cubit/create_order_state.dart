@@ -8,7 +8,7 @@ final class CreateOrderInitial extends CreateOrderState {}
 final class CreateOrderLoading extends CreateOrderState {}
 
 final class CreateOrderSuccess extends CreateOrderState {
-  final OrderModel orderModel;
+  final CreateOrderModel orderModel;
 
   CreateOrderSuccess({required this.orderModel});
 }

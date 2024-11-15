@@ -5,6 +5,7 @@ import 'package:elegant_shop_app/features/auth/data/repos/auth_repo_implementati
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo_implementation.dart';
 import 'package:elegant_shop_app/features/favorite/data/repos/favorite_repo_implementation.dart';
 import 'package:elegant_shop_app/features/home/data/repos/home_repo_implementation.dart';
+import 'package:elegant_shop_app/features/orders/data/repo/order_repo_implementation.dart';
 import 'package:elegant_shop_app/features/product_details/data/repos/product_details_repo_implementation.dart';
 import 'package:get_it/get_it.dart';
 
@@ -14,7 +15,8 @@ void setup() {
   getIt.registerSingleton<Dio>(Dio());
 
   getIt.registerSingleton<ApiService>(ApiService(dio: getIt.get<Dio>()));
-  getIt.registerSingleton<StripeService>(StripeService(apiService: getIt.get<ApiService>()));
+  getIt.registerSingleton<StripeService>(
+      StripeService(apiService: getIt.get<ApiService>()));
 
   getIt.registerSingleton<AuthRepoImplementation>(
       AuthRepoImplementation(apiService: getIt.get<ApiService>()));
@@ -26,4 +28,6 @@ void setup() {
       FavoriteRepoImplementation(apiService: getIt.get<ApiService>()));
   getIt.registerSingleton<CartRepoImplementation>(
       CartRepoImplementation(apiService: getIt.get<ApiService>()));
+  getIt.registerSingleton<OrderRepoImplementation>(
+      OrderRepoImplementation(apiService: getIt.get<ApiService>()));
 }

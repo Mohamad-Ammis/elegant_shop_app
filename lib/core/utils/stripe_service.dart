@@ -52,7 +52,7 @@ class StripeService {
           token: ApiKeys.secretKey);
       CustomerModel model = CustomerModel.fromJson(response.data);
       log('create customer : ${response.data}');
-      userInfo!.setString('payment_token', model.id ?? "");
+      userInfo.setString('payment_token', model.id ?? "");
       return true;
     } on Exception catch (e) {
       log('e: $e');
@@ -71,7 +71,7 @@ class StripeService {
           CustomerModel model =
               CustomerModel.fromJson(response.data['data'][0]);
           log('GET CUSTOMER : ${response.data}');
-          userInfo!.setString('payment_token', model.id ?? "");
+          userInfo.setString('payment_token', model.id ?? "");
           return true;
         }
       } else {
@@ -98,10 +98,10 @@ class StripeService {
     return model;
   }
 
-  Future makePayment({required String customerId,required String clientSecret}) async {
+  Future makePayment(
+      {required String customerId, required String clientSecret}) async {
     // var paymentIntentModel = await createPaymentIntent(model);
-    var ephemeralKeyModel =
-        await createEphemeralKey(customerid: customerId);
+    var ephemeralKeyModel = await createEphemeralKey(customerid: customerId);
     InitPaymentSheetModel initPaymentSheetModel = InitPaymentSheetModel(
         paymentIntentClientSecret: clientSecret,
         customerId: customerId,

@@ -1,19 +1,17 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo.dart';
-import 'package:elegant_shop_app/features/orders/data/models/order_model/order_model.dart';
+import 'package:elegant_shop_app/features/orders/data/models/create_order_model/create_order_model.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'create_order_state.dart';
 
 class CreateOrderCubit extends Cubit<CreateOrderState> {
   CreateOrderCubit({required this.cartRepo}) : super(CreateOrderInitial());
   final CartRepo cartRepo;
-  Future<OrderModel?> createOrder({required BuildContext context}) async {
-        OrderModel? orderModel;
+  Future<CreateOrderModel?> createOrder({required BuildContext context}) async {
+    CreateOrderModel? orderModel;
     try {
       try {
         emit(CreateOrderLoading());
@@ -26,7 +24,7 @@ class CreateOrderCubit extends Cubit<CreateOrderState> {
         });
         return orderModel;
       } on Exception catch (e) {
-        log('e: ${e}');
+        log('e: $e');
         emit(CreateOrderFailure());
         return orderModel;
       }
