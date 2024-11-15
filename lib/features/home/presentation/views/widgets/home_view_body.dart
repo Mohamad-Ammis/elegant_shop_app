@@ -45,6 +45,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           //second state we haven't search text so use all products api
           else {
             log("call pagination product api");
+            
             productCubit.getAllProducts(fromPagination: true);
           }
         }

@@ -35,38 +35,31 @@ class HomeRepoImplementation implements HomeRepo {
   }
 
   List<ProductModel> products = [];
-  Timer? _debounce;
   @override
   Future<Either<Failure, Map<String, dynamic>>> getAllProducts({
     int page = 1,
   }) async {
     try {
+      log(page.toString());
       if (page == 1) {
-        products = [];
+        products.clear();
       }
-      // استخدمتو لخزن فيو البيانات يلي رح رجعا بعد التايمر
-      Completer<Either<Failure, Map<String, dynamic>>> completer = Completer();
-      if (_debounce?.isActive ?? false) _debounce!.cancel();
-      _debounce = Timer(const Duration(milliseconds: 500), () async {
-        log('$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize');
-        var response = await apiService.get(
-          url: '$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize',
-        );
-        if (response.data != null) {
-          for (var product in response.data['results']) {
-            products.add(ProductModel.fromJson(product));
-          }
-          log('************get All Products Successfully ******************* ');
-          completer.complete(Right({
-            'products': products,
-            'has_next': response.data['next'] != null,
-          }));
-        } else {
-          completer.complete(
-              Left(ServerFailure(errorMessage: 'Response or data is null')));
+      log('$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize');
+      var response = await apiService.get(
+        url: '$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize',
+      );
+      if (response.data != null) {
+        for (var product in response.data['results']) {
+          products.add(ProductModel.fromJson(product));
         }
-      });
-      return completer.future;
+        log('************get All Products Successfully ******************* ');
+        return Right({
+          'products': products,
+          'has_next': response.data['next'] != null,
+        });
+      } else {
+        return Left(ServerFailure(errorMessage: 'Response or data is null'));
+      }
     } catch (e) {
       log(e.toString());
       if (e is DioException) {
@@ -88,7 +81,7 @@ class HomeRepoImplementation implements HomeRepo {
       // استخدمتو لخزن فيو البيانات يلي رح رجعا بعد التايمر
       Completer<Either<Failure, Map<String, dynamic>>> completer = Completer();
       if (_searchDebounce?.isActive ?? false) _searchDebounce!.cancel();
-      _searchDebounce = Timer(const Duration(milliseconds: 500), () async {
+      _searchDebounce = Timer(const Duration(milliseconds: 800), () async {
         log('$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize&search=$searchText');
         var response = await apiService.get(
           url:
@@ -119,22 +112,23 @@ class HomeRepoImplementation implements HomeRepo {
     }
   }
 
+  List<ProductModel> categoryProducts = [];
   @override
   Future<Either<Failure, List<ProductModel>>> getProductsByCategory(
       {required String apiUrl}) async {
     try {
-      products = [];
+      categoryProducts = [];
       log(apiUrl);
       var response = await apiService.get(
         url: apiUrl,
       );
       if (response.data != null) {
         for (var product in response.data['products']) {
-          products.add(ProductModel.fromJson(product));
+          categoryProducts.add(ProductModel.fromJson(product));
         }
         log('************get Products By Category Successfully ******************* ');
-        log(products.toList().toString());
-        return Right(products);
+        log(categoryProducts.toList().toString());
+        return Right(categoryProducts);
       } else {
         return Left(ServerFailure(errorMessage: 'Response or data is null'));
       }
