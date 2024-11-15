@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/errors/failure.dart';
 import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
@@ -74,9 +75,7 @@ class ProductDetailsRepoImplementation implements ProductDetailsRepo {
       }
       var response = await apiService.get(
           url: '${productUrl}reviews/?page=$page&page_size=10',
-          headers: {
-            'Accept': 'application/json',
-          },
+          headers: kCommonApiHeaders,
           token: userInfo.getString('auth_token'));
       for (var i = 0; i < response.data['results'].length; i++) {
         productReviews.add(ReviewModel.fromJson(response.data['results'][i]));

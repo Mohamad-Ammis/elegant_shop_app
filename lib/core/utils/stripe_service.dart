@@ -98,14 +98,15 @@ class StripeService {
     return model;
   }
 
-  Future makePayment({required PaymentIntentInputModel model}) async {
-    var paymentIntentModel = await createPaymentIntent(model);
+  Future makePayment({required String customerId,required String clientSecret}) async {
+    // var paymentIntentModel = await createPaymentIntent(model);
     var ephemeralKeyModel =
-        await createEphemeralKey(customerid: model.customerId);
+        await createEphemeralKey(customerid: customerId);
     InitPaymentSheetModel initPaymentSheetModel = InitPaymentSheetModel(
-        paymentIntentClientSecret: paymentIntentModel.clientSecret!,
-        customerId: model.customerId,
+        paymentIntentClientSecret: clientSecret,
+        customerId: customerId,
         ephemeralKey: ephemeralKeyModel.secret);
+
     await initPaymentSheet(model: initPaymentSheetModel);
     await displayPaymentSheet();
   }

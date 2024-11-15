@@ -20,7 +20,7 @@ class CartPriceCubit extends Cubit<CartPriceState> {
       //جبت سعر المنتج وكميتو لسهل العمليات عحالي
       num tempPrice = cartProducts[i].product!.price!;
       num tempQuantity = cartProducts[i].quantity!;
-      String tempDiscount = '1';
+      String tempDiscount = '0';
       //فرضت الخصم واحد مشان اذا قسمت عليه مايصير شي وبحال كان موجود باخد قيمتو
       if (cartProducts[i].product?.discount?.active ?? false) {
         tempDiscount = cartProducts[i].product?.discount?.percent ?? '1';

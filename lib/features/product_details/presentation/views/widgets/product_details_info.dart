@@ -39,16 +39,16 @@ class ProductDetailsInfo extends StatelessWidget {
                   ? Text.rich(TextSpan(children: [
                       TextSpan(
                           text: r'$'
-                              '${productDetailsModel.price.toString()}',
+                              '${(productDetailsModel.price! / 100).toString()}',
                           style: TextStyle(
                               decoration: TextDecoration.lineThrough)),
                       TextSpan(
                           text: r'  $'
-                              '${(productDetailsModel.price!.toDouble() / double.parse(productDetailsModel.discount?.percent ?? '1')).toStringAsFixed(2)}',
+                              '${(((productDetailsModel.price!.toDouble() * (double.parse(productDetailsModel.discount?.percent ?? '1') / 100))) / 100).toStringAsFixed(2)}',
                           style: Styles.style14SemiBold),
                     ]))
                   : Text(
-                      r'$' '${productDetailsModel.price.toString()}',
+                      r'$' '${(productDetailsModel.price! / 100).toString()}',
                       style: Styles.style14SemiBold,
                     ),
             ],

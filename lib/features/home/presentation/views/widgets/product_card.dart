@@ -43,16 +43,16 @@ class ProductCard extends StatelessWidget {
                   ? Text.rich(TextSpan(children: [
                       TextSpan(
                           text: r'$'
-                              '${product.price.toString()}',
+                              '${(product.price! / 100).toString()}',
                           style: Styles.style10Regular.copyWith(
                               decoration: TextDecoration.lineThrough)),
                       TextSpan(
                           text: r'  $'
-                              '${calculatePriceAfterDiscount().toStringAsFixed(2)}',
+                              '${(calculatePriceAfterDiscount() / 100).toStringAsFixed(2)}',
                           style: Styles.style12Bold),
                     ]))
                   : Text(
-                      r'$' '${product.price.toString()}',
+                      r'$' '${(product.price! / 100).toString()}',
                       style: Styles.style12Bold,
                     ),
               30.horizontalSizedBox,

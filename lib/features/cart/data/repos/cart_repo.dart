@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:elegant_shop_app/core/errors/failure.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
+import 'package:elegant_shop_app/features/orders/data/models/order_model/order_model.dart';
 import 'package:flutter/material.dart';
 
 abstract class CartRepo {
@@ -14,4 +15,8 @@ abstract class CartRepo {
   Future<Either<Failure, bool>> updateCartProducts(
       {required List<Map<String, dynamic>> cartProducts,
       required BuildContext context});
+      
+  Future<Either<Failure, OrderModel>> createOrder(
+      {required BuildContext context});
+
 }

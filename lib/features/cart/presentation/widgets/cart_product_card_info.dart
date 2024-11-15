@@ -37,16 +37,17 @@ class CartProductCardInfo extends StatelessWidget {
                   ? Text.rich(TextSpan(children: [
                       TextSpan(
                           text: r'$'
-                              '${cartProductModel.product!.price.toString()}',
+                              '${(cartProductModel.product!.price! / 100).toString()}',
                           style: Styles.style10Regular.copyWith(
                               decoration: TextDecoration.lineThrough)),
                       TextSpan(
                           text: r'  $'
-                              '${calculatePriceAfterDiscount().toStringAsFixed(2)}',
+                              '${(calculatePriceAfterDiscount() / 100).toStringAsFixed(2)}',
                           style: Styles.style14SemiBold),
                     ]))
                   : Text(
-                      r'$' '${cartProductModel.product!.price.toString()}',
+                      r'$'
+                      '${(cartProductModel.product!.price! / 100).toString()}',
                       style: Styles.style14SemiBold,
                     ),
               CartProductCardQuantitySection(

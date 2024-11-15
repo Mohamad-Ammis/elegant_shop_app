@@ -10,6 +10,7 @@ import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo.dart';
+import 'package:elegant_shop_app/features/orders/data/models/order_model/order_model.dart';
 import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
 
@@ -127,6 +128,32 @@ class CartRepoImplementation implements CartRepo {
         return Left(ServerFailure.fromDioException(e));
       }
       showErrorSnackBar('Error Hapened ', e.toString()).show(context);
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, OrderModel>> createOrder(
+      {required BuildContext context}) async {
+    try {
+      var response = await apiService.post(
+          url: '$kBaseUrl/orders/', body: {}, headers: kCommonApiHeaders);
+      log('response: ${response.data}');
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        showSuccesSnackBar(
+                'Order Placed', "Your Order Has been placed Successfully")
+            .show(context);
+      }
+      return Right(OrderModel.fromJson(response.data));
+    } catch (e) {
+      log('e: ${e}');
+      if (e is DioException) {
+        showErrorSnackBar('Error Hapeened',
+                ServerFailure.fromDioException(e).errorMessage)
+            .show(context);
+        return Left(ServerFailure.fromDioException(e));
+      }
+      showErrorSnackBar('Error Hapeened', e.toString()).show(context);
       return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
