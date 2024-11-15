@@ -2,7 +2,7 @@ import 'package:elegant_shop_app/core/functions/get_order_state_color.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/features/orders/data/models/create_order_model/order.dart';
-import 'package:elegant_shop_app/features/orders/presentation/manger/cubit/change_order_model_state_cubit.dart';
+import 'package:elegant_shop_app/features/orders/presentation/manger/change_order_model_state.dart/change_order_model_state_cubit.dart';
 import 'package:elegant_shop_app/features/orders/presentation/widgets/order_card_header_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

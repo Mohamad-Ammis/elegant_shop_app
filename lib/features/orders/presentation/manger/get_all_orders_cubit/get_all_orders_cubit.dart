@@ -52,4 +52,9 @@ class GetAllOrdersCubit extends Cubit<GetAllOrdersState> {
       log('e: $e');
     }
   }
+
+  void deleteOrderModel({required OrderModel orderModel}) {
+    orders.remove(orderModel);
+    emit(GetAllOrdersSuccess(orders: orders));
+  }
 }

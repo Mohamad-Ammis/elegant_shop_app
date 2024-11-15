@@ -7,7 +7,7 @@ import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/core/utils/service_locator.dart';
 import 'package:elegant_shop_app/core/utils/stripe_service.dart';
 import 'package:elegant_shop_app/features/orders/data/models/create_order_model/order.dart';
-import 'package:elegant_shop_app/features/orders/presentation/manger/cubit/change_order_model_state_cubit.dart';
+import 'package:elegant_shop_app/features/orders/presentation/manger/change_order_model_state.dart/change_order_model_state_cubit.dart';
 import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +29,7 @@ class PayExistOrderCubit extends Cubit<PayExistOrderState> {
           .changeOrderModelState(orderModel: orderModel, state: 'paid');
       emit(PayExistOrderSuccess());
     } on Exception catch (e) {
-      log('e: ${e}');
+      log('e: $e');
       emit(PayExistOrderFailure());
       if (e is DioException) {
         showErrorSnackBar(

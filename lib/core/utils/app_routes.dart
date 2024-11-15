@@ -25,7 +25,8 @@ import 'package:elegant_shop_app/features/home/presentation/views/category_produ
 import 'package:elegant_shop_app/features/home/presentation/views/home_view.dart';
 import 'package:elegant_shop_app/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:elegant_shop_app/features/orders/data/repo/order_repo_implementation.dart';
-import 'package:elegant_shop_app/features/orders/presentation/manger/cubit/change_order_model_state_cubit.dart';
+import 'package:elegant_shop_app/features/orders/presentation/manger/change_order_model_state.dart/change_order_model_state_cubit.dart';
+import 'package:elegant_shop_app/features/orders/presentation/manger/cubit/cancel_exist_order_cubit.dart';
 import 'package:elegant_shop_app/features/orders/presentation/manger/get_all_orders_cubit/get_all_orders_cubit.dart';
 import 'package:elegant_shop_app/features/orders/presentation/order_view.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
@@ -256,6 +257,11 @@ class AppRouter {
               BlocProvider(
                 create: (context) => ChangeOrderModelStateCubit(),
               ),
+              BlocProvider(
+                create: (context) => CancelExistOrderCubit(
+                    orderRepo: getIt.get<OrderRepoImplementation>()),
+              ),
+           
             ],
             child: const OrderView(),
           );
