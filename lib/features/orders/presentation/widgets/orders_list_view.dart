@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
-import 'package:elegant_shop_app/features/orders/presentation/manger/cubit/get_all_orders_cubit.dart';
+import 'package:elegant_shop_app/features/orders/presentation/manger/get_all_orders_cubit/get_all_orders_cubit.dart';
 import 'package:elegant_shop_app/features/orders/presentation/widgets/order_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

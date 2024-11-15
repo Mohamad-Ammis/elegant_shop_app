@@ -32,7 +32,7 @@ class StripeService {
   Future initPaymentSheet({required InitPaymentSheetModel model}) async {
     await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
-      merchantDisplayName: 'Mohamad Ammis',
+      merchantDisplayName: 'Elegant Store',
       customerEphemeralKeySecret: model.ephemeralKey,
       customerId: model.customerId,
       paymentIntentClientSecret: model.paymentIntentClientSecret,

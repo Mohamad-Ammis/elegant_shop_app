@@ -16,7 +16,7 @@ class OrderCardInfo extends StatelessWidget {
       children: [
         ShippingInformationItem(
             title: 'Total price',
-            subTitle: r'$' '${orderModel.total?.toString() ?? 'ammis'}'),
+            subTitle: r'$' '${(orderModel.total ?? 0 / 100).toString()}'),
         6.verticalSizedBox,
         const Divider(
           thickness: .2,
@@ -27,7 +27,8 @@ class OrderCardInfo extends StatelessWidget {
         ShippingInformationItem(
             title: 'Order date',
             subTitle:
-                formatDate(orderModel.dateAdded.toString().substring(0, 10)).toString()),
+                formatDate(orderModel.dateAdded.toString().substring(0, 10))
+                    .toString()),
       ],
     );
   }

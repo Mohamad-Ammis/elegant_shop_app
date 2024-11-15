@@ -1,7 +1,7 @@
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/widgets/custom_app_bar.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
-import 'package:elegant_shop_app/features/orders/presentation/manger/cubit/get_all_orders_cubit.dart';
+import 'package:elegant_shop_app/features/orders/presentation/manger/get_all_orders_cubit/get_all_orders_cubit.dart';
 import 'package:elegant_shop_app/features/orders/presentation/widgets/order_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

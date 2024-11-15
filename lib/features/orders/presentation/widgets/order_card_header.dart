@@ -2,8 +2,10 @@ import 'package:elegant_shop_app/core/functions/get_order_state_color.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/features/orders/data/models/create_order_model/order.dart';
+import 'package:elegant_shop_app/features/orders/presentation/manger/cubit/change_order_model_state_cubit.dart';
 import 'package:elegant_shop_app/features/orders/presentation/widgets/order_card_header_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderCardHeader extends StatelessWidget {
   const OrderCardHeader({
@@ -20,18 +22,24 @@ class OrderCardHeader extends StatelessWidget {
           style: Styles.style16Bold,
         ),
         8.horizontalSizedBox,
-        Container(
-          decoration: BoxDecoration(
-              color: getOrderStateColor(orderModel.state.toString()),
-              borderRadius: BorderRadius.circular(999)),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-          child: Text(
-            orderModel.state.toString(),
-            style: Styles.style12Bold.copyWith(color: Colors.white),
-          ),
+        BlocBuilder<ChangeOrderModelStateCubit, ChangeOrderModelStateState>(
+          builder: (context, state) {
+            return Container(
+              decoration: BoxDecoration(
+                  color: getOrderStateColor(orderModel.state.toString()),
+                  borderRadius: BorderRadius.circular(999)),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+              child: Text(
+                orderModel.state.toString(),
+                style: Styles.style12Bold.copyWith(color: Colors.white),
+              ),
+            );
+          },
         ),
         const Spacer(),
-        const OrderCardHeaderMenu()
+        OrderCardHeaderMenu(
+          orderModel: orderModel,
+        )
       ],
     );
   }

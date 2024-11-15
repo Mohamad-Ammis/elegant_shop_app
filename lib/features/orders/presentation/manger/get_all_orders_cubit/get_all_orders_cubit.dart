@@ -15,6 +15,7 @@ class GetAllOrdersCubit extends Cubit<GetAllOrdersState> {
   bool hasNext = false;
   Future<void> getAllOrders({bool fromPagination = false}) async {
     try {
+      log("call get All Orders page = $page");
       try {
         if (page == 1) {
           orders.clear();
