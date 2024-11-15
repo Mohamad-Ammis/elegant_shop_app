@@ -109,6 +109,9 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
       case 3:
         GoRouter.of(context).push(AppRouter.kOrderView);
         break;
+      case 5:
+        GoRouter.of(context).go(AppRouter.kLoginView);
+        break;
     }
   }
 

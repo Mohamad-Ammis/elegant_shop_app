@@ -28,11 +28,14 @@ class AuthRepoImplementation implements AuthRepo {
             'user_name', response.data['user']['username']);
         await userInfo.setString('email', response.data['user']['email']);
         await userInfo.setString('avatar', response.data['user']['avatar']);
+        await userInfo.setString('customer_id',
+            response.data?['user']['payment_details']?['customer_id']);
         return const Right(true);
       } else {
         return const Right(false);
       }
     } on Exception catch (e) {
+      log('e: $e');
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));
       }
@@ -50,7 +53,9 @@ class AuthRepoImplementation implements AuthRepo {
               url: '$kBaseUrl/users/',
               body: registerInputModel.toJson(),
               contentType: 'multipart/form-data',
-              headers: {'Accept': 'application/json'},
+              headers: {
+                'Accept': 'application/json',
+              },
               imagePath: registerInputModel.image!)
           : await apiService.post(
               url: '$kBaseUrl/users/',
@@ -65,6 +70,7 @@ class AuthRepoImplementation implements AuthRepo {
         return const Right(false);
       }
     } on Exception catch (e) {
+      log('e: $e');
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));
       }
