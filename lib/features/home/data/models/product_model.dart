@@ -1,7 +1,6 @@
 import 'package:elegant_shop_app/features/home/data/models/product_model/discount.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/category.dart';
 
-
 class ProductModel {
   int? id;
   String? name;

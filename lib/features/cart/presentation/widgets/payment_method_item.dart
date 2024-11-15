@@ -22,7 +22,7 @@ class PaymentMethodItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16)
           // border: Border.all(color: kPrimaryColor)
           ),
-      duration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 600),
       child: ListTile(
         leading: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12),

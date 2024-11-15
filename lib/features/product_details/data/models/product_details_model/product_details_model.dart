@@ -1,4 +1,5 @@
 import 'category.dart';
+import 'discount.dart';
 import 'image.dart';
 
 class ProductDetailsModel {
@@ -7,13 +8,13 @@ class ProductDetailsModel {
   String? thumbnailUrl;
   String? absoluteUrl;
   String? description;
-  dynamic discount;
+  Discount? discount;
   int? price;
   int? stock;
   bool? inStock;
-  dynamic isFavorite;
-  dynamic avgRating;
-  num? ratingCount;
+  bool? isFavorite;
+  double? avgRating;
+  int? ratingCount;
   List<Image>? images;
   Category? category;
 
@@ -41,13 +42,15 @@ class ProductDetailsModel {
       thumbnailUrl: json['thumbnail_url'] as String?,
       absoluteUrl: json['absolute_url'] as String?,
       description: json['description'] as String?,
-      discount: json['discount'] as dynamic,
+      discount: json['discount'] == null
+          ? null
+          : Discount.fromJson(json['discount'] as Map<String, dynamic>),
       price: json['price'] as int?,
       stock: json['stock'] as int?,
       inStock: json['in_stock'] as bool?,
-      isFavorite: json['is_favorite'] as dynamic,
-      avgRating: json['avg_rating'] as dynamic,
-      ratingCount: json['rating_count'] as num?,
+      isFavorite: json['is_favorite'] as bool?,
+      avgRating: (json['avg_rating'] as num?)?.toDouble(),
+      ratingCount: json['rating_count'] as int?,
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => Image.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -63,12 +66,13 @@ class ProductDetailsModel {
         'thumbnail_url': thumbnailUrl,
         'absolute_url': absoluteUrl,
         'description': description,
-        'discount': discount,
+        'discount': discount?.toJson(),
         'price': price,
         'stock': stock,
         'in_stock': inStock,
         'is_favorite': isFavorite,
         'avg_rating': avgRating,
+        'rating_count': ratingCount,
         'images': images?.map((e) => e.toJson()).toList(),
         'category': category?.toJson(),
       };

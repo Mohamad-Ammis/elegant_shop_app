@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
 import 'package:meta/meta.dart';
@@ -31,10 +29,10 @@ class CartPriceCubit extends Cubit<CartPriceState> {
       tempTotalPrice += (tempQuantity * tempPrice);
       //مقدار الخصم وهو عبارة عن سعر المنتج ناقص كمية الخصم هيك منكون جبنا
       //الرقم يلي بدنا نخصمو ومنعرضو
-      totlaDiscount += (tempPrice - (tempPrice / double.parse(tempDiscount))) *
+      totlaDiscount += (tempPrice * (double.parse(tempDiscount) / 100)) *
           cartProducts[i].quantity!;
       //السعر بعد الخصم وهو السعر الكلي تقسيم نسبة الخصم وبضربو بكمية المنتج
-      subTotal += (tempQuantity * (tempPrice / double.parse(tempDiscount)));
+      subTotal = tempTotalPrice - totlaDiscount;
     }
     //السعر الكلي بدون اي عمليات خصم
     totalPrice = tempTotalPrice;

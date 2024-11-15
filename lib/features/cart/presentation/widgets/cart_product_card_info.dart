@@ -38,11 +38,11 @@ class CartProductCardInfo extends StatelessWidget {
                       TextSpan(
                           text: r'$'
                               '${cartProductModel.product!.price.toString()}',
-                          style: TextStyle(
+                          style: Styles.style10Regular.copyWith(
                               decoration: TextDecoration.lineThrough)),
                       TextSpan(
                           text: r'  $'
-                              '${(cartProductModel.product!.price!.toDouble() / double.parse(cartProductModel.product?.discount?.percent ?? '1')).toStringAsFixed(2)}',
+                              '${calculatePriceAfterDiscount().toStringAsFixed(2)}',
                           style: Styles.style14SemiBold),
                     ]))
                   : Text(
@@ -59,4 +59,10 @@ class CartProductCardInfo extends StatelessWidget {
       ),
     );
   }
+
+  double calculatePriceAfterDiscount() =>
+      cartProductModel.product!.price!.toDouble() -
+      (cartProductModel.product!.price!.toDouble() *
+          (double.parse(cartProductModel.product?.discount?.percent ?? '100') /
+              100));
 }

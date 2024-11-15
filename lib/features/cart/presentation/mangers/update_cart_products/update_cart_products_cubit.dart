@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
 import 'package:elegant_shop_app/features/cart/data/repos/cart_repo.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'update_cart_products_state.dart';
 
@@ -33,7 +32,7 @@ class UpdateCartProductsCubit extends Cubit<UpdateCartProductsState> {
       });
       return status;
     } catch (e) {
-      log('e: ${e}');
+      log('e: $e');
       return false;
     }
   }
@@ -47,7 +46,7 @@ class UpdateCartProductsCubit extends Cubit<UpdateCartProductsState> {
         "quantity": cartProducts[i].quantity.toString()
       });
     }
-    log('cart product as json  : ${data}');
+    log('cart product as json  : $data');
     return data;
   }
 }

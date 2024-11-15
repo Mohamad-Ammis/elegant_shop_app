@@ -35,9 +35,8 @@ class AddToCartCubit extends Cubit<AddToCartState> {
         return false;
       }
     } on StateError catch (e) {
-      log('e: ${e}');
+      log('e: $e');
       return false;
-      // TODO
     }
   }
 }

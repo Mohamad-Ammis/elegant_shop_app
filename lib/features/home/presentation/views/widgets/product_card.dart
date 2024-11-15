@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
           4.verticalSizedBox,
           Text(
             overflow: TextOverflow.ellipsis,
-            '${product.category!.name.toString()}',
+            product.category!.name.toString(),
             style: Styles.style10Regular.copyWith(color: kSubTitleColor),
           ),
           12.verticalSizedBox,
@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
                               decoration: TextDecoration.lineThrough)),
                       TextSpan(
                           text: r'  $'
-                              '${(product.price!.toDouble() / double.parse(product.discount?.percent ?? '1')).toStringAsFixed(2)}',
+                              '${calculatePriceAfterDiscount().toStringAsFixed(2)}',
                           style: Styles.style12Bold),
                     ]))
                   : Text(
@@ -76,4 +76,9 @@ class ProductCard extends StatelessWidget {
       ),
     );
   }
+
+  double calculatePriceAfterDiscount() =>
+      product.price!.toDouble() -
+      (product.price!.toDouble() *
+          (double.parse(product.discount?.percent ?? '100') / 100));
 }

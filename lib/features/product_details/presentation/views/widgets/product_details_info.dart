@@ -35,10 +35,22 @@ class ProductDetailsInfo extends StatelessWidget {
                   style: Styles.style24SemiBold.copyWith(fontSize: 28),
                 ),
               ),
-              Text(
-                '${productDetailsModel.price ?? ''}\$',
-                style: Styles.style16SemiBold,
-              ),
+              productDetailsModel.discount?.active ?? false
+                  ? Text.rich(TextSpan(children: [
+                      TextSpan(
+                          text: r'$'
+                              '${productDetailsModel.price.toString()}',
+                          style: TextStyle(
+                              decoration: TextDecoration.lineThrough)),
+                      TextSpan(
+                          text: r'  $'
+                              '${(productDetailsModel.price!.toDouble() / double.parse(productDetailsModel.discount?.percent ?? '1')).toStringAsFixed(2)}',
+                          style: Styles.style14SemiBold),
+                    ]))
+                  : Text(
+                      r'$' '${productDetailsModel.price.toString()}',
+                      style: Styles.style14SemiBold,
+                    ),
             ],
           ),
           4.verticalSizedBox,

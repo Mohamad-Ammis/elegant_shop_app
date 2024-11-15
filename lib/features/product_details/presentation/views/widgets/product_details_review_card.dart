@@ -69,7 +69,7 @@ class ProductDetailsReviewCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: MediaQuery.sizeOf(context).width / 1.8,
+                      width: MediaQuery.sizeOf(context).width / 2,
                       child: Text(
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,

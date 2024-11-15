@@ -10,7 +10,7 @@ class OrderViewBody extends StatelessWidget {
       children: [
         Expanded(child: ListView.builder(
           itemBuilder: (context, index) {
-            return OrderCard();
+            return const OrderCard();
           },
         ))
       ],

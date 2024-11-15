@@ -11,15 +11,17 @@ class OrderCardInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ShippingInformationItem(title: 'Total price', subTitle: r'$241.2'),
+        const ShippingInformationItem(
+            title: 'Total price', subTitle: r'$241.2'),
         6.verticalSizedBox,
-        Divider(
+        const Divider(
           thickness: .2,
           indent: 10,
           endIndent: 10,
         ),
         6.verticalSizedBox,
-        ShippingInformationItem(title: 'Order date', subTitle: '08-10-2024'),
+        const ShippingInformationItem(
+            title: 'Order date', subTitle: '08-10-2024'),
       ],
     );
   }

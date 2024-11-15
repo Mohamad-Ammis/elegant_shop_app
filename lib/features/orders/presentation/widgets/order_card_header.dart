@@ -20,14 +20,14 @@ class OrderCardHeader extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
               color: Colors.blue, borderRadius: BorderRadius.circular(999)),
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
           child: Text(
             'Paid',
             style: Styles.style12Bold.copyWith(color: Colors.white),
           ),
         ),
-        Spacer(),
-        OrderCardHeaderMenu()
+        const Spacer(),
+        const OrderCardHeaderMenu()
       ],
     );
   }
