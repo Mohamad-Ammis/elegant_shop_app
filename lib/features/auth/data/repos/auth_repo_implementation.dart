@@ -4,9 +4,11 @@ import 'package:dio/dio.dart';
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/errors/failure.dart';
 import 'package:elegant_shop_app/core/utils/api_service.dart';
+import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/features/auth/data/models/register_input_model.dart';
 import 'package:elegant_shop_app/features/auth/data/repos/auth_repo.dart';
 import 'package:elegant_shop_app/main.dart';
+import 'package:flutter/material.dart';
 
 class AuthRepoImplementation implements AuthRepo {
   final ApiService apiService;
@@ -23,7 +25,6 @@ class AuthRepoImplementation implements AuthRepo {
           headers: {'Accept': 'application/json'});
       log(response.data.toString());
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        userInfo.clear();
         await userInfo.setString('auth_token', response.data['auth_token']);
         await userInfo.setString(
             'user_name', response.data['user']['username']);
@@ -77,6 +78,37 @@ class AuthRepoImplementation implements AuthRepo {
         return Left(ServerFailure.fromDioException(e));
       }
       return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<bool> logOut() async {
+    try {
+      var headers = {
+        'Accept': 'application/json',
+        'Authorization': 'Token ${userInfo.getString('auth_token')}'
+      };
+      var dio = Dio();
+      var response = await dio.request(
+        'https://quakstore.onrender.com/api/v1/token/logout/',
+        options: Options(
+          method: 'POST',
+          headers: headers,
+        ),
+      );
+      log(response.statusCode.toString());
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return true;
+      } else {
+        log(response.statusMessage.toString());
+        return false;
+      }
+    } catch (e) {
+      log('e: ${e}');
+      if (e is DioException) {
+        log(e.response?.data.toString() ?? '');
+      }
+      return false;
     }
   }
 }

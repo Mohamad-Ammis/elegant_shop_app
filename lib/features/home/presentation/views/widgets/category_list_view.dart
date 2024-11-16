@@ -19,6 +19,7 @@ class CategoriesListView extends StatelessWidget {
       builder: (context, state) {
         if (state is CategoryFailure) {
           return CustomErrorWidget(
+            hasAnimation: false,
             title: state.errMessage,
           );
         } else if (state is CategorySuccess) {

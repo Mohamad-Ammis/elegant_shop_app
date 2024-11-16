@@ -30,7 +30,7 @@ class _OrderViewState extends State<OrderView> {
         builder: (context, state) {
           if (state is GetAllOrdersPaginationFailure) {
             return SizedBox(
-                height: 50, child: CustomErrorWidget(title: state.errMessage));
+                height: 50, child: CustomErrorWidget(title: state.errMessage,hasAnimation: false,));
           } else {
             return const SizedBox();
           }

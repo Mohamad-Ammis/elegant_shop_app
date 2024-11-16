@@ -4,8 +4,10 @@ import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/core/utils/service_locator.dart';
 import 'package:elegant_shop_app/core/widgets/drawer_item.dart';
 import 'package:elegant_shop_app/core/widgets/drawer_model.dart';
+import 'package:elegant_shop_app/features/auth/data/repos/auth_repo_implementation.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/home_view_app_bar_image.dart';
 import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,7 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
       DrawerModel(
           name: 'Log out',
           icon: Assets.imagesArrow,
-          onPressed: () => onItemPressed(context, index: 5)),
+          onPressed: () => onItemPressed(context, index: 4)),
     ];
     super.initState();
   }
@@ -94,7 +96,7 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
     );
   }
 
-  void onItemPressed(BuildContext context, {required int index}) {
+  Future<void> onItemPressed(BuildContext context, {required int index}) async {
     Navigator.pop(context);
 
     switch (index) {
@@ -107,8 +109,12 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
       case 3:
         GoRouter.of(context).push(AppRouter.kOrderView);
         break;
-      case 5:
-        GoRouter.of(context).go(AppRouter.kLoginView);
+      case 4:
+        context.go(AppRouter.kLoginView);
+        log(userInfo.getString('auth_token') ?? 'qqdwd');
+        bool status = await getIt.get<AuthRepoImplementation>().logOut();
+        log('status: ${status}');
+        userInfo.clear();
         break;
     }
   }

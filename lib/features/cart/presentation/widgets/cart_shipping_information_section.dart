@@ -75,28 +75,37 @@ class CartShippingInforamtionSection extends StatelessWidget {
                       onTap: state is UpdateCartProductsLoading
                           ? null
                           : () async {
-                              List<Map<String, dynamic>> data = context
-                                  .read<UpdateCartProductsCubit>()
-                                  .handleCartProductsAsJson(context
-                                      .read<GetAllCartProductsCubit>()
-                                      .cartProducts);
-                              bool status = await context
-                                  .read<UpdateCartProductsCubit>()
-                                  .updateCartProducts(
-                                      cartProducts: data, context: context);
-                              if (status) {
-                                showModalBottomSheet(
-                                  backgroundColor: kBackgroundColor,
-                                  context: context,
-                                  showDragHandle: true,
-                                  builder: (context) {
-                                    return const ChoosePaymentMethodBottomSheet();
-                                  },
-                                );
-                              } else {
-                                showErrorSnackBar('Error happened',
-                                        "some thing went wrong try again !")
+                              if (context
+                                  .read<GetAllCartProductsCubit>()
+                                  .cartProducts
+                                  .isEmpty) {
+                                showErrorSnackBar('Error Happened',
+                                        "Your cart is empty ! ")
                                     .show(context);
+                              } else {
+                                List<Map<String, dynamic>> data = context
+                                    .read<UpdateCartProductsCubit>()
+                                    .handleCartProductsAsJson(context
+                                        .read<GetAllCartProductsCubit>()
+                                        .cartProducts);
+                                bool status = await context
+                                    .read<UpdateCartProductsCubit>()
+                                    .updateCartProducts(
+                                        cartProducts: data, context: context);
+                                if (status) {
+                                  showModalBottomSheet(
+                                    backgroundColor: kBackgroundColor,
+                                    context: context,
+                                    showDragHandle: true,
+                                    builder: (context) {
+                                      return const ChoosePaymentMethodBottomSheet();
+                                    },
+                                  );
+                                } else {
+                                  showErrorSnackBar('Error happened',
+                                          "some thing went wrong try again !")
+                                      .show(context);
+                                }
                               }
                             },
                       color: kLightBlackColor,

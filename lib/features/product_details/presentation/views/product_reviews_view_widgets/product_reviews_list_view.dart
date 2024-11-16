@@ -62,7 +62,7 @@ class _ProductReviewsListViewState extends State<ProductReviewsListView> {
             ? cubit.productReview.isEmpty
                 ? const CustomEmptyStateWidget(
                     title: 'Sorry there is no reviews for this product')
-                : ListView.separated(
+                :cubit.productReview.isNotEmpty? ListView.separated(
                     controller: _scrollController,
                     itemCount: state is ProductReviewsPaginaationLoading
                         ? cubit.productReview.length + 1
@@ -85,7 +85,7 @@ class _ProductReviewsListViewState extends State<ProductReviewsListView> {
                         endIndent: 20,
                       );
                     },
-                  )
+                  ):CustomEmptyStateWidget(title: 'Sorry there is No reviews for this product')
             : state is ProductReviewsFailure
                 ? CustomErrorWidget(title: state.errMessage)
                 : ListView.builder(

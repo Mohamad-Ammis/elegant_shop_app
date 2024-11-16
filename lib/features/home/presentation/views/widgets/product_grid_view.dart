@@ -1,4 +1,5 @@
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
+import 'package:elegant_shop_app/core/widgets/custom_empty_state_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit/product_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_card.dart';
@@ -26,7 +27,7 @@ class ProductsGridView extends StatelessWidget {
             state is ProductPaginationLoading ||
             state is ProductPaginationFailure) {
           return productCubit.products.isEmpty
-              ? const CustomErrorWidget(title: 'Sorry There is no products ')
+              ? CustomEmptyStateWidget(title: 'Sorry There is no products ')
               : StaggeredGridView.countBuilder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

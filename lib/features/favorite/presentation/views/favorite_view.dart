@@ -17,7 +17,7 @@ class FavoriteView extends StatelessWidget {
         builder: (context, state) {
           if (state is GetAllFavoritesProductsPaginationFailure) {
             return SizedBox(
-                height: 50, child: CustomErrorWidget(title: state.errMessage));
+                height: 50, child: CustomErrorWidget(title: state.errMessage,hasAnimation: false,));
           } else {
             return const SizedBox();
           }
