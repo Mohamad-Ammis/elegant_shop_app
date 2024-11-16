@@ -1,3 +1,4 @@
+import 'package:elegant_shop_app/core/widgets/custom_empty_state_widget.dart';
 import 'package:elegant_shop_app/features/cart/presentation/mangers/get_all_products_cubit/get_all_cart_products_cubit.dart';
 import 'package:elegant_shop_app/features/cart/presentation/widgets/cart_product_card.dart';
 import 'package:flutter/material.dart';
@@ -19,23 +20,26 @@ class CartProductsListView extends StatelessWidget {
         //       .toString());
         // }
         return state is GetAllCartProductsSuccess
-            ? ListView.separated(
-                cacheExtent: 10,
-                itemBuilder: (context, index) {
-                  return CartProductCard(
-                    cartProductModel: state.cartProducts[index],
-                    cartProductModelIndex: index,
-                  );
-                },
-                separatorBuilder: (context, index) => const Divider(
-                      color: Color(
-                        0xffDFDEDE,
-                      ),
-                      thickness: 0.3,
-                      indent: 10,
-                      endIndent: 10,
-                    ),
-                itemCount: state.cartProducts.length)
+            ? state.cartProducts.isNotEmpty
+                ? ListView.separated(
+                    cacheExtent: 10,
+                    itemBuilder: (context, index) {
+                      return CartProductCard(
+                        cartProductModel: state.cartProducts[index],
+                        cartProductModelIndex: index,
+                      );
+                    },
+                    separatorBuilder: (context, index) => const Divider(
+                          color: Color(
+                            0xffDFDEDE,
+                          ),
+                          thickness: 0.3,
+                          indent: 10,
+                          endIndent: 10,
+                        ),
+                    itemCount: state.cartProducts.length)
+                : CustomEmptyStateWidget(
+                    title: 'Sorry you dont have any products here')
             : const SizedBox();
       },
     );

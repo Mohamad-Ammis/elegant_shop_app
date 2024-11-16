@@ -37,6 +37,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_launcher_icons: ^0.14.1
   flutter_rating_bar: ^4.0.1
   flutter_spinkit: ^5.2.1
   flutter_stripe: ^11.2.0
@@ -68,6 +69,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/images/play_store_512.png"
+  adaptive_icon_background: "#292526"
+  adaptive_icon_foreground: "assets/images/play_store_512.png"
+  min_sdk_android: 24
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
@@ -77,6 +84,7 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+
   fonts:
     - family: Encode Sans
       fonts:
