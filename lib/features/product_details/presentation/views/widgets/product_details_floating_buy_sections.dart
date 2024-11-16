@@ -28,51 +28,53 @@ class ProductDetailsFloatingBuySection extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: CustomButton(
-                onTap: () async {},
-                width: 200,
-                color: kLightBlackColor,
-                borderRadius: BorderRadius.circular(16),
-                child: Text(
-                  textAlign: TextAlign.center,
-                  'Buy Now',
-                  style: Styles.style18Bold.copyWith(color: Colors.white),
-                ),
+              child: BlocBuilder<AddToCartCubit, AddToCartState>(
+                builder: (context, state) {
+                  return CustomButton(
+                      onTap: state is AddToCartLoading
+                          ? null
+                          : () {
+                              log('productDetailsModel.inStock: ${productDetailsModel.inStock}');
+                              if (!(productDetailsModel.inStock ?? true)) {
+                                showErrorSnackBar('Sorry',
+                                        "this product is out of stock right now")
+                                    .show(context);
+                              } else {
+                                context.read<AddToCartCubit>().addProductToCart(
+                                    productId:
+                                        productDetailsModel.id.toString(),
+                                    productQuantity: "1",
+                                    context: context);
+                              }
+                            },
+                      width: 60,
+                      height: 56,
+                      color: kLightBlackColor,
+                      borderRadius: BorderRadius.circular(16),
+                      child: state is AddToCartLoading
+                          ? const CustomLoadingWidget(
+                              color: Colors.white,
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Spacer(),
+                                Text(
+                                  textAlign: TextAlign.center,
+                                  "Add to cart",
+                                  style: Styles.style18Bold
+                                      .copyWith(color: Colors.white),
+                                ),
+                                Spacer(),
+                                16.horizontalSizedBox,
+                                Icon(
+                                  Icons.add_shopping_cart,
+                                  color: Colors.white,
+                                )
+                              ],
+                            ));
+                },
               ),
-            ),
-            16.horizontalSizedBox,
-            BlocBuilder<AddToCartCubit, AddToCartState>(
-              builder: (context, state) {
-                return CustomButton(
-                  onTap: state is AddToCartLoading
-                      ? null
-                      : () {
-                          log('productDetailsModel.inStock: ${productDetailsModel.inStock}');
-                          if (!(productDetailsModel.inStock ?? true)) {
-                            showErrorSnackBar('Sorry',
-                                    "this product is out of stock right now")
-                                .show(context);
-                          } else {
-                            context.read<AddToCartCubit>().addProductToCart(
-                                productId: productDetailsModel.id.toString(),
-                                productQuantity: "1",
-                                context: context);
-                          }
-                        },
-                  width: 60,
-                  height: 56,
-                  color: kLightBlackColor,
-                  borderRadius: BorderRadius.circular(16),
-                  child: state is AddToCartLoading
-                      ? const CustomLoadingWidget(
-                          color: Colors.white,
-                        )
-                      : const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                );
-              },
             ),
           ],
         ),

@@ -23,13 +23,15 @@ class AuthRepoImplementation implements AuthRepo {
           headers: {'Accept': 'application/json'});
       log(response.data.toString());
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        userInfo.clear();
         await userInfo.setString('auth_token', response.data['auth_token']);
         await userInfo.setString(
             'user_name', response.data['user']['username']);
         await userInfo.setString('email', response.data['user']['email']);
-        await userInfo.setString('avatar', response.data['user']['avatar']);
+        await userInfo.setString(
+            'avatar', response.data['user']?['avatar'] ?? '');
         await userInfo.setString('customer_id',
-            response.data?['user']['payment_details']?['customer_id']);
+            response.data?['user']?['payment_details']?['customer_id'] ?? '');
         return const Right(true);
       } else {
         return const Right(false);

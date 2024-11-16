@@ -44,6 +44,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 } else {
                   GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
                 }
+                userInfo.setBool('first_use', false);
               },
               color: Colors.white,
               child: Center(

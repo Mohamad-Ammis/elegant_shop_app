@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:elegant_shop_app/features/orders/data/repo/order_repo.dart';
 import 'package:flutter/material.dart';
 
@@ -24,12 +23,13 @@ class CancelExistOrderCubit extends Cubit<CancelExistOrderState> {
         status = data;
         if (data) {
           emit(CancelExistOrderSuccess());
-        } else
+        } else {
           emit(CancelExistOrderFailure());
+        }
       });
       return status;
     } catch (e) {
-      log('e: ${e}');
+      log('e: $e');
       return false;
     }
   }

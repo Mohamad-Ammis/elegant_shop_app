@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -54,11 +56,11 @@ class OrderRepoImplementation implements OrderRepo {
           body: {},
           headers: kCommonApiHeaders);
       if (response.statusCode == 200) {
-        return Right(true);
+        return const Right(true);
       }
-      return Right(false);
+      return const Right(false);
     } catch (e) {
-      log('e: ${e}');
+      log('e: $e');
       if (e is DioException) {
         showErrorSnackBar('Error Happened',
                 ServerFailure.fromDioException(e).errorMessage)

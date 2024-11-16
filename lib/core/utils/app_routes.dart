@@ -38,6 +38,7 @@ import 'package:elegant_shop_app/features/product_details/presentation/manger/pr
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/product_details_view.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/product_reviews_view.dart';
+import 'package:elegant_shop_app/features/splash/presentation/views/splash_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -58,6 +59,10 @@ class AppRouter {
     routes: [
       GoRoute(
         path: '/',
+        builder: (context, state) => const SplashView(),
+      ),
+      GoRoute(
+        path: kOnBoarding,
         builder: (context, state) => const OnBoardingView(),
       ),
       GoRoute(
@@ -261,7 +266,6 @@ class AppRouter {
                 create: (context) => CancelExistOrderCubit(
                     orderRepo: getIt.get<OrderRepoImplementation>()),
               ),
-           
             ],
             child: const OrderView(),
           );
