@@ -103,6 +103,7 @@ class CartShippingInforamtionSection extends StatelessWidget {
                       child: state is UpdateCartProductsLoading
                           ? const CustomLoadingWidget(
                               color: Colors.white,
+                              size: 25,
                             )
                           : Text(
                               textAlign: TextAlign.center,

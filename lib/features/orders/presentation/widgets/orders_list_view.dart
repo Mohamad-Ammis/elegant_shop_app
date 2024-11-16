@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:elegant_shop_app/constans.dart';
+import 'package:elegant_shop_app/core/utils/shimmer_custom_container.dart';
+import 'package:elegant_shop_app/core/widgets/custom_empty_state_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/orders/presentation/manger/get_all_orders_cubit/get_all_orders_cubit.dart';
@@ -50,22 +53,47 @@ class _OrdersListViewState extends State<OrdersListView> {
         return state is GetAllOrdersSuccess ||
                 state is GetAllOrdersPaginationLoading ||
                 state is GetAllOrdersPaginationFailure
-            ? ListView.builder(
-                controller: _scrollController,
-                itemCount: state is GetAllOrdersPaginationLoading
-                    ? getAllOrdersCubit.orders.length + 1
-                    : getAllOrdersCubit.orders.length,
-                itemBuilder: (context, index) {
-                  return index < getAllOrdersCubit.orders.length
-                      ? OrderCard(
-                          orderModel: getAllOrdersCubit.orders[index],
-                        )
-                      : const CustomLoadingWidget();
-                },
-              )
+            ? getAllOrdersCubit.orders.isNotEmpty
+                ? ListView.builder(
+                    controller: _scrollController,
+                    itemCount: state is GetAllOrdersPaginationLoading
+                        ? getAllOrdersCubit.orders.length + 1
+                        : getAllOrdersCubit.orders.length,
+                    itemBuilder: (context, index) {
+                      return index < getAllOrdersCubit.orders.length
+                          ? OrderCard(
+                              orderModel: getAllOrdersCubit.orders[index],
+                            )
+                          : const CustomLoadingWidget();
+                    },
+                  )
+                : CustomEmptyStateWidget(
+                    title: "Sorry you don\'t have any orders")
             : state is GetAllOrdersFailure
                 ? CustomErrorWidget(title: state.errMessage)
-                : const CustomLoadingWidget();
+                : OrdersShimmerLoadingListView();
+      },
+    );
+  }
+}
+
+class OrdersShimmerLoadingListView extends StatelessWidget {
+  const OrdersShimmerLoadingListView({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return ShimmerContainer(
+          width: double.infinity,
+          height: 120,
+          circularRadius: 16,
+          margin:
+              EdgeInsets.symmetric(horizontal: kMainPagePadding, vertical: 12),
+        );
       },
     );
   }

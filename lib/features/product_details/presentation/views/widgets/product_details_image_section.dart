@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/core/utils/shimmer_custom_container.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/toggle_favorite_cubit/toggle_favorite_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
@@ -76,8 +77,11 @@ class _ProductDetailsImageSectionState
                                 ),
                               ),
                             ),
-                            placeholder: (context, url) =>
-                                const CustomLoadingWidget(),
+                            placeholder: (context, url) => ShimmerContainer(
+                              width: double.infinity,
+                              height: double.infinity,
+                              circularRadius: 16,
+                            ),
                             errorWidget: (context, url, error) =>
                                 const Center(child: Icon(Icons.error)),
                           )
@@ -103,7 +107,9 @@ class _ProductDetailsImageSectionState
                           ? const SizedBox(
                               height: 23,
                               width: 23,
-                              child: CircularProgressIndicator(),
+                              child: CustomLoadingWidget(
+                                size: 20,
+                              ),
                             )
                           : Icon(
                               isFavorite
@@ -111,7 +117,7 @@ class _ProductDetailsImageSectionState
                                   : Icons.favorite_border,
                               color: isFavorite ? Colors.red : Colors.black,
                             ),
-                      onTap: () async {
+                      onTap:state is ToggleFavoriteLoading?null: () async {
                         isFavorite = await context
                             .read<ToggleFavoriteCubit>()
                             .toggleFavorite(

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elegant_shop_app/core/utils/shimmer_custom_container.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,11 @@ class ProductMoreImagesItem extends StatelessWidget {
               ),
             ),
           ),
-          placeholder: (context, url) => const CustomLoadingWidget(),
+          placeholder: (context, url) => ShimmerContainer(
+            width: 75,
+            height: 75,
+            circularRadius: 10,
+          ),
           errorWidget: (context, url, error) =>
               const Center(child: Icon(Icons.error)),
         ));

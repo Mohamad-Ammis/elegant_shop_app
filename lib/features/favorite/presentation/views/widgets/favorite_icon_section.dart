@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/favorite/data/models/favorite_product_model.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/cubit/get_all_favorites_products_cubit.dart';
 import 'package:elegant_shop_app/features/favorite/presentation/manger/toggle_favorite_cubit/toggle_favorite_cubit.dart';
@@ -41,7 +42,11 @@ class FavoriteIconSection extends StatelessWidget {
                     },
               child: isLoading
                   ? const SizedBox(
-                      height: 25, width: 25, child: CircularProgressIndicator())
+                      height: 25,
+                      width: 25,
+                      child: CustomLoadingWidget(
+                        size: 20,
+                      ))
                   : const Icon(
                       Icons.favorite,
                       color: Colors.red,

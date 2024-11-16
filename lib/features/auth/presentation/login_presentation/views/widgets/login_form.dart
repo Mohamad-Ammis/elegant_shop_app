@@ -99,6 +99,7 @@ class _LoginFormState extends State<LoginForm> {
                   child: state is LoginLoading
                       ? const CustomLoadingWidget(
                           color: Colors.white,
+                          size: 25,
                         )
                       : Center(
                           child: Text(

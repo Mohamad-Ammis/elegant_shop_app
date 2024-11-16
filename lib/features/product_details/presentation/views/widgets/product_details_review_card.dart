@@ -7,6 +7,7 @@ import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/core/utils/shimmer_custom_container.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/review_model/review_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/cubit/delete_product_review_cubit.dart';
@@ -55,8 +56,11 @@ class ProductDetailsReviewCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      placeholder: (context, url) =>
-                          const CustomLoadingWidget(),
+                      placeholder: (context, url) => const ShimmerContainer(
+                        width: double.infinity,
+                        height: double.infinity,
+                        circularRadius: 999,
+                      ),
                       errorWidget: (context, url, error) =>
                           const Center(child: Icon(Icons.error)),
                     )),
@@ -84,32 +88,36 @@ class ProductDetailsReviewCard extends StatelessWidget {
                             builder: (context, state) {
                               return PopupMenuButton<int>(
                                 color: Colors.white,
-                                onSelected: (value) async {
-                                  if (value == 1) {
-                                    if (state is! DeleteProductReviewLoading) {
-                                      bool status = await BlocProvider.of<
-                                              DeleteProductReviewCubit>(context)
-                                          .deleteProductReview(
-                                              productUrl: productUrl,
-                                              reviewId:
-                                                  reviewModel.id.toString());
+                                onSelected: state is DeleteProductReviewLoading
+                                    ? null
+                                    : (value) async {
+                                        if (value == 1) {
+                                          if (state
+                                              is! DeleteProductReviewLoading) {
+                                            bool status = await BlocProvider.of<
+                                                        DeleteProductReviewCubit>(
+                                                    context)
+                                                .deleteProductReview(
+                                                    productUrl: productUrl,
+                                                    reviewId: reviewModel.id
+                                                        .toString());
 
-                                      log('status: $status');
-                                      if (status) {
-                                        context
-                                            .read<ProductReviewsCubit>()
-                                            .page = 1;
-                                        await context
-                                            .read<ProductReviewsCubit>()
-                                            .getProductReviews(
-                                                productUrl: productUrl);
-                                        await productImportantReviewsCubit
-                                            .getProductImportantReviews(
-                                                productUrl: productUrl);
-                                      }
-                                    }
-                                  }
-                                },
+                                            log('status: $status');
+                                            if (status) {
+                                              context
+                                                  .read<ProductReviewsCubit>()
+                                                  .page = 1;
+                                              await context
+                                                  .read<ProductReviewsCubit>()
+                                                  .getProductReviews(
+                                                      productUrl: productUrl);
+                                              await productImportantReviewsCubit
+                                                  .getProductImportantReviews(
+                                                      productUrl: productUrl);
+                                            }
+                                          }
+                                        }
+                                      },
                                 itemBuilder: (context) => [
                                   PopupMenuItem(
                                     height: 25,
@@ -117,7 +125,9 @@ class ProductDetailsReviewCard extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         state is DeleteProductReviewLoading
-                                            ? const CircularProgressIndicator()
+                                            ? const CustomLoadingWidget(
+                                                size: 25,
+                                              )
                                             : const Icon(Icons.delete,
                                                 color: Colors.red),
                                         const SizedBox(width: 8),

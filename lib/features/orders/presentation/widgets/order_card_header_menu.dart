@@ -77,7 +77,9 @@ class _OrderCardHeaderMenuState extends State<OrderCardHeaderMenu> {
               }
             },
       child: cancelLoading
-          ? const CustomLoadingWidget()
+          ? const CustomLoadingWidget(
+              size: 25,
+            )
           : Row(
               children: [
                 const Icon(
@@ -107,7 +109,9 @@ class _OrderCardHeaderMenuState extends State<OrderCardHeaderMenu> {
               setState(() {});
             },
       child: payLoading
-          ? const CustomLoadingWidget()
+          ? const CustomLoadingWidget(
+              size: 25,
+            )
           : Row(
               children: [
                 const Icon(

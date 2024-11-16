@@ -20,6 +20,7 @@ class CartProductsListView extends StatelessWidget {
         // }
         return state is GetAllCartProductsSuccess
             ? ListView.separated(
+                cacheExtent: 10,
                 itemBuilder: (context, index) {
                   return CartProductCard(
                     cartProductModel: state.cartProducts[index],

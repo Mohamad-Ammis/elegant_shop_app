@@ -91,6 +91,7 @@ class _ChoosePaymentMethodBottomSheetState
                   child: state is CreateOrderLoading
                       ? const CustomLoadingWidget(
                           color: Colors.white,
+                          size: 25,
                         )
                       : Text(
                           textAlign: TextAlign.center,

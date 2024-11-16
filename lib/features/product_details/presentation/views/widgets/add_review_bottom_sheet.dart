@@ -100,7 +100,10 @@ class _AddReviewBottomSheetState extends State<AddReviewBottomSheet> {
                   color: kPrimaryColor,
                   child: Center(
                     child: state is AddProductReviewLoading
-                        ? const CustomLoadingWidget()
+                        ? const CustomLoadingWidget(
+                            size: 25,
+                            color: Colors.white,
+                          )
                         : Text(
                             'Submit',
                             style: Styles.style16Bold

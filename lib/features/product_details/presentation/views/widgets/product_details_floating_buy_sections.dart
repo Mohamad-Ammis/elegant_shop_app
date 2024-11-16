@@ -53,6 +53,7 @@ class ProductDetailsFloatingBuySection extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       child: state is AddToCartLoading
                           ? const CustomLoadingWidget(
+                              size: 25,
                               color: Colors.white,
                             )
                           : Row(

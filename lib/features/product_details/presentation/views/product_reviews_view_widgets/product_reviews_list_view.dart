@@ -6,6 +6,7 @@ import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_details_review_card.dart';
+import 'package:elegant_shop_app/features/product_details/presentation/views/widgets/product_review_shimmer_loading_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -87,7 +88,12 @@ class _ProductReviewsListViewState extends State<ProductReviewsListView> {
                   )
             : state is ProductReviewsFailure
                 ? CustomErrorWidget(title: state.errMessage)
-                : const CustomLoadingWidget();
+                : ListView.builder(
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return ProductReviewShimmerLoadingCard();
+                    },
+                  );
       },
     );
   }

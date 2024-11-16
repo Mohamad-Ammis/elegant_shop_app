@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
@@ -24,28 +25,24 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
     items = [
       DrawerModel(
         name: 'Home',
-        icon: Icons.home,
+        icon: Assets.imagesHomeIcon,
         onPressed: () => onItemPressed(context, index: 0),
       ),
       DrawerModel(
           name: 'Favorites',
-          icon: Icons.favorite,
+          icon: Assets.imagesWishlist,
           onPressed: () => onItemPressed(context, index: 1)),
       DrawerModel(
           name: 'Cart',
-          icon: Icons.shopping_cart_outlined,
+          icon: Assets.imagesCartIcon,
           onPressed: () => onItemPressed(context, index: 2)),
       DrawerModel(
           name: 'Orders',
-          icon: Icons.shopping_bag_outlined,
+          icon: Assets.imagesOrder2,
           onPressed: () => onItemPressed(context, index: 3)),
       DrawerModel(
-          name: 'Setting',
-          icon: Icons.settings,
-          onPressed: () => onItemPressed(context, index: 4)),
-      DrawerModel(
           name: 'Log out',
-          icon: Icons.logout,
+          icon: Assets.imagesArrow,
           onPressed: () => onItemPressed(context, index: 5)),
     ];
     super.initState();
@@ -74,7 +71,8 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 16),
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
@@ -126,7 +124,9 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
                   BoxDecoration(borderRadius: BorderRadius.circular(999)),
               height: 50,
               width: 50,
-              child: const HomeViewAppBarImage()),
+              child: const HomeViewAppBarImage(
+                color: Colors.white,
+              )),
           const SizedBox(
             width: 20,
           ),

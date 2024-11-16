@@ -1,3 +1,6 @@
+import 'package:elegant_shop_app/constans.dart';
+import 'package:elegant_shop_app/core/utils/extensions.dart';
+import 'package:elegant_shop_app/core/utils/shimmer_custom_container.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
@@ -31,15 +34,12 @@ class ProductDetailsViewBody extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
-            child: Container(
-                margin: const EdgeInsets.only(bottom: 100),
-                child: ProductDetailsReviewsList(
-                  productDetailsModel: productDetailsModel,
-                  productImportantReviewsCubit: productImportantReviewsCubit,
-                  reviewsCubit: reviewsCubit,
-                  productUrl: productDetailsModel.absoluteUrl!,
-                )),
-          ),
+              child: ProductDetailsReviewsList(
+            productDetailsModel: productDetailsModel,
+            productImportantReviewsCubit: productImportantReviewsCubit,
+            reviewsCubit: reviewsCubit,
+            productUrl: productDetailsModel.absoluteUrl!,
+          )),
         ],
       ),
     );

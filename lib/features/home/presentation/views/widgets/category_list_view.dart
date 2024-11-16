@@ -30,6 +30,7 @@ class CategoriesListView extends StatelessWidget {
                       curve: Curves.easeInOut,
                       duration: const Duration(milliseconds: 300),
                       child: ListView.builder(
+                          cacheExtent: 10,
                           scrollDirection: Axis.horizontal,
                           itemCount: state.categories.length,
                           itemBuilder: (context, index) {

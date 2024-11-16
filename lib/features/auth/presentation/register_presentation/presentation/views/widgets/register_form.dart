@@ -124,6 +124,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   child: state is RegisterLoading
                       ? const CustomLoadingWidget(
                           color: Colors.white,
+                          size: 25,
                         )
                       : Center(
                           child: Text(

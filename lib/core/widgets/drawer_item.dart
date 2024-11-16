@@ -20,9 +20,10 @@ class DrawerItem extends StatelessWidget {
         // height: 40,
         child: Row(
           children: [
-            Icon(
+            Image.asset(
               model.icon,
-              size: 20,
+              width: 25,
+              height: 25,
               color: Colors.white,
             ),
             const SizedBox(
