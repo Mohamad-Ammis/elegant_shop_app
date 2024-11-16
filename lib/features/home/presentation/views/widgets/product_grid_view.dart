@@ -27,7 +27,7 @@ class ProductsGridView extends StatelessWidget {
             state is ProductPaginationLoading ||
             state is ProductPaginationFailure) {
           return productCubit.products.isEmpty
-              ? CustomEmptyStateWidget(title: 'Sorry There is no products ')
+              ? const CustomEmptyStateWidget(title: 'Sorry There is no products ')
               : StaggeredGridView.countBuilder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

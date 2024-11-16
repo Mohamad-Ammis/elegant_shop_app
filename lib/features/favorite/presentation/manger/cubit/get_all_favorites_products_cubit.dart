@@ -17,37 +17,41 @@ class GetAllFavoritesProductsCubit extends Cubit<GetAllFavoritesProductsState> {
   Future<void> getAllFavoriteProducts(
       {int page = 1, bool formPagination = false}) async {
     try {
-      if (formPagination) {
-        emit(GetAllFavoritesProductsPaginationLoading());
-      } else {
-        emit(GetAllFavoritesProductsLoading());
-      }
-      var data = await favoriteRepo.getAllProducts(page: this.page);
-      data.fold((failure) {
-        if (formPagination) {
-          emit(GetAllFavoritesProductsPaginationFailure(
-              errMessage: failure.errorMessage));
-        } else {
-          emit(
-              GetAllFavoritesProductsFailure(errMessage: failure.errorMessage));
-        }
-      }, (success) {
-        products = success['products'];
-        hasNext = success['hasNext'];
-        log('success[hasNext]: ${success['hasNext']}');
-        log('hasNext: $hasNext');
-        emit(GetAllFavoritesProductsSuccess(products: success['products']));
-        if (hasNext) {
-          this.page++;
-        }
-      });
-    } catch (e) {
-      if (formPagination) {
-        emit(
-            GetAllFavoritesProductsPaginationFailure(errMessage: e.toString()));
-      }
-      emit(GetAllFavoritesProductsFailure(errMessage: e.toString()));
+  try {
+    if (formPagination) {
+      emit(GetAllFavoritesProductsPaginationLoading());
+    } else {
+      emit(GetAllFavoritesProductsLoading());
     }
+    var data = await favoriteRepo.getAllProducts(page: this.page);
+    data.fold((failure) {
+      if (formPagination) {
+        emit(GetAllFavoritesProductsPaginationFailure(
+            errMessage: failure.errorMessage));
+      } else {
+        emit(
+            GetAllFavoritesProductsFailure(errMessage: failure.errorMessage));
+      }
+    }, (success) {
+      products = success['products'];
+      hasNext = success['hasNext'];
+      log('success[hasNext]: ${success['hasNext']}');
+      log('hasNext: $hasNext');
+      emit(GetAllFavoritesProductsSuccess(products: success['products']));
+      if (hasNext) {
+        this.page++;
+      }
+    });
+  } catch (e) {
+    if (formPagination) {
+      emit(
+          GetAllFavoritesProductsPaginationFailure(errMessage: e.toString()));
+    }
+    emit(GetAllFavoritesProductsFailure(errMessage: e.toString()));
+  }
+} on StateError catch (e) {
+  log('e: $e');
+}
   }
 
   @override

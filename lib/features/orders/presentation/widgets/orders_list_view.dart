@@ -67,11 +67,11 @@ class _OrdersListViewState extends State<OrdersListView> {
                           : const CustomLoadingWidget();
                     },
                   )
-                : CustomEmptyStateWidget(
-                    title: "Sorry you don\'t have any orders")
+                : const CustomEmptyStateWidget(
+                    title: "Sorry you don't have any orders")
             : state is GetAllOrdersFailure
                 ? CustomErrorWidget(title: state.errMessage)
-                : OrdersShimmerLoadingListView();
+                : const OrdersShimmerLoadingListView();
       },
     );
   }
@@ -87,7 +87,7 @@ class OrdersShimmerLoadingListView extends StatelessWidget {
     return ListView.builder(
       itemCount: 10,
       itemBuilder: (context, index) {
-        return ShimmerContainer(
+        return const ShimmerContainer(
           width: double.infinity,
           height: 120,
           circularRadius: 16,

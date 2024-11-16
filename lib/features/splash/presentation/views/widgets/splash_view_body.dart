@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:elegant_shop_app/core/utils/app_images.dart';
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
@@ -36,7 +38,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Spacer(),
+        const Spacer(),
         Image.asset(
           width: 200,
           height: 200,
@@ -46,13 +48,13 @@ class _SplashViewBodyState extends State<SplashViewBody>
           height: 10,
         ),
         SlidingText(slidingAnimation: slidingAnimation),
-        Spacer(),
+        const Spacer(),
         Text(
           textAlign: TextAlign.center,
           "Elegant",
           style: Styles.style32Bold.copyWith(color: Colors.white, fontSize: 46),
         ),
-        SizedBox(
+        const SizedBox(
           height: 40,
         )
       ],

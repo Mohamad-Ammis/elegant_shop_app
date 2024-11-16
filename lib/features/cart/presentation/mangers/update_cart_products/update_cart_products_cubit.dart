@@ -14,26 +14,31 @@ class UpdateCartProductsCubit extends Cubit<UpdateCartProductsState> {
   Future<bool> updateCartProducts(
       {required List<Map<String, dynamic>> cartProducts,
       required BuildContext context}) async {
+    bool status = false;
     try {
-      emit(UpdateCartProductsLoading());
-      bool status = false;
-      var result = await cartRepo.updateCartProducts(
-          cartProducts: cartProducts, context: context);
-      result.fold((failure) {
-        emit(UpdateCartProductsFailure(errMessage: failure.errorMessage));
-      }, (data) {
-        if (data) {
-          emit(UpdateCartProductsSuccess());
-          status = true;
-        } else {
-          emit(UpdateCartProductsFailure(errMessage: 'unexpected errro'));
-          status = false;
-        }
-      });
-      return status;
-    } catch (e) {
+      try {
+        emit(UpdateCartProductsLoading());
+        var result = await cartRepo.updateCartProducts(
+            cartProducts: cartProducts, context: context);
+        result.fold((failure) {
+          emit(UpdateCartProductsFailure(errMessage: failure.errorMessage));
+        }, (data) {
+          if (data) {
+            emit(UpdateCartProductsSuccess());
+            status = true;
+          } else {
+            emit(UpdateCartProductsFailure(errMessage: 'unexpected errro'));
+            status = false;
+          }
+        });
+        return status;
+      } catch (e) {
+        log('e: $e');
+        return false;
+      }
+    } on StateError catch (e) {
       log('e: $e');
-      return false;
+      return status;
     }
   }
 

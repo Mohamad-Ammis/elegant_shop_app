@@ -15,17 +15,17 @@ class ProductImportantReviewListShimmerLoading extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         30.verticalSizedBox,
-        ShimmerContainer(
+        const ShimmerContainer(
           width: 120,
           height: 20,
           circularRadius: 16,
           margin: EdgeInsets.symmetric(horizontal: kMainPagePadding),
         ),
         24.verticalSizedBox,
-        ProductReviewShimmerLoadingCard(),
-        ProductReviewShimmerLoadingCard(),
-        ProductReviewShimmerLoadingCard(),
-        ProductReviewShimmerLoadingCard(),
+        const ProductReviewShimmerLoadingCard(),
+        const ProductReviewShimmerLoadingCard(),
+        const ProductReviewShimmerLoadingCard(),
+        const ProductReviewShimmerLoadingCard(),
       ],
     );
   }

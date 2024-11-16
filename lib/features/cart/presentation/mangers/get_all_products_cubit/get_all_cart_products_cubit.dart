@@ -14,18 +14,22 @@ class GetAllCartProductsCubit extends Cubit<GetAllCartProductsState> {
   List<CartProductModel> cartProducts = [];
   Future<void> getAllCartProducts() async {
     try {
-      emit(GetAllCartProductsLoading());
-      var data = await cartRepo.getAllCartProducts();
-      data.fold((failure) {
-        emit(GetAllCartProductsFailure(errMessage: failure.errorMessage));
-      }, (success) {
-        emit(GetAllCartProductsSuccess(cartProducts: success));
-        cartProducts = success;
-      });
-    } catch (e) {
-      log('e: $e');
-      emit(GetAllCartProductsFailure(errMessage: e.toString()));
-    }
+  try {
+    emit(GetAllCartProductsLoading());
+    var data = await cartRepo.getAllCartProducts();
+    data.fold((failure) {
+      emit(GetAllCartProductsFailure(errMessage: failure.errorMessage));
+    }, (success) {
+      emit(GetAllCartProductsSuccess(cartProducts: success));
+      cartProducts = success;
+    });
+  } catch (e) {
+    log('e: $e');
+    emit(GetAllCartProductsFailure(errMessage: e.toString()));
+  }
+} on StateError catch (e) {
+  log('e: $e');
+}
   }
 
   @override

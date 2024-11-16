@@ -77,7 +77,7 @@ class _ProductDetailsImageSectionState
                                 ),
                               ),
                             ),
-                            placeholder: (context, url) => ShimmerContainer(
+                            placeholder: (context, url) => const ShimmerContainer(
                               width: double.infinity,
                               height: double.infinity,
                               circularRadius: 16,

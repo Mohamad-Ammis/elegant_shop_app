@@ -20,25 +20,30 @@ class PayExistOrderCubit extends Cubit<PayExistOrderState> {
   Future<void> payExistedOrder(
       {required OrderModel orderModel, required BuildContext context}) async {
     try {
-      emit(PayExistOrderLoading());
-      await getIt.get<StripeService>().makePayment(
-          customerId: userInfo.getString('customer_id')!,
-          clientSecret: orderModel.clientSecret ?? '');
-      context
-          .read<ChangeOrderModelStateCubit>()
-          .changeOrderModelState(orderModel: orderModel, state: 'paid');
-      emit(PayExistOrderSuccess());
-    } on Exception catch (e) {
-      log('e: $e');
-      emit(PayExistOrderFailure());
-      if (e is DioException) {
-        showErrorSnackBar(
-                'Payment Error Happened', 'Check your connection or use vpn')
-            .show(context);
-      } else {
-        showErrorSnackBar('Payment Error Happened', 'unexpected error happened')
-            .show(context);
-      }
+  try {
+    emit(PayExistOrderLoading());
+    await getIt.get<StripeService>().makePayment(
+        customerId: userInfo.getString('customer_id')!,
+        clientSecret: orderModel.clientSecret ?? '');
+    context
+        .read<ChangeOrderModelStateCubit>()
+        .changeOrderModelState(orderModel: orderModel, state: 'paid');
+    emit(PayExistOrderSuccess());
+  } on Exception catch (e) {
+    log('e: $e');
+    emit(PayExistOrderFailure());
+    if (e is DioException) {
+      showErrorSnackBar(
+              'Payment Error Happened', 'Check your connection or use vpn')
+          .show(context);
+    } else {
+      showErrorSnackBar('Payment Error Happened', 'unexpected error happened')
+          .show(context);
     }
+  }
+} on StateError catch (e) {
+  log('e: $e');
+
+}
   }
 }

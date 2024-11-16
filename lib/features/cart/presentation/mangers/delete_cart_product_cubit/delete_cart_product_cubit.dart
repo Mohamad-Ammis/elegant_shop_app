@@ -12,23 +12,28 @@ class DeleteCartProductCubit extends Cubit<DeleteCartProductState> {
   final CartRepo cartRepo;
   Future<bool> deleteCartProduct(
       {required String productId, required BuildContext context}) async {
+    var status = false;
     try {
-      emit(DeleteCartProductLoading());
-      var status = false;
-      var data = await cartRepo.deleteCartProduct(
-          productId: productId, context: context);
-      data.fold((failure) {
-        log(failure.errorMessage);
+      try {
+        emit(DeleteCartProductLoading());
+        var data = await cartRepo.deleteCartProduct(
+            productId: productId, context: context);
+        data.fold((failure) {
+          log(failure.errorMessage);
+          emit(DeleteCartProductFailure());
+        }, (right) {
+          status = right;
+          emit(DeleteCartProductSuccess());
+        });
+        return status;
+      } catch (e) {
+        log('e: $e');
         emit(DeleteCartProductFailure());
-      }, (right) {
-        status = right;
-        emit(DeleteCartProductSuccess());
-      });
-      return status;
-    } catch (e) {
+        return false;
+      }
+    } on StateError catch (e) {
       log('e: $e');
-      emit(DeleteCartProductFailure());
-      return false;
+      return status;
     }
   }
 }

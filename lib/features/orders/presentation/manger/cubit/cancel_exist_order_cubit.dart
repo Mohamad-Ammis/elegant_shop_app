@@ -12,25 +12,30 @@ class CancelExistOrderCubit extends Cubit<CancelExistOrderState> {
   final OrderRepo orderRepo;
   Future<bool> cancelExistOrder(
       {required String orderId, required BuildContext context}) async {
+    bool status = false;
     try {
-      emit(CancelExistOrderLoading());
-      bool status = false;
-      var result =
-          await orderRepo.cancelOrder(orderId: orderId, context: context);
-      result.fold((failure) {
-        emit(CancelExistOrderFailure());
-      }, (data) {
-        status = data;
-        if (data) {
-          emit(CancelExistOrderSuccess());
-        } else {
+      try {
+        emit(CancelExistOrderLoading());
+        var result =
+            await orderRepo.cancelOrder(orderId: orderId, context: context);
+        result.fold((failure) {
           emit(CancelExistOrderFailure());
-        }
-      });
-      return status;
-    } catch (e) {
+        }, (data) {
+          status = data;
+          if (data) {
+            emit(CancelExistOrderSuccess());
+          } else {
+            emit(CancelExistOrderFailure());
+          }
+        });
+        return status;
+      } catch (e) {
+        log('e: $e');
+        return false;
+      }
+    } on StateError catch (e) {
       log('e: $e');
-      return false;
+      return status;
     }
   }
 }

@@ -4,7 +4,6 @@ import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/widgets/custom_empty_state_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
-import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/product_details/data/models/product_details_model/product_details_model.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_important_reviews_cubit/product_important_reviews_cubit.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/manger/product_reviews_cubit/product_reviews_cubit.dart';
@@ -88,7 +87,7 @@ class ProductDetailsReviewsList extends StatelessWidget {
                                 );
                               },
                             )
-                          : CustomEmptyStateWidget(
+                          : const CustomEmptyStateWidget(
                               title:
                                   'Sorry there is no reviews for this product'),
                     ],
@@ -96,9 +95,9 @@ class ProductDetailsReviewsList extends StatelessWidget {
                 )
               : state is ProductImportantReviewsFailure
                   ? CustomErrorWidget(title: state.errMessage)
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: const ProductImportantReviewListShimmerLoading(),
+                  : const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: ProductImportantReviewListShimmerLoading(),
                     );
         },
       ),

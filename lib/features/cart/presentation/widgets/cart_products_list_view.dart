@@ -38,7 +38,7 @@ class CartProductsListView extends StatelessWidget {
                           endIndent: 10,
                         ),
                     itemCount: state.cartProducts.length)
-                : CustomEmptyStateWidget(
+                : const CustomEmptyStateWidget(
                     title: 'Sorry you dont have any products here')
             : const SizedBox();
       },

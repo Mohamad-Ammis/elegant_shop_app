@@ -3,7 +3,6 @@ import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/app_styles.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/utils/shimmer_custom_container.dart';
-import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/home/data/models/category_model/category_model.dart';
 import 'package:flutter/material.dart';
 

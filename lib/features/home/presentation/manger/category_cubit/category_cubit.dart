@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:elegant_shop_app/features/home/data/models/category_model/category_model.dart';
 import 'package:elegant_shop_app/features/home/data/repos/home_repo.dart';
@@ -11,15 +13,19 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   Future<void> getAllCategories() async {
     try {
-      emit(CategoryLoading());
-      var data = await homeRepo.getAllCategories();
-      data.fold((left) {
-        emit(CategoryFailure(errMessage: left.errorMessage));
-      }, (right) {
-        emit(CategorySuccess(categories: right));
-      });
-    } catch (e) {
-      emit(CategoryFailure(errMessage: e.toString()));
-    }
+  try {
+    emit(CategoryLoading());
+    var data = await homeRepo.getAllCategories();
+    data.fold((left) {
+      emit(CategoryFailure(errMessage: left.errorMessage));
+    }, (right) {
+      emit(CategorySuccess(categories: right));
+    });
+  } catch (e) {
+    emit(CategoryFailure(errMessage: e.toString()));
+  }
+} on StateError catch (e) {
+  log('e: $e');
+}
   }
 }

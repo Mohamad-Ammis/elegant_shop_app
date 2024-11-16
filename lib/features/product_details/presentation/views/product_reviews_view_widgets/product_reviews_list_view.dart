@@ -85,13 +85,13 @@ class _ProductReviewsListViewState extends State<ProductReviewsListView> {
                         endIndent: 20,
                       );
                     },
-                  ):CustomEmptyStateWidget(title: 'Sorry there is No reviews for this product')
+                  ):const CustomEmptyStateWidget(title: 'Sorry there is No reviews for this product')
             : state is ProductReviewsFailure
                 ? CustomErrorWidget(title: state.errMessage)
                 : ListView.builder(
                     itemCount: 10,
                     itemBuilder: (context, index) {
-                      return ProductReviewShimmerLoadingCard();
+                      return const ProductReviewShimmerLoadingCard();
                     },
                   );
       },

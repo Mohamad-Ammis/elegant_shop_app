@@ -59,16 +59,16 @@ class ProductDetailsFloatingBuySection extends StatelessWidget {
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Spacer(),
+                                const Spacer(),
                                 Text(
                                   textAlign: TextAlign.center,
                                   "Add to cart",
                                   style: Styles.style18Bold
                                       .copyWith(color: Colors.white),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 16.horizontalSizedBox,
-                                Icon(
+                                const Icon(
                                   Icons.add_shopping_cart,
                                   color: Colors.white,
                                 )

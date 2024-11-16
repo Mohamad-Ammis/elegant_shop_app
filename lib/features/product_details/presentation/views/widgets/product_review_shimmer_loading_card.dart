@@ -1,4 +1,3 @@
-import 'package:elegant_shop_app/constans.dart';
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/utils/shimmer_custom_container.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class ProductReviewShimmerLoadingCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ShimmerContainer(
+          const ShimmerContainer(
             width: 50,
             height: 50,
             circularRadius: 999,
