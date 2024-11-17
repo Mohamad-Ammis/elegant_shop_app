@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
 import 'package:elegant_shop_app/core/widgets/custom_empty_state_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
@@ -5,6 +7,7 @@ import 'package:elegant_shop_app/features/home/presentation/manger/product_cubit
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_card.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/product_shimmer_card.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/products_loading_shimmer_grid_view.dart';
+import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -27,7 +30,8 @@ class ProductsGridView extends StatelessWidget {
             state is ProductPaginationLoading ||
             state is ProductPaginationFailure) {
           return productCubit.products.isEmpty
-              ? const CustomEmptyStateWidget(title: 'Sorry There is no products ')
+              ? const CustomEmptyStateWidget(
+                  title: 'Sorry There is no products ')
               : StaggeredGridView.countBuilder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -39,6 +43,7 @@ class ProductsGridView extends StatelessWidget {
                     return index < productCubit.products.length
                         ? GestureDetector(
                             onTap: () async {
+                              log(userInfo.getString('auth_token').toString());
                               context.push(AppRouter.kProductDetailsView,
                                   extra:
                                       productCubit.products[index].absoluteUrl);

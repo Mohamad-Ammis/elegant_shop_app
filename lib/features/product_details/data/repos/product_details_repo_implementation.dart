@@ -75,7 +75,10 @@ class ProductDetailsRepoImplementation implements ProductDetailsRepo {
       }
       var response = await apiService.get(
           url: '${productUrl}reviews/?page=$page&page_size=10',
-          headers: kCommonApiHeaders,
+          headers: {
+            "Accept": "application/json",
+            "Authorization": "Token ${userInfo.getString('auth_token')}"
+          },
           token: userInfo.getString('auth_token'));
       for (var i = 0; i < response.data['results'].length; i++) {
         productReviews.add(ReviewModel.fromJson(response.data['results'][i]));

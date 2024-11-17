@@ -13,25 +13,31 @@ class LoginInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(kMainPagePadding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          10.verticalSizedBox,
-          const AuthHeader(
-            title: 'Welcome Back !',
-            subTitle: 'Sign in to your account ',
-          ),
-          30.verticalSizedBox,
-          const LoginForm(),
-          8.verticalSizedBox,
-          const AuthFooter(
-            title: 'Don\'t have an account ?',
-            specialWord: ' Register',
-            routePath: AppRouter.kRegisterView,
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: kMainPagePadding,
+            right: kMainPagePadding,
+            top: kMainPagePadding,
+            bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            10.verticalSizedBox,
+            const AuthHeader(
+              title: 'Welcome Back !',
+              subTitle: 'Sign in to your account ',
+            ),
+            30.verticalSizedBox,
+            const LoginForm(),
+            8.verticalSizedBox,
+            const AuthFooter(
+              title: 'Don\'t have an account ?',
+              specialWord: ' Register',
+              routePath: AppRouter.kRegisterView,
+            ),
+          ],
+        ),
       ),
     );
   }

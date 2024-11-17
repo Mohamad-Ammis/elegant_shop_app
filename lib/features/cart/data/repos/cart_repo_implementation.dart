@@ -65,8 +65,12 @@ class CartRepoImplementation implements CartRepo {
   Future<Either<Failure, List<CartProductModel>>> getAllCartProducts() async {
     try {
       List<CartProductModel> cartProducts = [];
-      var response = await apiService.get(
-          url: '$kBaseUrl/cart/items/', headers: kCommonApiHeaders);
+      log('${userInfo.getString('auth_token').toString()}');
+      var response =
+          await apiService.get(url: '$kBaseUrl/cart/items/', headers: {
+        "Accept": "application/json",
+        "Authorization": "Token ${userInfo.getString('auth_token')}"
+      });
       if (response.statusCode == 200) {
         for (var i = 0; i < response.data.length; i++) {
           cartProducts.add(CartProductModel.fromJson(response.data[i]));
@@ -87,7 +91,10 @@ class CartRepoImplementation implements CartRepo {
       {required String productId, required BuildContext context}) async {
     try {
       var response = await apiService.delete(
-          url: '$kBaseUrl/cart/items/$productId/', headers: kCommonApiHeaders);
+          url: '$kBaseUrl/cart/items/$productId/',headers: {
+            "Accept": "application/json",
+            "Authorization": "Token ${userInfo.getString('auth_token')}"
+          });
       if (response.statusCode == 204) {
         return const Right(true);
       } else {
@@ -110,7 +117,10 @@ class CartRepoImplementation implements CartRepo {
       var response = await apiService.patch(
           url: '$kBaseUrl/cart/items/bulk_update/',
           body: {"items": cartProducts},
-          headers: kCommonApiHeaders);
+         headers: {
+            "Accept": "application/json",
+            "Authorization": "Token ${userInfo.getString('auth_token')}"
+          });
       log(response.data.toString());
       if (response.statusCode == 200) {
         return const Right(true);
@@ -137,7 +147,10 @@ class CartRepoImplementation implements CartRepo {
       {required BuildContext context}) async {
     try {
       var response = await apiService.post(
-          url: '$kBaseUrl/orders/', body: {}, headers: kCommonApiHeaders);
+          url: '$kBaseUrl/orders/', body: {},headers: {
+            "Accept": "application/json",
+            "Authorization": "Token ${userInfo.getString('auth_token')}"
+          });
       log('response: ${response.data}');
       if (response.statusCode == 201 || response.statusCode == 200) {
         showSuccesSnackBar(

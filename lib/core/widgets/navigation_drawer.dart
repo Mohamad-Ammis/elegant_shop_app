@@ -111,10 +111,10 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
         break;
       case 4:
         context.go(AppRouter.kLoginView);
-        log(userInfo.getString('auth_token') ?? 'qqdwd');
         bool status = await getIt.get<AuthRepoImplementation>().logOut();
         log('status: $status');
         userInfo.clear();
+        userInfo.setBool('first_use', false);
         break;
     }
   }

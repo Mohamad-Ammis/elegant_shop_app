@@ -18,10 +18,7 @@ class CategoriesListView extends StatelessWidget {
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
         if (state is CategoryFailure) {
-          return CustomErrorWidget(
-            hasAnimation: false,
-            title: state.errMessage,
-          );
+          return SizedBox();
         } else if (state is CategorySuccess) {
           return BlocBuilder<CategoryHelperCubit, bool>(
             builder: (context, helperState) {

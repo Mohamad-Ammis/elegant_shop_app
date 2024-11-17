@@ -72,15 +72,14 @@ class AppRouter {
             BlocProvider(
               create: (context) =>
                   CategoryCubit(homeRepo: getIt.get<HomeRepoImplementation>())
-                    ..getAllCategories(),
+                    ,
             ),
             BlocProvider(
               create: (context) => CategoryHelperCubit(true),
             ),
             BlocProvider(
               create: (context) =>
-                  ProductCubit(homeRepo: getIt.get<HomeRepoImplementation>())
-                    ..getAllProducts(),
+                  ProductCubit(homeRepo: getIt.get<HomeRepoImplementation>()),
             ),
             BlocProvider(
               create: (context) => GetProductDetailsCubit(

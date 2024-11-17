@@ -16,7 +16,8 @@ class OrderCardInfo extends StatelessWidget {
       children: [
         ShippingInformationItem(
             title: 'Total price',
-            subTitle: r'$' '${(orderModel.total ?? 0 / 100).toString()}'),
+            subTitle: r'$'
+                '${(orderModel.total != null ? orderModel.total! / 100 : '0').toString()}'),
         6.verticalSizedBox,
         const Divider(
           thickness: .2,

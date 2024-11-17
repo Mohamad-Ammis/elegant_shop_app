@@ -10,6 +10,7 @@ import 'package:elegant_shop_app/core/utils/api_service.dart';
 import 'package:elegant_shop_app/core/utils/custom_snack_bar.dart';
 import 'package:elegant_shop_app/features/orders/data/models/create_order_model/order.dart';
 import 'package:elegant_shop_app/features/orders/data/repo/order_repo.dart';
+import 'package:elegant_shop_app/main.dart';
 import 'package:flutter/material.dart';
 
 class OrderRepoImplementation implements OrderRepo {
@@ -27,7 +28,10 @@ class OrderRepoImplementation implements OrderRepo {
       }
       var response = await apiService.get(
         url: '$kBaseUrl/orders/?page=$page&page_size=$kPaginiationPageSize',
-        headers: kCommonApiHeaders,
+        headers: {
+            "Accept": "application/json",
+            "Authorization": "Token ${userInfo.getString('auth_token')}"
+          },
       );
       for (var i = 0; i < response.data['results'].length; i++) {
         orders.add(OrderModel.fromJson(response.data['results'][i]));
@@ -54,7 +58,10 @@ class OrderRepoImplementation implements OrderRepo {
       var response = await apiService.patch(
           url: '$kBaseUrl/orders/$orderId/cancel/',
           body: {},
-          headers: kCommonApiHeaders);
+          headers: {
+            "Accept": "application/json",
+            "Authorization": "Token ${userInfo.getString('auth_token')}"
+          });
       if (response.statusCode == 200) {
         return const Right(true);
       }
