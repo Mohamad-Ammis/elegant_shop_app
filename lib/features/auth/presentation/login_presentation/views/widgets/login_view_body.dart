@@ -7,8 +7,11 @@ class LoginViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(
-      children: [LoginImageSection(), InfoSection()],
+    return const Column(
+      children: [
+        Expanded(flex: 1, child: LoginImageSection()),
+        Expanded(flex: 2, child: InfoSection())
+      ],
     );
   }
 }

@@ -19,83 +19,86 @@ class ProductCubit extends Cubit<ProductState> {
   String searchText = '';
   Future<void> getAllProducts({bool fromPagination = false}) async {
     try {
-  try {
-    if (page == 1) {
-      products.clear();
-    }
-    if (fromPagination) {
-      emit(ProductPaginationLoading());
-    } else {
-      emit(ProductLoading());
-    }
-    var data = await homeRepo.getAllProducts(
-      page: page,
-    );
-    data.fold((left) {
-      if (fromPagination) {
-        emit(ProductPaginationFailure(errMessage: left.errorMessage));
-      } else {
-        emit(ProductFailure(errMessage: left.errorMessage));
+      try {
+        if (page == 1) {
+          products.clear();
+        }
+        if (fromPagination) {
+          emit(ProductPaginationLoading());
+        } else {
+          emit(ProductLoading());
+        }
+        var data = await homeRepo.getAllProducts(
+          page: page,
+        );
+        data.fold((left) {
+          if (fromPagination) {
+            emit(ProductPaginationFailure(errMessage: left.errorMessage));
+          } else {
+            emit(ProductFailure(errMessage: left.errorMessage));
+          }
+        }, (right) {
+          hasNext = right['has_next'];
+          products = right['products'];
+          emit(ProductSuccess());
+          //حطيتا هون لانو اذا كانت برا فالعدد رح يزيد حتى لو فشل الريكويست وهاد خطأ لذلك بس يكون صار بحالة النجاح بتزيدا
+          if (hasNext) {
+            page++;
+          }
+        });
+      } catch (e) {
+        if (fromPagination) {
+          emit(ProductPaginationFailure(errMessage: e.toString()));
+        } else {
+          emit(ProductFailure(errMessage: e.toString()));
+        }
       }
-    }, (right) {
-      hasNext = right['has_next'];
-      products = right['products'];
-      emit(ProductSuccess());
-      //حطيتا هون لانو اذا كانت برا فالعدد رح يزيد حتى لو فشل الريكويست وهاد خطأ لذلك بس يكون صار بحالة النجاح بتزيدا
-      if (hasNext) {
-        page++;
-      }
-    });
-  } catch (e) {
-    if (fromPagination) {
-      emit(ProductPaginationFailure(errMessage: e.toString()));
-    } else {
-      emit(ProductFailure(errMessage: e.toString()));
+    } on StateError catch (e) {
+      log('e: $e');
     }
-  }
-} on StateError catch (e) {
-  log('e: $e');
-}
   }
 
   Future<void> searchProducts({
     bool fromPagination = false,
   }) async {
     try {
-  try {
-    if (fromPagination) {
-      emit(ProductPaginationLoading());
-    } else {
-      products = [];
-      emit(ProductLoading());
-    }
-    var data = await homeRepo.searchProducts(
-        page: searchPage, searchText: searchText);
-    data.fold((left) {
-      if (fromPagination) {
-        emit(ProductPaginationFailure(errMessage: left.errorMessage));
-      } else {
-        emit(ProductFailure(errMessage: left.errorMessage));
+      try {
+        if (page == 1) {
+          products.clear();
+        }
+        if (fromPagination) {
+          emit(ProductPaginationLoading());
+        } else {
+          products = [];
+          emit(ProductLoading());
+        }
+        var data = await homeRepo.searchProducts(
+            page: searchPage, searchText: searchText);
+        data.fold((left) {
+          if (fromPagination) {
+            emit(ProductPaginationFailure(errMessage: left.errorMessage));
+          } else {
+            emit(ProductFailure(errMessage: left.errorMessage));
+          }
+        }, (right) {
+          searchHasNext = right['has_next'];
+          products = right['products'];
+          emit(ProductSuccess());
+          //حطيتا هون لانو اذا كانت برا فالعدد رح يزيد حتى لو فشل الريكويست وهاد خطأ لذلك بس يكون صار بحالة النجاح بتزيدا
+          if (searchHasNext) {
+            searchPage++;
+          }
+        });
+      } catch (e) {
+        if (fromPagination) {
+          emit(ProductPaginationFailure(errMessage: e.toString()));
+        } else {
+          emit(ProductFailure(errMessage: e.toString()));
+        }
       }
-    }, (right) {
-      searchHasNext = right['has_next'];
-      products = right['products'];
-      emit(ProductSuccess());
-      //حطيتا هون لانو اذا كانت برا فالعدد رح يزيد حتى لو فشل الريكويست وهاد خطأ لذلك بس يكون صار بحالة النجاح بتزيدا
-      if (searchHasNext) {
-        searchPage++;
-      }
-    });
-  } catch (e) {
-    if (fromPagination) {
-      emit(ProductPaginationFailure(errMessage: e.toString()));
-    } else {
-      emit(ProductFailure(errMessage: e.toString()));
+    } on StateError catch (e) {
+      log('e: $e');
     }
-  }
-} on StateError catch (e) {
-  log('e: $e');
-}
   }
 
   @override

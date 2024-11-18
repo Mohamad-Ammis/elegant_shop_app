@@ -9,17 +9,12 @@ class InfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      width: MediaQuery.sizeOf(context).width,
-      top: MediaQuery.sizeOf(context).height / 3 - 30 + 50,
-      child: Container(
-        height: MediaQuery.sizeOf(context).height / 3 * 2 + 30 - 50,
-        decoration: const BoxDecoration(
-            color: kBackgroundColor,
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(32), topLeft: Radius.circular(32))),
-        child: const LoginInfo(),
+    return Container(
+      // height: MediaQuery.sizeOf(context).height / 3 * 2 + 30 - 50,
+      decoration: const BoxDecoration(
+        color: kBackgroundColor,
       ),
+      child: const LoginInfo(),
     );
   }
 }

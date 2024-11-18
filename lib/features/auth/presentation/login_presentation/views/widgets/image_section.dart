@@ -8,19 +8,14 @@ class LoginImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 0,
-      child: Container(
-        width: MediaQuery.sizeOf(context).width,
-        height: MediaQuery.sizeOf(context).height / 3 + 50,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              colorFilter: ColorFilter.srgbToLinearGamma(),
-              image: AssetImage(
-                Assets.imagesLogin,
-              ),
-              fit: BoxFit.cover),
-        ),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            colorFilter: ColorFilter.srgbToLinearGamma(),
+            image: AssetImage(
+              Assets.imagesLogin,
+            ),
+            fit: BoxFit.cover),
       ),
     );
   }

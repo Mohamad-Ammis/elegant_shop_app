@@ -23,7 +23,7 @@ class CustomSearchTextFiled extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           width: MediaQuery.sizeOf(context).width / 1.5,
           child: TextField(
-            onChanged: (value) {
+            onSubmitted: (value) {
               ProductCubit cubit = BlocProvider.of<ProductCubit>(context);
               cubit.searchText = value;
               cubit.page = 1;
