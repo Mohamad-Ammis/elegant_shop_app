@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:elegant_shop_app/core/utils/extensions.dart';
 import 'package:elegant_shop_app/core/utils/service_locator.dart';
 import 'package:elegant_shop_app/features/cart/data/models/cart_product_model/cart_product_model.dart';
@@ -64,15 +66,19 @@ class _CartProductCardQuantitySectionState
           CartProductCardQuantityItem(
             icon: Icons.add_rounded,
             onTap: () {
-              getAllCartProductsCubit.cartProducts[widget.cartProductModelIndex]
-                  .quantity = getAllCartProductsCubit
-                      .cartProducts[widget.cartProductModelIndex].quantity!
-                      .toInt() +
-                  1;
-              count++;
-              cartPriceCubit.calculateCartProcutsPrice(
-                  cartProducts: getAllCartProductsCubit.cartProducts);
-              setState(() {});
+              if (count < widget.cartProductModel.product!.stock!) {
+                log('widget.cartProductModel.product!.stock!: ${widget.cartProductModel.product!.stock!}');
+                getAllCartProductsCubit
+                    .cartProducts[widget.cartProductModelIndex]
+                    .quantity = getAllCartProductsCubit
+                        .cartProducts[widget.cartProductModelIndex].quantity!
+                        .toInt() +
+                    1;
+                count++;
+                cartPriceCubit.calculateCartProcutsPrice(
+                    cartProducts: getAllCartProductsCubit.cartProducts);
+                setState(() {});
+              }
             },
           ),
         ],
