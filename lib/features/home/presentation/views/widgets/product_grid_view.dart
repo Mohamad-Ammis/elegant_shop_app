@@ -26,6 +26,7 @@ class ProductsGridView extends StatelessWidget {
       builder: (context, state) {
         if (state is ProductFailure) {
           return CustomErrorWidget(
+            hasRelodButton: true,
             title: state.errMessage,
             onTap: () async {
               productCubit.page = 1;

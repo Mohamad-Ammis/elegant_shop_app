@@ -55,7 +55,22 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   ],
                 )
               : state is GetProductDetailsFailure
-                  ? CustomErrorWidget(title: state.errMessage)
+                  ? CustomErrorWidget(
+                      title: state.errMessage,
+                      hasRelodButton: true,
+                      onTap: () async {
+                        if (!mounted) return;
+                        await context
+                            .read<GetProductDetailsCubit>()
+                            .getProductDetails(
+                                productUrl: widget.productInfoUrl);
+                        if (!mounted) return;
+                        await context
+                            .read<ProductImportantReviewsCubit>()
+                            .getProductImportantReviews(
+                                productUrl: widget.productInfoUrl);
+                      },
+                    )
                   : const CustomLoadingWidget();
         },
       ),
