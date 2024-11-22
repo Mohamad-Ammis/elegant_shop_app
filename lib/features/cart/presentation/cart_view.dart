@@ -39,7 +39,15 @@ class _CartViewState extends State<CartView> {
           return state is GetAllCartProductsSuccess
               ? const CartViewBody()
               : state is GetAllCartProductsFailure
-                  ? CustomErrorWidget(title: state.errMessage)
+                  ? CustomErrorWidget(
+                      title: state.errMessage,
+                      hasRelodButton: true,
+                      onTap: () async {
+                        await context
+                            .read<GetAllCartProductsCubit>()
+                            .getAllCartProducts();
+                      },
+                    )
                   : const CustomLoadingWidget();
         },
       ),
