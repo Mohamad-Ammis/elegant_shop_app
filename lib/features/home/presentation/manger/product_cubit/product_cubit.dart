@@ -1,6 +1,9 @@
 import 'dart:developer';
+import 'dart:io';
+import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:elegant_shop_app/features/home/data/models/product_model.dart';
 import 'package:elegant_shop_app/features/home/data/repos/home_repo.dart';
 import 'package:meta/meta.dart';
@@ -59,23 +62,26 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Future<void> searchProducts({
-    bool fromPagination = false,
+    bool? fromPagination,
   }) async {
     try {
       try {
-        if (page == 1) {
+        if (searchPage == 1) {
           products.clear();
         }
-        if (fromPagination) {
+        if (fromPagination ?? false) {
+          log('*//*******************/*/*/*/*/*/*/*/*/*/*/*(*//*******************/*/*/*/*/*/*/*/*/*/*/*');
           emit(ProductPaginationLoading());
         } else {
           products = [];
           emit(ProductLoading());
         }
         var data = await homeRepo.searchProducts(
-            page: searchPage, searchText: searchText);
+          page: searchPage,
+          searchText: searchText,
+        );
         data.fold((left) {
-          if (fromPagination) {
+          if (fromPagination ?? false) {
             emit(ProductPaginationFailure(errMessage: left.errorMessage));
           } else {
             emit(ProductFailure(errMessage: left.errorMessage));
@@ -89,8 +95,20 @@ class ProductCubit extends Cubit<ProductState> {
             searchPage++;
           }
         });
+      } on DioException catch (e) {
+        if (fromPagination ?? false) {
+          emit(ProductPaginationFailure(errMessage: e.toString()));
+        } else {
+          emit(ProductFailure(errMessage: e.toString()));
+        }
+      } on SocketException catch (e) {
+        if (fromPagination ?? false) {
+          emit(ProductPaginationFailure(errMessage: e.toString()));
+        } else {
+          emit(ProductFailure(errMessage: e.toString()));
+        }
       } catch (e) {
-        if (fromPagination) {
+        if (fromPagination ?? false) {
           emit(ProductPaginationFailure(errMessage: e.toString()));
         } else {
           emit(ProductFailure(errMessage: e.toString()));

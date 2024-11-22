@@ -44,7 +44,7 @@ class CartShippingInforamtionSection extends StatelessWidget {
                 12.verticalSizedBox,
                 const ShippingInformationItem(
                   title: 'Shipping Fee',
-                  subTitle: r'$.0.00',
+                  subTitle: r'$0.00',
                 ),
                 12.verticalSizedBox,
                 ShippingInformationItem(

@@ -27,6 +27,8 @@ class CustomSearchTextFiled extends StatelessWidget {
               ProductCubit cubit = BlocProvider.of<ProductCubit>(context);
               cubit.searchText = value;
               cubit.page = 1;
+              cubit.searchPage = 1;
+
               cubit.selectedCategoryId = -1;
               cubit.products.clear();
               cubit.searchText.isNotEmpty

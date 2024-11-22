@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -48,7 +49,7 @@ class HomeRepoImplementation implements HomeRepo {
       var response = await apiService.get(
         url: '$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize',
       );
-      if (response.data != null) {
+      if (response.statusCode == 200) {
         for (var product in response.data['results']) {
           products.add(ProductModel.fromJson(product));
         }
@@ -78,34 +79,28 @@ class HomeRepoImplementation implements HomeRepo {
       if (page == 1) {
         products = [];
       }
-      // استخدمتو لخزن فيو البيانات يلي رح رجعا بعد التايمر
-      Completer<Either<Failure, Map<String, dynamic>>> completer = Completer();
-      if (_searchDebounce?.isActive ?? false) _searchDebounce!.cancel();
-      _searchDebounce = Timer(const Duration(milliseconds: 800), () async {
-        log('$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize&search=$searchText');
-        var response = await apiService.get(
-          url:
-              '$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize&search=$searchText',
-        );
-        if (response.data != null) {
-          for (var product in response.data['results']) {
-            products.add(ProductModel.fromJson(product));
-          }
-          log('************get Searched Products Successfully ******************* ');
-          completer.complete(Right({
-            'products': products,
-            'has_next': response.data['next'] != null,
-          }));
-        } else {
-          completer.complete(
-              Left(ServerFailure(errorMessage: 'Response or data is null')));
+      log('$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize&search=$searchText');
+      var response = await apiService.get(
+        url:
+            '$kBaseUrl/products/?page=$page&page_size=$kPaginiationPageSize&search=$searchText',
+      );
+      if (response.statusCode == 200) {
+        for (var product in response.data['results']) {
+          products.add(ProductModel.fromJson(product));
         }
-      });
-      return completer.future;
-    } catch (e) {
-      if (e is DioException) {
-        return Left(ServerFailure.fromDioException(e));
+        log('************get Searched Products Successfully ******************* ');
+        return Right({
+          'products': products,
+          'has_next': response.data['next'] != null,
+        });
+      } else {
+        return Left(ServerFailure(errorMessage: 'Response or data is null'));
       }
+    } on DioException catch (dioError) {
+      return Left(ServerFailure.fromDioException(dioError));
+    } on SocketException {
+      return Left(ServerFailure(errorMessage: 'No internet connection'));
+    } catch (e) {
       return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
