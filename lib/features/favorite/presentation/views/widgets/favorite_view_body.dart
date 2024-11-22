@@ -93,7 +93,14 @@ class _FavoriteViewBodyState extends State<FavoriteViewBody> {
                         crossAxisSpacing: 17.0,
                       ))
             : state is GetAllFavoritesProductsFailure
-                ? CustomErrorWidget(title: state.errMessage)
+                ? CustomErrorWidget(
+                    title: state.errMessage,
+                    hasRelodButton: true,
+                    onTap: () async {
+                      favoritesProductsCubit.page = 1;
+                      await favoritesProductsCubit.getAllFavoriteProducts();
+                    },
+                  )
                 : const Padding(
                     padding: EdgeInsets.symmetric(horizontal: kMainPagePadding),
                     child: ProductsLoadingShimmerGridView(),
