@@ -7,6 +7,7 @@ import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/core/widgets/custom_loading_widget.dart';
 import 'package:elegant_shop_app/features/orders/presentation/manger/get_all_orders_cubit/get_all_orders_cubit.dart';
 import 'package:elegant_shop_app/features/orders/presentation/widgets/order_card.dart';
+import 'package:elegant_shop_app/features/orders/presentation/widgets/order_shimmer_loading_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -70,30 +71,15 @@ class _OrdersListViewState extends State<OrdersListView> {
                 : const CustomEmptyStateWidget(
                     title: "Sorry you don't have any orders")
             : state is GetAllOrdersFailure
-                ? CustomErrorWidget(title: state.errMessage)
+                ? CustomErrorWidget(
+                    title: state.errMessage,
+                    hasRelodButton: true,
+                    onTap: () async {
+                      getAllOrdersCubit.page = 1;
+                      await getAllOrdersCubit.getAllOrders();
+                    },
+                  )
                 : const OrdersShimmerLoadingListView();
-      },
-    );
-  }
-}
-
-class OrdersShimmerLoadingListView extends StatelessWidget {
-  const OrdersShimmerLoadingListView({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return const ShimmerContainer(
-          width: double.infinity,
-          height: 120,
-          circularRadius: 16,
-          margin:
-              EdgeInsets.symmetric(horizontal: kMainPagePadding, vertical: 12),
-        );
       },
     );
   }
