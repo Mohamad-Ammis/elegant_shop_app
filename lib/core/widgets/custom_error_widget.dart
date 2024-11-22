@@ -34,15 +34,15 @@ class CustomErrorWidget extends StatelessWidget {
         if (hasRelodButton ?? false)
           CustomButton(
             onTap: onTap,
+            width: 150,
+            height: 48,
+            padding: const EdgeInsets.all(0),
             child: Center(
               child: Text(
-                "Relod",
+                "Reload",
                 style: Styles.style16Bold.copyWith(color: Colors.white),
               ),
             ),
-            width: 150,
-            height: 48,
-            padding: EdgeInsets.all(0),
           )
       ],
     );

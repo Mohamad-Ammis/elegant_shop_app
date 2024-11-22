@@ -65,7 +65,7 @@ class CartRepoImplementation implements CartRepo {
   Future<Either<Failure, List<CartProductModel>>> getAllCartProducts() async {
     try {
       List<CartProductModel> cartProducts = [];
-      log('${userInfo.getString('auth_token').toString()}');
+      log(userInfo.getString('auth_token').toString());
       var response =
           await apiService.get(url: '$kBaseUrl/cart/items/', headers: {
         "Accept": "application/json",
@@ -90,11 +90,11 @@ class CartRepoImplementation implements CartRepo {
   Future<Either<Failure, bool>> deleteCartProduct(
       {required String productId, required BuildContext context}) async {
     try {
-      var response = await apiService.delete(
-          url: '$kBaseUrl/cart/items/$productId/',headers: {
-            "Accept": "application/json",
-            "Authorization": "Token ${userInfo.getString('auth_token')}"
-          });
+      var response = await apiService
+          .delete(url: '$kBaseUrl/cart/items/$productId/', headers: {
+        "Accept": "application/json",
+        "Authorization": "Token ${userInfo.getString('auth_token')}"
+      });
       if (response.statusCode == 204) {
         return const Right(true);
       } else {
@@ -114,14 +114,13 @@ class CartRepoImplementation implements CartRepo {
       {required List<Map<String, dynamic>> cartProducts,
       required BuildContext context}) async {
     try {
-      var response = await apiService.patch(
-          url: '$kBaseUrl/cart/items/bulk_update/',
-          body: {"items": cartProducts},
-         headers: {
-            "Accept": "application/json",
-            "Authorization": "Token ${userInfo.getString('auth_token')}"
-          });
-      log(response.data.toString());
+      var response = await apiService
+          .patch(url: '$kBaseUrl/cart/items/bulk_update/', body: {
+        "items": cartProducts
+      }, headers: {
+        "Accept": "application/json",
+        "Authorization": "Token ${userInfo.getString('auth_token')}"
+      });
       if (response.statusCode == 200) {
         return const Right(true);
       }
@@ -146,11 +145,11 @@ class CartRepoImplementation implements CartRepo {
   Future<Either<Failure, CreateOrderModel>> createOrder(
       {required BuildContext context}) async {
     try {
-      var response = await apiService.post(
-          url: '$kBaseUrl/orders/', body: {},headers: {
-            "Accept": "application/json",
-            "Authorization": "Token ${userInfo.getString('auth_token')}"
-          });
+      var response =
+          await apiService.post(url: '$kBaseUrl/orders/', body: {}, headers: {
+        "Accept": "application/json",
+        "Authorization": "Token ${userInfo.getString('auth_token')}"
+      });
       log('response: ${response.data}');
       if (response.statusCode == 201 || response.statusCode == 200) {
         showSuccesSnackBar(

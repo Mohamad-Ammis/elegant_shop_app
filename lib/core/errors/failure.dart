@@ -11,7 +11,6 @@ class ServerFailure extends Failure {
   ServerFailure({required super.errorMessage});
 
   factory ServerFailure.fromDioException(DioException dioException) {
-    // تحقق من أن response ليس null وتسجيل تفاصيل الخطأ في السجل
     log(dioException.response?.data?.toString() ?? 'Response is null');
 
     switch (dioException.type) {
@@ -25,7 +24,6 @@ class ServerFailure extends Failure {
       case DioExceptionType.badCertificate:
         return ServerFailure(errorMessage: 'Bad Certificate with API server');
       case DioExceptionType.badResponse:
-        // التحقق من وجود `response` و`statusCode` قبل الوصول إليهما
         if (dioException.response != null &&
             dioException.response!.statusCode != null) {
           return ServerFailure.fromResponse(
@@ -56,7 +54,20 @@ class ServerFailure extends Failure {
     // تحقق مما إذا كانت الاستجابة عبارة عن خريطة (Map) تمثل JSON
     if (response is Map<String, dynamic>) {
       if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-        errorMessage = response['details'] ?? 'Authorization error';
+        if (response['username'] != null) {
+          errorMessage = response['username']?[0] ?? 'Authorization error';
+        } else if (response['non_field_errors'] != null) {
+          errorMessage =
+              response['non_field_errors']?[0] ?? 'Authorization error';
+        } else if (response['password'] != null) {
+          errorMessage = response['password']?[0] ?? 'Authorization error';
+        } else if (response['avatar'] != null) {
+          errorMessage = response['avatar']?[0] ?? 'Authorization error';
+        } else if (response['comment'] != null) {
+          errorMessage = response['comment']?[0] ?? 'Authorization error';
+        } else {
+          errorMessage = response['details'] ?? 'Authorization error';
+        }
       } else if (statusCode == 404) {
         errorMessage = "Request not found";
       } else if (statusCode == 500) {

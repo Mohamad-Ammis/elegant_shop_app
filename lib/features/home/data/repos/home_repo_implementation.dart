@@ -71,7 +71,6 @@ class HomeRepoImplementation implements HomeRepo {
     }
   }
 
-  Timer? _searchDebounce;
   @override
   Future<Either<Failure, Map<String, dynamic>>> searchProducts(
       {int page = 1, String? searchText}) async {

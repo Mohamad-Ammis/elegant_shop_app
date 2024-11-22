@@ -15,7 +15,7 @@ class LoginInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(kMainPagePadding),
+        padding: const EdgeInsets.all(kMainPagePadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

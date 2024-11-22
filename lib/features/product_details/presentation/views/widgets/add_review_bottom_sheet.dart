@@ -130,7 +130,8 @@ class _AddReviewBottomSheetState extends State<AddReviewBottomSheet> {
         rating: rate,
         product: widget.productDetailsModel.id.toString(),
         user: userInfo.getString('user_name').toString());
-    var status = await cubit.addProdutReview(reviewModel: model);
+    var status =
+        await cubit.addProdutReview(reviewModel: model, context: context);
     log('status: $status');
     if (status) {
       Navigator.of(context).pop();
@@ -139,10 +140,11 @@ class _AddReviewBottomSheetState extends State<AddReviewBottomSheet> {
           productUrl: widget.productDetailsModel.absoluteUrl!);
       widget.productImportantReviewsCubit.getProductImportantReviews(
           productUrl: widget.productDetailsModel.absoluteUrl!);
+      // Navigator.of(context).pop();
     } else {
       Navigator.of(context).pop();
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('something went wrong')));
+      // ScaffoldMessenger.of(context)
+      //     .showSnackBar(const SnackBar(content: Text('something went wrong')));
     }
   }
 }

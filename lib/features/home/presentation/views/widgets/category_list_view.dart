@@ -1,5 +1,4 @@
 import 'package:elegant_shop_app/core/utils/app_routes.dart';
-import 'package:elegant_shop_app/core/widgets/custom_error_widget.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/manger/category_cubit/category_helper_cubit.dart';
 import 'package:elegant_shop_app/features/home/presentation/views/widgets/category_item.dart';
@@ -18,7 +17,7 @@ class CategoriesListView extends StatelessWidget {
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
         if (state is CategoryFailure) {
-          return SizedBox();
+          return const SizedBox();
         } else if (state is CategorySuccess) {
           return BlocBuilder<CategoryHelperCubit, bool>(
             builder: (context, helperState) {

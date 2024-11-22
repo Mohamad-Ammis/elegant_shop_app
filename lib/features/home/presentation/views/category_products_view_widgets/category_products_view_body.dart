@@ -26,7 +26,7 @@ class _CategoryProductsViewBodyState extends State<CategoryProductsViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: kMainPagePadding),
+      padding: const EdgeInsets.symmetric(horizontal: kMainPagePadding),
       child: CategoryProductsGridView(
         categoryApiUrl: widget.categoryApiUrl,
       ),
