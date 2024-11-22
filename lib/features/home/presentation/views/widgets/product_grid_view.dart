@@ -25,7 +25,19 @@ class ProductsGridView extends StatelessWidget {
     return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
         if (state is ProductFailure) {
-          return CustomErrorWidget(title: state.errMessage);
+          return CustomErrorWidget(
+            title: state.errMessage,
+            onTap: () async {
+              productCubit.page = 1;
+              productCubit.searchPage = 1;
+              if (productCubit.searchText.isNotEmpty) {
+                await productCubit.searchProducts();
+              } else {
+                productCubit.searchText = '';
+                await productCubit.getAllProducts();
+              }
+            },
+          );
         } else if (state is ProductSuccess ||
             state is ProductPaginationLoading ||
             state is ProductPaginationFailure) {

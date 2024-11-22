@@ -49,24 +49,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             log("product api dont has next");
           }
         }
-        // //when reach end we have 2 state ,
-        // //first we must check if we are not using category because there are no pagination in category api
-        // if (productCubit.hasNext) {
-        //   //first state we have search text so use search api
-        //   if (productCubit.searchText.isNotEmpty) {
-        //     if (productCubit.searchHasNext) {
-        //       log("call pagination product search api");
-        //       productCubit.searchProducts(fromPagination: true);
-        //     } else {
-        //       log('search dont has next');
-        //     }
-        //   }
-        //   //second state we haven't search text so use all products api
-        //   else {
-        //     log("call pagination product api");
-        //     productCubit.getAllProducts(fromPagination: true);
-        //   }
-        // }
       }
     }
   }
