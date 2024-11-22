@@ -12,9 +12,9 @@ import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
 class CategoryProductsGridView extends StatelessWidget {
   const CategoryProductsGridView({
-    super.key,
+    super.key, required this.categoryApiUrl,
   });
-
+  final String categoryApiUrl;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetCategoryProductsCubit, GetCategoryProductsState>(
@@ -43,7 +43,15 @@ class CategoryProductsGridView extends StatelessWidget {
                     crossAxisSpacing: 17.0,
                   )
             : state is GetCategoryProductsFailure
-                ? CustomErrorWidget(title: state.errMessage)
+                ? CustomErrorWidget(
+                    title: state.errMessage,
+                    hasRelodButton: true,
+                    onTap: () async {
+                      await context
+                          .read<GetCategoryProductsCubit>()
+                          .getProductsByCategory(apiUrl: categoryApiUrl);
+                    },
+                  )
                 : const CategoryProductsShimmerGridView();
       },
     );
