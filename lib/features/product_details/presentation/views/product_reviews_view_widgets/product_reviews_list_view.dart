@@ -62,32 +62,45 @@ class _ProductReviewsListViewState extends State<ProductReviewsListView> {
             ? cubit.productReview.isEmpty
                 ? const CustomEmptyStateWidget(
                     title: 'Sorry there is no reviews for this product')
-                :cubit.productReview.isNotEmpty? ListView.separated(
-                    controller: _scrollController,
-                    itemCount: state is ProductReviewsPaginaationLoading
-                        ? cubit.productReview.length + 1
-                        : cubit.productReview.length,
-                    itemBuilder: (context, index) {
-                      return index < cubit.productReview.length
-                          ? ProductDetailsReviewCard(
-                              reviewModel: cubit.productReview[index],
-                              productImportantReviewsCubit:
-                                  widget.productImportantReviewsCubit,
-                              reviewsCubit: widget.reviewsCubit,
-                              productUrl: widget.productUrl,
-                            )
-                          : const CustomLoadingWidget();
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const Divider(
-                        thickness: 0.2,
-                        indent: 20,
-                        endIndent: 20,
-                      );
-                    },
-                  ):const CustomEmptyStateWidget(title: 'Sorry there is No reviews for this product')
+                : cubit.productReview.isNotEmpty
+                    ? ListView.separated(
+                        controller: _scrollController,
+                        itemCount: state is ProductReviewsPaginaationLoading
+                            ? cubit.productReview.length + 1
+                            : cubit.productReview.length,
+                        itemBuilder: (context, index) {
+                          return index < cubit.productReview.length
+                              ? ProductDetailsReviewCard(
+                                  reviewModel: cubit.productReview[index],
+                                  productImportantReviewsCubit:
+                                      widget.productImportantReviewsCubit,
+                                  reviewsCubit: widget.reviewsCubit,
+                                  productUrl: widget.productUrl,
+                                )
+                              : const CustomLoadingWidget();
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const Divider(
+                            thickness: 0.2,
+                            indent: 20,
+                            endIndent: 20,
+                          );
+                        },
+                      )
+                    : const CustomEmptyStateWidget(
+                        title: 'Sorry there is No reviews for this product')
             : state is ProductReviewsFailure
-                ? CustomErrorWidget(title: state.errMessage)
+                ? CustomErrorWidget(
+                    title: state.errMessage,
+                    hasRelodButton: true,
+                    onTap: () async {
+                      widget.reviewsCubit.page = 1;
+                      widget.reviewsCubit.productReview.clear();
+                      await context
+                          .read<ProductReviewsCubit>()
+                          .getProductReviews(productUrl: widget.productUrl);
+                    },
+                  )
                 : ListView.builder(
                     itemCount: 10,
                     itemBuilder: (context, index) {

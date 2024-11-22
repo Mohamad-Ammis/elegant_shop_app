@@ -94,7 +94,15 @@ class ProductDetailsReviewsList extends StatelessWidget {
                   ),
                 )
               : state is ProductImportantReviewsFailure
-                  ? CustomErrorWidget(title: state.errMessage)
+                  ? CustomErrorWidget(
+                      title: state.errMessage,
+                      hasRelodButton: true,
+                      onTap: () async {
+                        await productImportantReviewsCubit
+                            .getProductImportantReviews(
+                                productUrl: productUrl);
+                      },
+                    )
                   : const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                       child: ProductImportantReviewListShimmerLoading(),
