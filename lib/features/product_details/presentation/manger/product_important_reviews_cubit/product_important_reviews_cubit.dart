@@ -15,7 +15,6 @@ class ProductImportantReviewsCubit extends Cubit<ProductImportantReviewsState> {
     try {
       try {
         emit(ProductImportantReviewsLoading());
-
         var data = await productDetailsRepo.getProductsImportantReviews(
             productUrl: productUrl);
         data.fold((failure) {

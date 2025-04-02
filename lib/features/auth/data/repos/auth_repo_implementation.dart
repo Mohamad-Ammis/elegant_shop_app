@@ -51,7 +51,7 @@ class AuthRepoImplementation implements AuthRepo {
       var response = registerInputModel.image != null &&
               registerInputModel.image!.isNotEmpty
           ? await apiService.postWithImage(
-              url: '$kBaseUrl/users/',
+              url: '$kBaseUrl/users',
               body: registerInputModel.toJson(),
               contentType: 'multipart/form-data',
               headers: {
@@ -59,12 +59,13 @@ class AuthRepoImplementation implements AuthRepo {
               },
               imagePath: registerInputModel.image!)
           : await apiService.post(
-              url: '$kBaseUrl/users/',
+              url: '$kBaseUrl/users',
               body: registerInputModel.toJson(),
               contentType: 'application/json',
               headers: {'Accept': 'application/json'},
             );
       log(response.data.toString());
+      log(response.statusCode.toString());
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return const Right(true);
       } else {

@@ -29,7 +29,7 @@ class OnBoardingViewBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text('Gentel: Where Style Meets Comfort',
+          Text('Elegant: Where Style Meets Comfort',
               textAlign: TextAlign.center,
               style: Styles.style32Bold.copyWith(color: Colors.white)),
           8.verticalSizedBox,

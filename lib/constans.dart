@@ -9,5 +9,5 @@ const Color kBorderColor = Color(0xffF2F2F2);
 const Color kBackgroundColor = Color(0xffF9F9F9);
 Color kLightGreyColor = const Color(0xffEDEDED).withOpacity(.35);
 const double kMainPagePadding = 24;
-const String kBaseUrl = 'https://quakstore.onrender.com/api/v1';
+const String kBaseUrl = 'https://quakstore-production.up.railway.app/api/v1';
 const String kPaginiationPageSize = '10';
