@@ -33,12 +33,12 @@ class PayExistOrderCubit extends Cubit<PayExistOrderState> {
     log('e: $e');
     emit(PayExistOrderFailure());
     if (e is DioException) {
-      showErrorSnackBar(
+      ElegantNotificationService.showErrorSnackBar(
               'Payment Error Happened', 'Check your connection or use vpn')
-          .show(context);
+          ;
     } else {
-      showErrorSnackBar('Payment Error Happened', 'unexpected error happened')
-          .show(context);
+      ElegantNotificationService.showErrorSnackBar('Payment Error Happened', 'unexpected error happened')
+          ;
     }
   }
 } on StateError catch (e) {

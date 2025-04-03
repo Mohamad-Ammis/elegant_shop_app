@@ -26,12 +26,12 @@ Future<void> payExistedOrder(
   } on Exception catch (e) {
     log('e: $e');
     if (e is DioException) {
-      showErrorSnackBar(
+      ElegantNotificationService.showErrorSnackBar(
               'Payment Error Happened', 'Check your connection or use vpn')
-          .show(context);
+          ;
     } else {
-      showErrorSnackBar('Payment Error Happened', 'unexpected error happened')
-          .show(context);
+      ElegantNotificationService.showErrorSnackBar('Payment Error Happened', 'unexpected error happened')
+          ;
     }
   }
 }

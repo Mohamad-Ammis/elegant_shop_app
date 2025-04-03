@@ -39,6 +39,7 @@ import 'package:elegant_shop_app/features/product_details/presentation/manger/pr
 import 'package:elegant_shop_app/features/product_details/presentation/views/product_details_view.dart';
 import 'package:elegant_shop_app/features/product_details/presentation/views/product_reviews_view.dart';
 import 'package:elegant_shop_app/features/splash/presentation/views/splash_view.dart';
+import 'package:elegant_shop_app/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -56,6 +57,7 @@ class AppRouter {
   static const String kCartView = "/cartView";
   static const String kOrderView = "/orderView";
   static final router = GoRouter(
+    navigatorKey: navigatorKey,
     routes: [
       GoRoute(
         path: '/',

@@ -136,13 +136,13 @@ class _RegisterFormState extends State<RegisterForm> {
             },
             listener: (BuildContext context, RegisterState state) {
               if (state is RegisterSuccess) {
-                showSuccesSnackBar('Register Success',
+                 ElegantNotificationService.showSuccessSnackBar('Register Success',
                         "Your account has been created successfully")
-                    .show(context);
+                    ;
                 GoRouter.of(context).pop();
               } else if (state is RegisterFailure) {
-                showErrorSnackBar('Error Happened', state.errMessage)
-                    .show(context);
+                ElegantNotificationService.showErrorSnackBar('Error Happened', state.errMessage)
+                ;
               }
             },
           ),

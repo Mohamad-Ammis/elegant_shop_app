@@ -32,9 +32,8 @@ class CartRepoImplementation implements CartRepo {
         "Authorization": "Token ${userInfo.getString('auth_token')}"
       });
       if (response.statusCode == 201) {
-        showSuccesSnackBar('Added Successfully',
-                "Product has been added to cart successfully")
-            .show(context);
+        ElegantNotificationService.showSuccessSnackBar('Added Successfully',
+            "Product has been added to cart successfully");
         return const Right(true);
       } else {
         return const Right(false);
@@ -44,15 +43,14 @@ class CartRepoImplementation implements CartRepo {
         if (e.response?.statusCode == 400) {
           var data = e.response?.data;
           if ((e.response?.data['product']) != null) {
-            showErrorSnackBar('Error Happened', '${data?['product'][0]}')
-                .show(context);
+            ElegantNotificationService.showErrorSnackBar(
+                'Error Happened', '${data?['product'][0]}');
           } else if ((data['non_field_errors']) != null) {
-            showErrorSnackBar(
-                    'Error Happened', '${data?['non_field_errors'][0]}')
-                .show(context);
+            ElegantNotificationService.showErrorSnackBar(
+                'Error Happened', '${data?['non_field_errors'][0]}');
           } else if ((data['quantity']) != null) {
-            showErrorSnackBar('Error Happened', '${data?['quantity'][0]}')
-                .show(context);
+            ElegantNotificationService.showErrorSnackBar(
+                'Error Happened', '${data?['quantity'][0]}');
           }
         }
         return Left(ServerFailure.fromDioException(e));
@@ -98,7 +96,8 @@ class CartRepoImplementation implements CartRepo {
       if (response.statusCode == 204) {
         return const Right(true);
       } else {
-        showErrorSnackBar('Error Happened', 'un expected error').show(context);
+        ElegantNotificationService.showErrorSnackBar(
+            'Error Happened', 'un expected error');
         return const Right(false);
       }
     } catch (e) {
@@ -124,19 +123,18 @@ class CartRepoImplementation implements CartRepo {
       if (response.statusCode == 200) {
         return const Right(true);
       }
-      showErrorSnackBar(
-              'Error Hapened ', 'we can\'t update cart products ! try again ')
-          .show(context);
+      ElegantNotificationService.showErrorSnackBar(
+          'Error Hapened ', 'we can\'t update cart products ! try again ');
       return const Right(false);
     } catch (e) {
       log('e: $e');
       if (e is DioException) {
-        showErrorSnackBar('Error Hapened ',
-                ServerFailure.fromDioException(e).errorMessage)
-            .show(context);
+        ElegantNotificationService.showErrorSnackBar(
+            'Error Hapened ', ServerFailure.fromDioException(e).errorMessage);
         return Left(ServerFailure.fromDioException(e));
       }
-      showErrorSnackBar('Error Hapened ', e.toString()).show(context);
+      ElegantNotificationService.showErrorSnackBar(
+          'Error Hapened ', e.toString());
       return Left(ServerFailure(errorMessage: e.toString()));
     }
   }
@@ -152,20 +150,19 @@ class CartRepoImplementation implements CartRepo {
       });
       log('response: ${response.data}');
       if (response.statusCode == 201 || response.statusCode == 200) {
-        showSuccesSnackBar(
-                'Order Placed', "Your Order Has been placed Successfully")
-            .show(context);
+        ElegantNotificationService.showSuccessSnackBar(
+            'Order Placed', "Your Order Has been placed Successfully");
       }
       return Right(CreateOrderModel.fromJson(response.data));
     } catch (e) {
       log('e: $e');
       if (e is DioException) {
-        showErrorSnackBar('Error Hapeened',
-                ServerFailure.fromDioException(e).errorMessage)
-            .show(context);
+        ElegantNotificationService.showErrorSnackBar(
+            'Error Hapeened', ServerFailure.fromDioException(e).errorMessage);
         return Left(ServerFailure.fromDioException(e));
       }
-      showErrorSnackBar('Error Hapeened', e.toString()).show(context);
+      ElegantNotificationService.showErrorSnackBar(
+          'Error Hapeened', e.toString());
       return Left(ServerFailure(errorMessage: e.toString()));
     }
   }

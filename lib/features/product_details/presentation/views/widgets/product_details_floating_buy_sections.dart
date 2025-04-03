@@ -36,9 +36,9 @@ class ProductDetailsFloatingBuySection extends StatelessWidget {
                           : () {
                               log('productDetailsModel.inStock: ${productDetailsModel.inStock}');
                               if (!(productDetailsModel.inStock ?? true)) {
-                                showErrorSnackBar('Sorry',
+                                ElegantNotificationService.showErrorSnackBar('Sorry',
                                         "this product is out of stock right now")
-                                    .show(context);
+                                    ;
                               } else {
                                 context.read<AddToCartCubit>().addProductToCart(
                                     productId:
