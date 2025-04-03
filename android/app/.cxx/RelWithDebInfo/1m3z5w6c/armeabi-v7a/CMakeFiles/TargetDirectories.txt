@@ -1,0 +1,2 @@
+F:/projects/elegant_shop_app/android/app/.cxx/RelWithDebInfo/1m3z5w6c/armeabi-v7a/CMakeFiles/edit_cache.dir
+F:/projects/elegant_shop_app/android/app/.cxx/RelWithDebInfo/1m3z5w6c/armeabi-v7a/CMakeFiles/rebuild_cache.dir

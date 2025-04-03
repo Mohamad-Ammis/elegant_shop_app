@@ -1,2 +1,0 @@
-F:/projects/elegant_shop_app/android/app/.cxx/Debug/1g1j2ym5/x86/CMakeFiles/edit_cache.dir
-F:/projects/elegant_shop_app/android/app/.cxx/Debug/1g1j2ym5/x86/CMakeFiles/rebuild_cache.dir

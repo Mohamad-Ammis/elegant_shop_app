@@ -79,9 +79,9 @@ class CartShippingInforamtionSection extends StatelessWidget {
                                   .read<GetAllCartProductsCubit>()
                                   .cartProducts
                                   .isEmpty) {
-                                showErrorSnackBar('Error Happened',
+                                ElegantNotificationService.showErrorSnackBar('Error Happened',
                                         "Your cart is empty ! ")
-                                    .show(context);
+                                    ;
                               } else {
                                 List<Map<String, dynamic>> data = context
                                     .read<UpdateCartProductsCubit>()
@@ -102,9 +102,9 @@ class CartShippingInforamtionSection extends StatelessWidget {
                                     },
                                   );
                                 } else {
-                                  showErrorSnackBar('Error happened',
+                                  ElegantNotificationService.showErrorSnackBar('Error happened',
                                           "some thing went wrong try again !")
-                                      .show(context);
+                                      ;
                                 }
                               }
                             },

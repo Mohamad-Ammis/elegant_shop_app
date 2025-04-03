@@ -69,12 +69,12 @@ class OrderRepoImplementation implements OrderRepo {
     } catch (e) {
       log('e: $e');
       if (e is DioException) {
-        showErrorSnackBar('Error Happened',
+        ElegantNotificationService.showErrorSnackBar('Error Happened',
                 ServerFailure.fromDioException(e).errorMessage)
-            .show(context);
+            ;
         return Left(ServerFailure.fromDioException(e));
       }
-      showErrorSnackBar("Error Happened", 'some thing went wrong !').show(context);
+      ElegantNotificationService.showErrorSnackBar("Error Happened", 'some thing went wrong !');
       return Left(ServerFailure(errorMessage: e.toString()));
     }
   }

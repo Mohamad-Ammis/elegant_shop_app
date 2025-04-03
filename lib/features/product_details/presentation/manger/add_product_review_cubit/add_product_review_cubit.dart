@@ -26,8 +26,8 @@ class AddProductReviewCubit extends Cubit<AddProductReviewState> {
         data.fold((failure) {
           emit(AddProductReviewFailure(errMessage: failure.errorMessage));
           status = false;
-          showErrorSnackBar('Error Happened', failure.errorMessage)
-              .show(context);
+          ElegantNotificationService.showErrorSnackBar('Error Happened', failure.errorMessage)
+              ;
         }, (data) {
           emit(AddProductReviewSuccess());
           status = data;
@@ -35,7 +35,7 @@ class AddProductReviewCubit extends Cubit<AddProductReviewState> {
         return status;
       } catch (e) {
         emit(AddProductReviewFailure(errMessage: e.toString()));
-        showErrorSnackBar('Error Happened', e.toString()).show(context);
+        ElegantNotificationService.showErrorSnackBar('Error Happened', e.toString());
 
         return false;
       }

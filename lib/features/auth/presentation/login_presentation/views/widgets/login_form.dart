@@ -113,12 +113,12 @@ class _LoginFormState extends State<LoginForm> {
               },
               listener: (BuildContext context, LoginState state) {
                 if (state is LoginSuccess) {
-                  showSuccesSnackBar('Login Success', "Enjoy in our app")
-                      .show(context);
+                  ElegantNotificationService.showSuccessSnackBar(
+                      'Login Success', "Enjoy in our app");
                   GoRouter.of(context).go(AppRouter.kHomeView);
                 } else if (state is LoginFailure) {
-                  showErrorSnackBar('Error Happened', state.errMessage)
-                      .show(context);
+                  ElegantNotificationService.showErrorSnackBar(
+                      'Error Happened', state.errMessage);
                 }
               },
             ),
